@@ -87,7 +87,7 @@ CREATE TABLE Task	(
 CREATE TABLE TimeSlot(
 TimeSlotID UUID,
 TaskID UUID,
-TimeStamp TIMESTAMPTZ NOT NULL,
+TimeStamp TIMESTAMP NOT NULL,
 FiscalCode TEXT NOT NULL,
 Notes TEXT,
 Hours FLOAT NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE Document(
 	DocumentID UUID,
 	Title TEXT NOT NULL,
 	Content BYTEA NOT NULL,
-	TimeStamp TIMESTAMPTZ NOT NULL,
+	TimeStamp TIMESTAMP NOT NULL,
 	PRIMARY KEY (DocumentID)
 );
 
@@ -136,7 +136,7 @@ CREATE TABLE Version(
 create TABLE Validate (
   DocumentID UUID NOT NULL,
 	FiscalCode VARCHAR(16) NOT NULL,
-	TimeStamp TIMESTAMPTZ NOT NULL,
+	TimeStamp TIMESTAMP NOT NULL,
 	PRIMARY KEY (DocumentID)
   FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
   FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
