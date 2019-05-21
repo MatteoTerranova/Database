@@ -13,17 +13,27 @@ CREATE DOMAIN pwd AS character varying(254)
 	
 -- Table Creation
 
--- Document
+-- Project
 CREATE TABLE Project(
 	ProjectID UUID,
 	Title VARCHAR NOT NULL,
 	StartDate DATE NOT NULL,
 	EndDate DATE,
 	Location VARCHAR NOT NULL,
-	Quote ???????????????????????????????????????,
+	Quote BYTEA,
 	Deadline DATE NOT NULL,
-	EstimatedHours FLOAT(2) NOT NULL,
-	PRIMARY KEY (ProjectID)
-	?????????????????????????????????
+	EstimatedHours INTEGER NOT NULL,
+	PRIMARY KEY (ProjectID) 
+);
+
+-- Compose
+CREATE TABLE Compose(
+	Parent UUID,
+	Child UUID,
+	ProjectID UUID NOT NULL,
+	PRIMARY KEY (Child),
+	FOREIGN KEY (Parent) REFERENCES Task(TaskID),
+	FOREIGN KEY (Child) REFERENCES Task(TaskID),
+	FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID)
 );
 	
