@@ -105,14 +105,14 @@ CREATE TABLE Expense(
 
 --Has
 CREATE TABLE Has(
-TimeSlotID UUID,
-Type VARCHAR,
-Cost FLOAT NOT NULL,
-Description VARCHAR,
-HourlyWage FLOAT NOT NULL,
-PRIMARY KEY (TimeSlotID, Type),
-FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
-FOREIGN KEY (Type) REFERENCES Expense (Type)
+	TimeSlotID UUID,
+	Type VARCHAR,
+	Cost FLOAT NOT NULL,
+	Description VARCHAR,
+	HourlyWage FLOAT NOT NULL,
+	PRIMARY KEY (TimeSlotID, Type),
+	FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
+	FOREIGN KEY (Type) REFERENCES Expense (Type)
 );
 
 --Document
