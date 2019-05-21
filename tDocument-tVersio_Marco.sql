@@ -3,7 +3,7 @@
 CREATE TABLE Document(
 	DocumentID UUID,
 	Title TEXT NOT NULL,
-	Content BLOB NOT NULL,
+	Content BYTEA NOT NULL,
 	TimeStamp TIMESTAMPTZ NOT NULL,
 	PRIMARY KEY (DocumentID)
 );
