@@ -60,9 +60,9 @@ CREATE TABLE Template	(
 
 --Order
 CREATE TABLE Order	(
-	Child UUID NOT NULL,
-	Parent UUID NOT NULL
-	PRIMARY KEY (Child, Parent)
+	Child UUID,
+	Parent UUID,
+	PRIMARY KEY (Child, Parent),
 	FOREIGN KEY (Child) REFERENCES Template(TemplateID),
 	FOREIGN KEY (Parent) REFERENCES Template(TemplateID)
 );
@@ -85,30 +85,30 @@ CREATE TABLE Task	(
 
 --TimeSlot
 CREATE TABLE TimeSlot(
-TimeSlotID UUID,
-TaskID UUID,
-TimeStamp TIMESTAMP NOT NULL,
-FiscalCode TEXT NOT NULL,
-Notes TEXT,
-Hours FLOAT NOT NULL,
-HourlyWage FLOAT NOT NULL,
-PRIMARY KEY(TimeSlot ID),
-FOREIGN KEY(TaskID) REFERENCES Task(TaskID),
-FOREIGN KEY(FiscalCode) REFERENCES Employee(FiscalCode)
+	TimeSlotID UUID,
+	TaskID UUID,
+	TimeStamp TIMESTAMP NOT NULL,
+	FiscalCode VARCHAR(16) NOT NULL,
+	Notes VARCHAR,
+	Hours FLOAT NOT NULL,
+	HourlyWage FLOAT NOT NULL,
+	PRIMARY KEY(TimeSlotID),
+	FOREIGN KEY(TaskID) REFERENCES Task(TaskID),
+	FOREIGN KEY(FiscalCode) REFERENCES Employee(FiscalCode)
 );
 
 --Expense
 CREATE TABLE Expense(
-Type TEXT,
-PRIMARY KEY (Type)
+	Type VARCHAR,
+	PRIMARY KEY (Type)
 );
 
 --Has
 CREATE TABLE Has(
-TimeSlot ID UUID NOT NULL,
-Type TEXT NOT NULL,
+TimeSlotID UUID,
+Type VARCHAR,
 Cost FLOAT NOT NULL,
-Description TEXT,
+Description VARCHAR,
 HourlyWage FLOAT NOT NULL,
 PRIMARY KEY (TimeSlotID, Type),
 FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
@@ -134,20 +134,20 @@ CREATE TABLE Version(
 
 --Validate 
 create TABLE Validate (
-  DocumentID UUID NOT NULL,
+	DocumentID UUID,
 	FiscalCode VARCHAR(16) NOT NULL,
 	TimeStamp TIMESTAMP NOT NULL,
 	PRIMARY KEY (DocumentID)
-  FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
-  FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
+	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
+	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
 );
 
 --Approve
 create TABLE Approve (
-  DocumentID UUID NOT NULL,
+	DocumentID UUID,
 	FiscalCode VARCHAR(16) NOT NULL,
 	TimeStamp TIMESTAMP NOT NULL,
 	PRIMARY KEY (DocumentID)
-  FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
-  FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
+	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
+	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
 );
