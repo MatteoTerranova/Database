@@ -1,5 +1,5 @@
 -- ZIP has VARCHAR(5) because postal code length is always 5 (in Italy)
--- Patient
+-- Contact
 CREATE TABLE Contact(
 	FiscalCode VARCHAR(16),
 	Name VARCHAR NOT NULL,
@@ -8,12 +8,13 @@ CREATE TABLE Contact(
 	Email VARCHAR,
 	PhoneNumber VARCHAR NOT NULL,
 	ZIP VARCHAR(5) NOT NULL,
-	Street VARCHAR NOT NULL,
-	Number SMALLINT NOT NULL,
-	--CONSTRAINT Address CHECK ((Street is NULL AND Number is NULL) OR (Street is NOT  NULL AND Number is NOT NULL)),
+	Street VARCHAR,
+	Number SMALLINT,
+	CONSTRAINT Address CHECK ((Street is NULL AND Number is NULL) OR (Street is NOT  NULL AND Number is NOT NULL)),
 	PRIMARY KEY (FiscalCode)
 );
 
+-- Employee
 CREATE TABLE Employee(
 	FiscalCode VARCHAR(16),
 	Username VARCHAR NOT NULL,
@@ -26,6 +27,7 @@ CREATE TABLE Employee(
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)
 );
 
+--Customer
 CREATE TABLE Customer(
 	FiscalCode VARCHAR(16),
 	Note VARCHAR NOT NULL,
@@ -34,6 +36,7 @@ CREATE TABLE Customer(
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)
 );
 
+--Request
 CREATE TABLE Request(
 	FiscalCode VARCHAR(16),
 	ProjectID UUID,
