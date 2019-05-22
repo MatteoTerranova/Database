@@ -1,7 +1,9 @@
---Insert Operations
+-- Connect to ennedue db
+\c ennedue
 
+-- Insert Operations
 
---Contact
+-- Contact
 INSERT INTO Contact(FiscalCode, Name, Surname, BirthDate, Email,PhoneNumber, ZIP, Street, Number) VALUES
 ('MNGSLV89H60Z100C','Silvia','Mengotti','1989-08-20','silviamengotti@gmail.com','3498975114','35017','Via Piave','27'),
 ('LRNBTT96C01D149A','Lorenzo','Bottiglia','1996-03-01','lorenzo01@gmail.com','3458975211','36061','Via San Giuseppe ','1'),
@@ -14,7 +16,7 @@ INSERT INTO Contact(FiscalCode, Name, Surname, BirthDate, Email,PhoneNumber, ZIP
 ('PVNTHM56M14A001M','Thomas','Pavam','1956-10-14',NULL,'3448972123','34014','Via Adriatico','46');
 
 
---Employee
+-- Employee
 INSERT INTO Employee(FiscalCode, Username, Password, IBAN, HourlyWage, Role ) VALUES
 ('LRNBTT96C01D149A','bottiglialore','1996lorenzo','IT96Z9645879900115684001800','6.50','Employee'),
 ('RSSGVN76A15E189E','rossigio76','giovanni1976','IT46A0258760055890317000011','6.50','Employee'),
@@ -22,17 +24,16 @@ INSERT INTO Employee(FiscalCode, Username, Password, IBAN, HourlyWage, Role ) VA
 ('MNGSLV89H60Z100C','mengottisilvia100','silvia1234.','IT47A0789560000002516182022','9.30','Area Manager');
 
 
---Customer
---Do not have a fucking idea what to write in the notes
+-- Customer
 INSERT INTO Cutomer(FiscalCode,Note) VALUES
 ('RSSMRA70A01L726S',NULL),
-('PVNTHM56M14A001M',''),
-('RSSNRD85D05A044I',''),
-('BRDSRA77C43M401T','');
+('PVNTHM56M14A001M','Very Polite'),
+('RSSNRD85D05A044I','Good customer'),
+('BRDSRA77C43M401T',NULL);
 
---Project
+-- Project
 INSERT INTO Project(ProjectID, Title, StartDate, EndDate, Location, Quote, Deadline, EstimeateHours, HoursSpent) VALUES
-('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULl,'Padova',
+('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULL,'Padova',
 
 a-gennaio
 b-febbraio

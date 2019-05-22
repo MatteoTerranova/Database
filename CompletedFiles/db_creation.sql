@@ -32,7 +32,7 @@ CREATE TABLE Contact(
 -- Employee
 CREATE TABLE Employee(
 	FiscalCode VARCHAR(16),
-	Username VARCHAR NOT NULL,
+	Username VARCHAR NOT NULL UNIQUE,
 	Password VARCHAR NOT NULL,
 	IBAN VARCHAR NOT NULL,
 	HourlyWage float(2) NOT NULL,
