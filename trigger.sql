@@ -21,4 +21,4 @@ BEGIN
 							
 	UPDATE Project
 		SET HoursSpent = HoursSpent + Risotto.Hours
-		WHERE -- to be continued
+		WHERE Project.ProjectID = Risotto.ProjectID
