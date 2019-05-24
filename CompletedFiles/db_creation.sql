@@ -150,7 +150,6 @@ CREATE TABLE Has(
 	Type VARCHAR,
 	Cost float(2) NOT NULL,
 	Description VARCHAR,
-	HourlyWage float(2) NOT NULL,
 	PRIMARY KEY (TimeSlotID, Type),
 	FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
 	FOREIGN KEY (Type) REFERENCES Expense (Type)
