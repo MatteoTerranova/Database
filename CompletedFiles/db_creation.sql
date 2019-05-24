@@ -170,11 +170,11 @@ CREATE TABLE Document(
 
 -- Version
 CREATE TABLE Version(
-	DocumentID_Predecessor UUID,
-	DocumentID_Successor UUID NOT NULL,
-	PRIMARY KEY (DocumetID_Predecessor),
-	FOREIGN KEY (DocumentID_Predecessor) REFERENCES Document(DocumentID),
-	FOREIGN KEY (DocumentID_Successor) REFERENCES Document(DocumentID)
+	Predecessor UUID,
+	Successor UUID NOT NULL,
+	PRIMARY KEY (Predecessor),
+	FOREIGN KEY (Predecessor) REFERENCES Document(DocumentID),
+	FOREIGN KEY (Successor) REFERENCES Document(DocumentID)
 );
 
 -- Validate 
