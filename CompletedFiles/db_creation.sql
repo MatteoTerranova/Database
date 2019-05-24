@@ -162,15 +162,20 @@ CREATE TABLE Document(
 	Title TEXT NOT NULL,
 	Content BYTEA NOT NULL,
 	TimeStamp TIMESTAMP NOT NULL,
+	TaskID UUID NOT NULL,
+	Producer VARCHAR(16),
 	PRIMARY KEY (DocumentID)
+	FOREIGN KEY (TaskID) REFERENCES Task(TaskID),
+	FOREGIN KEY (Producer) REFERENCES Employee(FiscalCode)
 );
 
 -- Version
 CREATE TABLE Version(
-	Predecessor UUID,
-	Successor UUID NOT NULL,
-	PRIMARY KEY (Predecessor),
-	FOREIGN KEY (Predecessor) REFERENCES Document(DocumentID)
+	DocumentID_Predecessor UUID,
+	DocumentID_Successor UUID NOT NULL,
+	PRIMARY KEY (DocumetID_Predecessor),
+	FOREIGN KEY (DocumentID_Predecessor) REFERENCES Document(DocumentID),
+	FOREIGN KEY (DocumentID_Successor) REFERENCES Document(DocumentID)
 );
 
 -- Validate 
