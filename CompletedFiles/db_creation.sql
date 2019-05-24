@@ -150,7 +150,6 @@ CREATE TABLE Has(
 	Type VARCHAR,
 	Cost float(2) NOT NULL,
 	Description VARCHAR,
-	HourlyWage float(2) NOT NULL,
 	PRIMARY KEY (TimeSlotID, Type),
 	FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
 	FOREIGN KEY (Type) REFERENCES Expense (Type)
@@ -171,11 +170,11 @@ CREATE TABLE Document(
 
 -- Version
 CREATE TABLE Version(
-	DocumentID_Predecessor UUID,
-	DocumentID_Successor UUID NOT NULL,
-	PRIMARY KEY (DocumetID_Predecessor),
-	FOREIGN KEY (DocumentID_Predecessor) REFERENCES Document(DocumentID),
-	FOREIGN KEY (DocumentID_Successor) REFERENCES Document(DocumentID)
+	Predecessor UUID,
+	Successor UUID NOT NULL,
+	PRIMARY KEY (Predecessor),
+	FOREIGN KEY (Predecessor) REFERENCES Document(DocumentID),
+	FOREIGN KEY (Successor) REFERENCES Document(DocumentID)
 );
 
 -- Validate 
