@@ -163,9 +163,9 @@ CREATE TABLE Document(
 	TimeStamp TIMESTAMP NOT NULL,
 	TaskID UUID NOT NULL,
 	Producer VARCHAR(16),
-	PRIMARY KEY (DocumentID)
+	PRIMARY KEY (DocumentID),
 	FOREIGN KEY (TaskID) REFERENCES Task(TaskID),
-	FOREGIN KEY (Producer) REFERENCES Employee(FiscalCode)
+	FOREIGN KEY (Producer) REFERENCES Employee(FiscalCode)
 );
 
 -- Version
