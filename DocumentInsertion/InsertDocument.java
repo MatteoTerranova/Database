@@ -104,7 +104,7 @@ public class InsertDocument {
 
 
 		// the data about the authors of a reference
-		int id = 0;
+		String id = null;
 		String filename = null;
 		int len = 0;
 
@@ -250,7 +250,7 @@ public class InsertDocument {
 
 
 				// create the arrays for containing document data
-				id = s.nextInt();
+				id = s.next();
 				filename = s.next();
 
 				// go to the next line
@@ -275,7 +275,7 @@ public class InsertDocument {
 					File file = new File(filename);
             		FileInputStream fis = new FileInputStream(file);
             		len = (int)file.length();
-					pstmt.setInt(1, id);
+					pstmt.setString(1, id);
 					pstmt.setBinaryStream(2, fis, len);
 
 					pstmt.execute(); //Update?
