@@ -1,0 +1,2 @@
+-- Quando employee aggiunge ore in timeslot -> consistency col project hoursspent (aggiungi ore spese al totale)
+-- Hourly wage di timeslot dev'essere uguale a hourly wage di employee -> lancia errore
