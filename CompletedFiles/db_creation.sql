@@ -131,8 +131,8 @@ CREATE TABLE TimeSlot(
 	TimeStamp TIMESTAMP NOT NULL,
 	FiscalCode VARCHAR(16) NOT NULL,
 	Notes VARCHAR,
-	Hours FLOAT NOT NULL,
-	HourlyWage FLOAT NOT NULL,
+	Hours float(2) NOT NULL,
+	HourlyWage float(2) NOT NULL,
 	PRIMARY KEY(TimeSlotID),
 	FOREIGN KEY(TaskID) REFERENCES Task(TaskID),
 	FOREIGN KEY(FiscalCode) REFERENCES Employee(FiscalCode)
@@ -148,9 +148,9 @@ CREATE TABLE Expense(
 CREATE TABLE Has(
 	TimeSlotID UUID,
 	Type VARCHAR,
-	Cost FLOAT NOT NULL,
+	Cost float(2) NOT NULL,
 	Description VARCHAR,
-	HourlyWage FLOAT NOT NULL,
+	HourlyWage float(2) NOT NULL,
 	PRIMARY KEY (TimeSlotID, Type),
 	FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
 	FOREIGN KEY (Type) REFERENCES Expense (Type)
