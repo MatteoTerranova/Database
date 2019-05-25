@@ -141,6 +141,11 @@ CREATE TABLE Template(
 	PRIMARY KEY (TemplateID)
 );
 
+COMMENT ON TABLE Temaplate IS '';
+COMMENT ON COLUMN Temaplate.TemplateID IS '';
+COMMENT ON COLUMN Temaplate.Description IS '';
+COMMENT ON COLUMN Temaplate.IsRoot IS '';
+
 -- Order
 CREATE TABLE OrderTemplate(
 	Child VARCHAR,
@@ -149,6 +154,10 @@ CREATE TABLE OrderTemplate(
 	FOREIGN KEY (Child) REFERENCES Template(TemplateID),
 	FOREIGN KEY (Parent) REFERENCES Template(TemplateID)
 );
+
+COMMENT ON TABLE OrderTemplate IS '';
+COMMENT ON COLUMN OrderTemplate.Child IS '';
+COMMENT ON COLUMN OrderTemplate.Parent IS '';
 
 -- Task
 CREATE TABLE Task(
@@ -164,6 +173,15 @@ CREATE TABLE Task(
 	FOREIGN KEY (Name) REFERENCES Department(Name)
 );
 
+COMMENT ON TABLE Task IS '';
+COMMENT ON COLUMN Task.TaskID IS '';
+COMMENT ON COLUMN Task.IsRoot IS '';
+COMMENT ON COLUMN Task.Description IS '';
+COMMENT ON COLUMN Task.StartDate IS '';
+COMMENT ON COLUMN Task.EndDate IS '';
+COMMENT ON COLUMN Task.TemplateID IS '';
+COMMENT ON COLUMN Task.Name IS '';
+
 -- Compose
 CREATE TABLE Compose(
 	Parent UUID,
@@ -174,6 +192,12 @@ CREATE TABLE Compose(
 	FOREIGN KEY (Child) REFERENCES Task(TaskID),
 	FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID)
 );
+
+COMMENT ON TABLE Compose IS '';
+COMMENT ON COLUMN Compose.Parent IS '';
+COMMENT ON COLUMN Compose.Child IS '';
+COMMENT ON COLUMN Compose.ProjectID IS '';
+
 
 -- TimeSlot
 CREATE TABLE TimeSlot(
@@ -189,11 +213,23 @@ CREATE TABLE TimeSlot(
 	FOREIGN KEY(FiscalCode) REFERENCES Employee(FiscalCode)
 );
 
+COMMENT ON TABLE TimeSlot IS '';
+COMMENT ON COLUMN TimeSlot.TimeSlotID IS '';
+COMMENT ON COLUMN TimeSlot.TaskID IS '';
+COMMENT ON COLUMN TimeSlot.TimeStamp IS '';
+COMMENT ON COLUMN TimeSlot.FiscalCode IS '';
+COMMENT ON COLUMN TimeSlot.Notes IS '';
+COMMENT ON COLUMN TimeSlot.Hours IS '';
+COMMENT ON COLUMN TimeSlot.HourlyWage IS '';
+
 -- Expense
 CREATE TABLE Expense(
 	Type VARCHAR,
 	PRIMARY KEY (Type)
 );
+
+COMMENT ON TABLE Expense IS '';
+COMMENT ON COLUMN Expense.Tyoe IS '';
 
 -- Has
 CREATE TABLE Has(
@@ -205,6 +241,12 @@ CREATE TABLE Has(
 	FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
 	FOREIGN KEY (Type) REFERENCES Expense (Type)
 );
+
+COMMENT ON TABLE Has IS '';
+COMMENT ON COLUMN Has.TimeSlotID IS '';
+COMMENT ON COLUMN Has.Type IS '';
+COMMENT ON COLUMN Has.Cost IS '';
+COMMENT ON COLUMN Has.Description IS '';
 
 -- Document
 CREATE TABLE Document(
