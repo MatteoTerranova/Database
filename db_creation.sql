@@ -45,7 +45,7 @@ CREATE TABLE Employee(
 -- Customer
 CREATE TABLE Customer(
 	FiscalCode VARCHAR(16),
-	Note VARCHAR,
+	Note VARCHAR NOT NULL,
 
 	PRIMARY KEY (FiscalCode),
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)
@@ -85,7 +85,7 @@ CREATE TABLE Department(
 
 -- Template
 CREATE TABLE Template(
-	TemplateID VARCHAR,
+	TemplateID UUID,
 	Description VARCHAR,
 	IsRoot BOOLEAN NOT NULL,	
 	PRIMARY KEY (TemplateID)
@@ -107,7 +107,7 @@ CREATE TABLE Task(
 	Description VARCHAR,
 	StartDate DATE NOT NULL,
 	EndDate DATE,
-	TemplateID VARCHAR NOT NULL,
+	TemplateID UUID NOT NULL,
 	Name VARCHAR(50) NOT NULL,	
 	PRIMARY KEY (TaskID),
 	FOREIGN KEY (TemplateID) REFERENCES Template(TemplateID),
@@ -197,3 +197,5 @@ create TABLE ApproveDocument(
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
 	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
 );
+
+	
