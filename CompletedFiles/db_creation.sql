@@ -10,7 +10,14 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Create new domains
 CREATE DOMAIN pwd AS character varying(254)
 	CONSTRAINT properpassword CHECK (((VALUE)::text ~* '[A-Za-z0-9._%-]{5,}'::text));
-	
+
+-- Create new data types
+CREATE TYPE roleType AS ENUM (
+	'Employee',
+	'Chief',
+	'Area Manager'
+);
+
 -- Table Creation
 
 -- FiscalCode has VARCHAR(16) because the fiscal code length is always 16
@@ -36,7 +43,7 @@ CREATE TABLE Employee(
 	Password VARCHAR NOT NULL,
 	IBAN VARCHAR NOT NULL,
 	HourlyWage float(2) NOT NULL,
-	Role VARCHAR NOT NULL,
+	Role roleType NOT NULL,
 
 	PRIMARY KEY (FiscalCode),
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)

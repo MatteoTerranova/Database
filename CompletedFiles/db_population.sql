@@ -1,3 +1,6 @@
+-- Connect to ennedue db
+\c ennedue
+
 --Insert Operations
 
 
