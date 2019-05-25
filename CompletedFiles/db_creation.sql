@@ -36,6 +36,17 @@ CREATE TABLE Contact(
 	PRIMARY KEY (FiscalCode)
 );
 
+COMMENT ON TABLE Contact IS 'Represents a contact.';
+COMMENT ON COLUMN Contact.FiscalCode IS 'The unique fiscalCode of the contact.';
+COMMENT ON COLUMN Contact.Name IS 'The name of the contact.';
+COMMENT ON COLUMN Contact.Surname IS 'The surname of the contact.';
+COMMENT ON COLUMN Contact.BirthDate IS 'The birth date of the contact.';
+COMMENT ON COLUMN Contact.Email IS 'The email of the contact.';
+COMMENT ON COLUMN Contact.PhoneNumber IS 'The phone number of the contact.';
+COMMENT ON COLUMN Contact.ZIP IS 'The ZIP of the contact.';
+COMMENT ON COLUMN Contact.Street IS 'The street of the contact.';
+COMMENT ON COLUMN Contact.Number IS 'The number of the contact.';
+
 -- Employee
 CREATE TABLE Employee(
 	FiscalCode VARCHAR(16),
@@ -49,6 +60,14 @@ CREATE TABLE Employee(
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)
 );
 
+COMMENT ON TABLE Employee IS 'Represents an employee.';
+COMMENT ON COLUMN Employee.FiscalCode IS 'The unique fiscalCode of the employee.';
+COMMENT ON COLUMN Employee.Username IS 'The username for login of the employee.';
+COMMENT ON COLUMN Employee.Password IS 'The password for login of the employee.';
+COMMENT ON COLUMN Employee.IBAN IS 'The IBAN of the employee.';
+COMMENT ON COLUMN Employee.HourlyWage IS 'The hourly wage of the employee.';
+COMMENT ON COLUMN Employee.Role IS 'The role in the studio of the employee.';
+
 -- Customer
 CREATE TABLE Customer(
 	FiscalCode VARCHAR(16),
@@ -57,6 +76,10 @@ CREATE TABLE Customer(
 	PRIMARY KEY (FiscalCode),
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)
 );
+
+COMMENT ON TABLE Employee IS 'Represents a customer.';
+COMMENT ON COLUMN Employee.FiscalCode IS 'The unique FiscalCode of the customer.';
+COMMENT ON COLUMN Employee.Note IS 'Some note about the customer.';
 
 -- Project
 CREATE TABLE Project(
@@ -69,8 +92,20 @@ CREATE TABLE Project(
 	Deadline DATE NOT NULL,
 	EstimatedHours INTEGER NOT NULL,
 	HoursSpent FLOAT(2),
-	PRIMARY KEY (ProjectID) 
+	PRIMARY KEY (ProjectID)
 );
+
+COMMENT ON TABLE Project IS 'Represents a project.';
+COMMENT ON COLUMN Project.ProjectID IS 'The unique ID of the project.';
+COMMENT ON COLUMN Project.Title IS 'The title of the project.';
+COMMENT ON COLUMN Project.StartDate IS 'The start date of the project';
+COMMENT ON COLUMN Project.EndDate IS 'The end date of the project';
+COMMENT ON COLUMN Project.Location IS 'The location of the project';
+COMMENT ON COLUMN Project.Quote IS 'The quote of the project';
+COMMENT ON COLUMN Project.Deadline IS 'The deadline of the project';
+COMMENT ON COLUMN Project.EstimatedHours IS 'The estimated hours for the project';
+COMMENT ON COLUMN Project.HoursSpent IS 'The hours spent in the project';
+
 
 -- Request
 CREATE TABLE Request(
@@ -82,6 +117,10 @@ CREATE TABLE Request(
 	FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID)
 );
 
+COMMENT ON TABLE Request IS 'Represents the request for a project.';
+COMMENT ON COLUMN Request.FiscalCode IS 'The unique fiscal code of the customer.';
+COMMENT ON COLUMN Request.ProjectID IS 'The unique ID of the request project.';
+
 -- Department
 CREATE TABLE Department(
 	Name VARCHAR(50),
@@ -90,11 +129,15 @@ CREATE TABLE Department(
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode)
 );
 
+COMMENT ON TABLE Departement IS 'Represents a specific area of the studio.';
+COMMENT ON COLUMN Department.Name IS 'The name of the department.';
+COMMENT ON COLUMN Department.FiscalCode IS 'The fiscal code of the employee who managed the department.';
+
 -- Template
 CREATE TABLE Template(
 	TemplateID VARCHAR,
 	Description VARCHAR,
-	IsRoot BOOLEAN NOT NULL,	
+	IsRoot BOOLEAN NOT NULL,
 	PRIMARY KEY (TemplateID)
 );
 
@@ -115,7 +158,7 @@ CREATE TABLE Task(
 	StartDate DATE NOT NULL,
 	EndDate DATE,
 	TemplateID VARCHAR NOT NULL,
-	Name VARCHAR(50) NOT NULL,	
+	Name VARCHAR(50) NOT NULL,
 	PRIMARY KEY (TaskID),
 	FOREIGN KEY (TemplateID) REFERENCES Template(TemplateID),
 	FOREIGN KEY (Name) REFERENCES Department(Name)
@@ -185,7 +228,7 @@ CREATE TABLE Version(
 	FOREIGN KEY (Successor) REFERENCES Document(DocumentID)
 );
 
--- Validate 
+-- Validate
 create TABLE ValidateDocument(
 	DocumentID UUID,
 	FiscalCode VARCHAR(16) NOT NULL,
