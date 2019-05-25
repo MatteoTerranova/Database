@@ -31,9 +31,9 @@ INSERT INTO Customer(FiscalCode,Note) VALUES
 
 --Project
 INSERT INTO Project(ProjectID, Title, StartDate, EndDate, Location, Quote, Deadline, EstimatedHours, HoursSpent) VALUES
-('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULL,'Padova','532','2019-12-25',112, '300'),
-('757ca527-b338-42f5-bbe2-1075d63b492c','New Project','2019-08-15','2020-09-05','Roma','213','2020-09-05',80, '400'),
-('866adc89-5a04-463b-82a3-3bf0ad77491b','Company Building','2018-04-26','2021-04-01','Venezia','643','2021-06-06',1600, '450');
+('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULL,'Padova','532','2019-12-25',112, 300),
+('757ca527-b338-42f5-bbe2-1075d63b492c','New Project','2019-08-15','2020-09-05','Roma','213','2020-09-05',80, 400),
+('866adc89-5a04-463b-82a3-3bf0ad77491b','Company Building','2018-04-26','2021-04-01','Venezia','643','2021-06-06',1600, 450);
 
 --Department
 INSERT INTO Department(Name, FiscalCode) VALUES
