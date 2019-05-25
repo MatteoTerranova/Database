@@ -45,7 +45,7 @@ CREATE TABLE Employee(
 -- Customer
 CREATE TABLE Customer(
 	FiscalCode VARCHAR(16),
-	Note VARCHAR NOT NULL,
+	Note VARCHAR,
 
 	PRIMARY KEY (FiscalCode),
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)

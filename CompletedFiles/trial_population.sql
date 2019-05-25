@@ -106,11 +106,11 @@ INSERT INTO Version( Predecessor, Successor) VALUES
 ('ccdfba04-6725-49cb-8814-c214c35fe3ea','04cfbbab-14ea-4af5-ae67-dfc1f247f979');
 
 --Validate
-INSERT INTO Validate(DocumentID, FiscalCode, TimeStamp) VALUES
+INSERT INTO ValidateDocument(DocumentID, FiscalCode, TimeStamp) VALUES
 ('ef88126a-5133-4ce4-aea8-45a5781e54ca','BRNGNN64G46H005D','2019-06-25 11:29:25+01'),
 
 --Approve
 --Shown two cases where one document is validated by the chief and another by the Area Manager
-INSERT INTO Approve(DocumentID, FiscalCode, TimeStamp) VALUES
+INSERT INTO ApproveDocument(DocumentID, FiscalCode, TimeStamp) VALUES
 ('04cfbbab-14ea-4af5-ae67-dfc1f247f979','MNGSLV89H60Z100C','2019-05-27 12:25:25+01'),
 ('c7ba2260d752-4af5-034a-a0a8958086d4','BRNGNN64G46H005D','2019-04-25 30:08:25+01');
