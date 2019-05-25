@@ -100,8 +100,8 @@ CREATE TABLE Template(
 
 -- Order
 CREATE TABLE OrderTemplate(
-	Child UUID,
-	Parent UUID,
+	Child VARCHAR,
+	Parent VARCHAR,
 	PRIMARY KEY (Child, Parent),
 	FOREIGN KEY (Child) REFERENCES Template(TemplateID),
 	FOREIGN KEY (Parent) REFERENCES Template(TemplateID)
