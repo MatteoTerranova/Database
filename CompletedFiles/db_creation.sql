@@ -229,7 +229,7 @@ CREATE TABLE Expense(
 );
 
 COMMENT ON TABLE Expense IS '';
-COMMENT ON COLUMN Expense.Tyoe IS '';
+COMMENT ON COLUMN Expense.Type IS '';
 
 -- Has
 CREATE TABLE Has(
@@ -261,6 +261,14 @@ CREATE TABLE Document(
 	FOREIGN KEY (Producer) REFERENCES Employee(FiscalCode)
 );
 
+COMMENT ON TABLE Document IS '';
+COMMENT ON COLUMN Document.DocumentID IS '';
+COMMENT ON COLUMN Document.Title IS '';
+COMMENT ON COLUMN Document.Content IS '';
+COMMENT ON COLUMN Document.TimeStamp IS '';
+COMMENT ON COLUMN Document.TaskID IS '';
+COMMENT ON COLUMN Document.Producer IS '';
+
 -- Version
 CREATE TABLE Version(
 	Predecessor UUID,
@@ -269,6 +277,10 @@ CREATE TABLE Version(
 	FOREIGN KEY (Predecessor) REFERENCES Document(DocumentID),
 	FOREIGN KEY (Successor) REFERENCES Document(DocumentID)
 );
+
+COMMENT ON TABLE Version IS '';
+COMMENT ON COLUMN Version.Predecessor IS '';
+COMMENT ON COLUMN Version.Successor IS '';
 
 -- Validate
 create TABLE ValidateDocument(
@@ -280,6 +292,11 @@ create TABLE ValidateDocument(
 	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
 );
 
+COMMENT ON TABLE ValidateDocument IS '';
+COMMENT ON COLUMN ValidateDocument.DocumentID IS '';
+COMMENT ON COLUMN ValidateDocument.FiscalCode IS '';
+COMMENT ON COLUMN ValidateDocument.TimeStamp IS '';
+
 -- Approve
 create TABLE ApproveDocument(
 	DocumentID UUID,
@@ -289,3 +306,8 @@ create TABLE ApproveDocument(
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
 	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
 );
+
+COMMENT ON TABLE ApproveDocument IS '';
+COMMENT ON COLUMN ApproveDocument.DocumentID IS '';
+COMMENT ON COLUMN ApproveDocument.FiscalCode IS '';
+COMMENT ON COLUMN ApproveDocument.TimeStamp IS '';
