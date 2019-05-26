@@ -11,8 +11,8 @@ SELECT name, surname, title
 	INNER JOIN Project as P 
 		ON R.ProjectID = P.ProjectID;
 
--- test
-SELECT * --CU.FiscalCode
+-- Retrieve alle the information regarding each customer
+SELECT *
 	FROM Customer AS Cu INNER JOIN Request AS R
 		ON Cu.FiscalCode = R.FiscalCode;
 
@@ -37,30 +37,63 @@ SELECT title, description
 
 --Count how many employees are working on each project
 --Subquery to obtain 
-WITH RECURSIVE proj_subpart(Parent, Child, projectID) AS (
-	SELECT Parent, Child, ProjectID
+WITH RECURSIVE proj_subpart AS (
+	SELECT Parent, Child, ProjectID, 1 AS Depth
 	FROM Task as t INNER JOIN Compose AS C 
 		ON t.taskID = C.Parent
-	WHERE t.isRoot = true
+	WHERE isRoot = TRUE
 	UNION
-	SELECT C.Parent, C.Child, C.ProjectID
+	SELECT C.Parent, C.Child, C.ProjectID, Depth + 1
 	FROM proj_subpart AS pr INNER JOIN Compose AS C 
 		ON C.Parent = pr.Child
 )
-
-WITH proj_lastpart(Parent, Child, projectID) AS(
+/*
+SELECT *
+FROM proj_subpart;
+*/
+/*
+WITH proj_lastpart AS (
 	SELECT Parent, Child, projectID
 	FROM proj_subpart AS ps
 	WHERE ps.Child IS NULL
-)
-	
-SELECT title, COUNT(*) AS workers_number
-	FROM Project AS p INNER JOIN proj_lastpart AS pr
-		ON p.ProjectID = pr.ProjectID
+)*/
+
+SELECT p.Title, COUNT(*) AS workers_number
+
+	FROM Project AS p INNER JOIN proj_subpart AS ps
+		ON p.ProjectID = ps.ProjectID
 	INNER JOIN Task AS t 
-		ON pr.taskID_child = t.taskID
+		ON ps.Child = t.taskID
+	INNER JOIN TimeSlot AS ts 
+		ON t.taskID = ts.taskID
+	INNER JOIN Employee AS e 
+		ON ts.FiscalCode = e.FiscalCode
+	WHERE Depth = (SELECT MAX(Depth) 
+		FROM proj_subpart)
+GROUP BY title, FiscalCode;
+	
+
+	
+/*
+SELECT title, COUNT(*) AS workers_number
+
+
+	FROM Project AS p INNER JOIN (
+		SELECT Child, ProjectID
+		FROM proj_subpart AS pr
+		WHERE pr.Depth = (
+			SELECT 
+				MAX(Depth) 
+			FROM proj_subpart )
+		GROUP BY pr.ProjectID
+		) AS pl
+		ON p.ProjectID = pl.ProjectID
+
+	INNER JOIN Task AS t 
+		ON pl.taskID_child = t.taskID
 	INNER JOIN TimeSlot AS ts 
 		ON t.taskID = ts.taskID
 	INNER JOIN Employee AS e 
 		ON ts.FiscalCode = e.FiscalCode
 	GROUP BY title;
+*/
