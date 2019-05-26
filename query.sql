@@ -2,29 +2,34 @@
 
 \c ennedue
 
---Retrieve customer's names, surnames and the names of the projects assigned by them
+-- Retrieve customer's names, surnames and the names of the projects assigned by them
 SELECT name, surname, title
-	FROM Customer AS Cu INNER JOIN Contact AS Co
-		ON Cu.FiscalCode = Co.FiscalCode
+	FROM Contact AS Co INNER JOIN Customer AS Cu
+		ON Co.FiscalCode = Cu.FiscalCode
 	INNER JOIN Request AS R
 		ON Cu.FiscalCode = R.FiscalCode
 	INNER JOIN Project as P 
 		ON R.ProjectID = P.ProjectID;
 
---Retrieve names and surnames of the customers
+-- test
+SELECT * --CU.FiscalCode
+	FROM Customer AS Cu INNER JOIN Request AS R
+		ON Cu.FiscalCode = R.FiscalCode;
+
+-- Retrieve names and surnames of the customers
 SELECT name, surname 
 	FROM Customer AS Cu INNER JOIN Contact AS Co ON Cu.FiscalCode = Co.FiscalCode;
 
---Retrieve the title of the project and the total effective amount of hours spent on it
+-- Retrieve the title of the project and the total effective amount of hours spent on it
 SELECT title, hoursSpent 
 	FROM Project;
 
---Retrieve project titles and their respective phases
+-- Retrieve project titles and their respective phases
 SELECT title, description
 	FROM Project AS P INNER JOIN Compose AS C 
 		ON P.ProjectID = C.ProjectID
 	INNER JOIN Task AS T 
-		ON C.taskid_child = T.taskID; 
+		ON C.Child = T.taskID; 
 
 
 
@@ -32,20 +37,25 @@ SELECT title, description
 
 --Count how many employees are working on each project
 --Subquery to obtain 
-WITH RECURSIVE proj_subpart(projectID, taskID_parent, taskID_child) AS (
-	SELECT projectID, taskID_parent, taskID_child 
-	FROM project AS P INNER JOIN Compose AS C 
-		ON P.projectID = C.projectID
-	INNER JOIN Task AS T 
-		ON C.taskID_child = T.taskID
+WITH RECURSIVE proj_subpart(Parent, Child, projectID) AS (
+	SELECT Parent, Child, ProjectID
+	FROM Task as t INNER JOIN Compose AS C 
+		ON t.taskID = C.Parent
+	WHERE t.isRoot = true
 	UNION
-	SELECT projectID, taskidID_parent, taskID_child
-	FROM proj_subpart AS pr INNER JOIN C 
-		ON C.taskidID_parent = pr.taskid_child
+	SELECT C.Parent, C.Child, C.ProjectID
+	FROM proj_subpart AS pr INNER JOIN Compose AS C 
+		ON C.Parent = pr.Child
 )
 
+WITH proj_lastpart(Parent, Child, projectID) AS(
+	SELECT Parent, Child, projectID
+	FROM proj_subpart AS ps
+	WHERE ps.Child IS NULL
+)
+	
 SELECT title, COUNT(*) AS workers_number
-	FROM Project AS p INNER JOIN proj_subpart AS pr
+	FROM Project AS p INNER JOIN proj_lastpart AS pr
 		ON p.ProjectID = pr.ProjectID
 	INNER JOIN Task AS t 
 		ON pr.taskID_child = t.taskID

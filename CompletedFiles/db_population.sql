@@ -30,6 +30,7 @@ INSERT INTO Customer(FiscalCode,Note) VALUES
 ('RSSMRA70A01L726S',NULL),
 ('PVNTHM56M14A001M','Good Customer'),
 ('RSSNRD85D05A044I','Problematic payment issues'),
+('LRNBTT96C01D149A','His second name is Nicola'),
 ('BRDSRA77C43M401T','Very polite and punctual');
 
 --Project
