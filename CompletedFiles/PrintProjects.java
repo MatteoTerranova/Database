@@ -7,7 +7,7 @@ import java.sql.Statement;
 /**
  * This method prints all the Tasks associated to a Job
  * 
- * @author Alessandro Cattapan
+ * @author Winniest Team
  * @version 1.00
  */
 public class PrintProjects {
@@ -26,17 +26,16 @@ public class PrintProjects {
 	 * The username for accessing the database
 	 */
 	private static final String USER = "postgres";
-
-	/**
-	 * The password for accessing the database, initialized during runtime
-	 */
-	private String PASSWORD;
 	
 	/**
 	 * The SQL statement to be executed
 	 */
-	private static final String SQL = "SELECT name, surname, title FROM Customer AS Cu INNER JOIN Contact AS Co ON Cu.FiscalCode = Co.FiscalCode INNER JOIN Request AS R ON Cu.FiscalCode = R.FiscalCode INNER JOIN Project as P ON R.ProjectID = P.ProjectID;";
+	private static final String SQL = "SELECT name, surname, title, StartDate, EndDate, Location, Deadline, EstimatedHours, HoursSpent FROM Customer AS Cu INNER JOIN Contact AS Co ON Cu.FiscalCode = Co.FiscalCode INNER JOIN Request AS R ON Cu.FiscalCode = R.FiscalCode INNER JOIN Project as P ON R.ProjectID = P.ProjectID;";
 
+	/**
+	 * The password for accessing the database, initialized during runtime
+	 */
+	private static String password;
 
 	/**
 	 * List all the projects in the database with the customer that as demanded it
@@ -50,9 +49,12 @@ public class PrintProjects {
 		if (args.length < 1){
 			
 			// Exit the program with a generic error
-			System.out.println("ERROR: Insert a password in the input.");
+			System.out.printf("ERROR: Insert a password in the input.%n");
 			System.exit(-1);
 		}
+		
+		// Get the password from the input
+		password = args[0];
 		
 		// The connection to the DBMS
 		Connection con = null;
@@ -61,7 +63,7 @@ public class PrintProjects {
 		Statement stmt = null;
 
 		// The results of the statement execution
-		ResultSet rs = null;
+		ResultSet result = null;
 		
 		// Start time of a statement
 		long start;
@@ -76,147 +78,154 @@ public class PrintProjects {
 		String title = null;
 		String startDate = null;
 		String endDate = null;
+		String location = null;
+		String deadline = null;
+		int estimatedHours = -1;
+		double hoursSpent = -1.0;
 		
-		
+		// Register the JDBC driver
 		try {
-			// register the JDBC driver
+			
 			Class.forName(DRIVER);
 
-			System.out.printf("Driver %s successfully registered.%n", DRIVER);
+			System.out.printf("Driver %s successfully registered.%n", 
+				DRIVER);
 		} catch (ClassNotFoundException e) {
-			System.out.printf(
-					"Driver %s not found: %s.%n", DRIVER, e.getMessage());
+			System.out.printf("Driver %s not found: %s.%n", 
+				DRIVER, e.getMessage());
 
-			// terminate with a generic error code
+			// Exit with an error code
 			System.exit(-1);
 		}
-
+		
+		// Connect to the database
 		try {
-
-			// connect to the database
+			
+			// Count the necessary time for the conection
 			start = System.currentTimeMillis();			
 			
-			con = DriverManager.getConnection(DATABASE, USER, PASSWORD);								
+			con = DriverManager.getConnection(DATABASE, USER, password);								
 			
+			// Stop timing
 			end = System.currentTimeMillis();
 
 			System.out.printf(
-					"Connection to database %s successfully established in %,d milliseconds.%n",
-					DATABASE, end-start);
+				"Connection to database %s successfully established in %,d milliseconds.%n",
+				DATABASE, end-start);
 
-			// create the statement to execute the query
+			// Create the statement to execute the query and count the time
 			start = System.currentTimeMillis();
 
 			stmt = con.createStatement();
 
+			// Stop timing
 			end = System.currentTimeMillis();
 
 			System.out.printf(
-					"Statement successfully created in %,d milliseconds.%n",
-					end-start);
+				"Statement successfully created in %,d milliseconds.%n",
+				end-start);
 
-			// execute the query
+			// Execute the query
 			start = System.currentTimeMillis();
 
-			rs = stmt.executeQuery(SQL);
+			result = stmt.executeQuery(SQL);
 
 			end = System.currentTimeMillis();
 
-			System.out
-					.printf("Query %s successfully executed %,d milliseconds.%n",
-							SQL, end - start);
+			System.out.printf("Query: %n%s%nsuccessfully executed in %,d milliseconds.%n",
+				SQL, end - start);
 
-			System.out
-					.printf("Query results:%n");
+			System.out.printf("%nQUERY RESULT:%n");
 
-			// cycle on the query results and print them
-			while (rs.next()) {
+			// Print all the result of the query
+			while (result.next()) {
 
-				// read visit identifier
-				visitId = rs.getString("visitId");
-
-				// read the diagnosis
-				diagnosis = rs.getString("diagnosis");
-
-				// read the date scheduled for the visit
-				date = rs.getString("date");
-
-				System.out.printf("- %s, %s, %s%n", 
-						visitId, diagnosis, date);
-
+				// Read the customer's data
+				name = result.getString("name");
+				surname = result.getString("surname");
+				
+				// Read the project's data
+				title = result.getString("title");
+				startDate = result.getString("startDate");
+				endDate = result.getString("endDate");
+				location = result.getString("location");
+				deadline = result.getString("deadline");
+				estimatedHours = result.getInt("estimatedHours");
+				hoursSpent = result.getDouble("hoursSpent");
+		
+				// Print result
+				// EndDate can be null if the project is still in progress so we can have two different kind of responses
+				if (endDate == null){
+					// The project is still in progress
+					System.out.printf("%nCustomer: %s %s %nTitle: %s, %s %nstarted on %s and still in progress%ndue on %s%nStatistics: %.2f / %d%n%n", 
+						name, surname, title, location, startDate, deadline, hoursSpent, estimatedHours);
+				} else {
+					// The project is completed
+					System.out.printf("%nCustomer: %s %s %nTitle: %s, %s %nstarted on %s and ended on %s%ndue on %s%nStatistics: %.2f / %d%n%n", 
+						name, surname, title, location, startDate, endDate, deadline, hoursSpent, estimatedHours);
+				}
 			}
 		} catch (SQLException e) {
-			System.out.printf("Database access error:%n");
-
-			// cycle in the exception chain
-			while (e != null) {
-				System.out.printf("- Message: %s%n", e.getMessage());
-				System.out.printf("- SQL status code: %s%n", e.getSQLState());
-				System.out.printf("- SQL error code: %s%n", e.getErrorCode());
-				System.out.printf("%n");
-				e = e.getNextException();
-			}
+			System.out.printf("ERROR: Database access error%n");
+			printErrorMessages(e);
 		} finally {
+			
+			// Close all the connection in the reverse order of their creation
 			try { 
 				
-				// close the used resources
-				if (rs != null) {
+				// Close the used resources
+				if (result != null) {
 					
+					// Count time
 					start = System.currentTimeMillis();
 					
-					rs.close();
+					result.close();
 					
+					// Stop timing
 					end = System.currentTimeMillis();
 					
-					System.out
-					.printf("Result set successfully closed in %,d milliseconds.%n",
-							end-start);
+					System.out.printf("Result set successfully closed in %,d milliseconds.%n",
+						end-start);
 				}
 				
 				if (stmt != null) {
 					
+					// Count time
 					start = System.currentTimeMillis();
 					
 					stmt.close();
 					
+					// Stop timing
 					end = System.currentTimeMillis();
 					
-					System.out
-					.printf("Statement successfully closed in %,d milliseconds.%n",
-							end-start);
+					System.out.printf("Statement successfully closed in %,d milliseconds.%n",
+						end-start);
 				}
 				
 				if (con != null) {
 					
+					// Count time
 					start = System.currentTimeMillis();
 					
 					con.close();
 					
+					// Stop timing
 					end = System.currentTimeMillis();
 					
-					System.out
-					.printf("Connection successfully closed in %,d milliseconds.%n",
+					System.out.printf("Connection successfully closed in %,d milliseconds.%n",
 							end-start);
 				}
 				
-				System.out.printf("Resources successfully released.%n");
+				System.out.printf("All the resources successfully released.%n");
 				
 			} catch (SQLException e) {
 				System.out.printf("Error while releasing resources:%n");
-
-				// cycle in the exception chain
-				while (e != null) {
-					System.out.printf("- Message: %s%n", e.getMessage());
-					System.out.printf("- SQL status code: %s%n", e.getSQLState());
-					System.out.printf("- SQL error code: %s%n", e.getErrorCode());
-					System.out.printf("%n");
-					e = e.getNextException();
-				}
+				printErrorMessages(e);
 
 			} finally {
 
-				// release resources to the garbage collector
-				rs = null;
+				// Release resources to the garbage collector
+				result = null;
 				stmt = null;
 				con = null;
 
@@ -224,7 +233,18 @@ public class PrintProjects {
 			}
 		}
 		
-		System.out.printf("Program end.%n");
+		System.out.printf("Program ended.%n");
 		
+	}
+	
+	private static void printErrorMessages(SQLException e){
+		// Get all the errors
+		while (e != null) {
+			System.out.printf("Message: %s%n", e.getMessage());
+			System.out.printf("SQL status code: %s%n", e.getSQLState());
+			System.out.printf("SQL error code: %s%n", e.getErrorCode());
+			System.out.printf("%n");
+			e = e.getNextException();
+		}
 	}
 }
