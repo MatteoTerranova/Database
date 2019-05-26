@@ -141,10 +141,10 @@ CREATE TABLE Template(
 	PRIMARY KEY (TemplateID)
 );
 
-COMMENT ON TABLE Temaplate IS '';
-COMMENT ON COLUMN Temaplate.TemplateID IS '';
-COMMENT ON COLUMN Temaplate.Description IS '';
-COMMENT ON COLUMN Temaplate.IsRoot IS '';
+COMMENT ON TABLE Temaplate IS 'Represent a set of predefined template.';
+COMMENT ON COLUMN Temaplate.TemplateID IS 'The unique ID of the template.';
+COMMENT ON COLUMN Temaplate.Description IS 'The description of the template.';
+COMMENT ON COLUMN Temaplate.IsRoot IS 'Determines if the template is a root of the tree.';
 
 -- Order
 CREATE TABLE OrderTemplate(
@@ -155,9 +155,9 @@ CREATE TABLE OrderTemplate(
 	FOREIGN KEY (Parent) REFERENCES Template(TemplateID)
 );
 
-COMMENT ON TABLE OrderTemplate IS '';
-COMMENT ON COLUMN OrderTemplate.Child IS '';
-COMMENT ON COLUMN OrderTemplate.Parent IS '';
+COMMENT ON TABLE OrderTemplate IS 'Represent the order of the template.';
+COMMENT ON COLUMN OrderTemplate.Child IS 'The identifier of the child template.';
+COMMENT ON COLUMN OrderTemplate.Parent IS 'The identifier of the parent template.';
 
 -- Task
 CREATE TABLE Task(
@@ -173,14 +173,14 @@ CREATE TABLE Task(
 	FOREIGN KEY (Name) REFERENCES Department(Name)
 );
 
-COMMENT ON TABLE Task IS '';
-COMMENT ON COLUMN Task.TaskID IS '';
-COMMENT ON COLUMN Task.IsRoot IS '';
-COMMENT ON COLUMN Task.Description IS '';
-COMMENT ON COLUMN Task.StartDate IS '';
-COMMENT ON COLUMN Task.EndDate IS '';
-COMMENT ON COLUMN Task.TemplateID IS '';
-COMMENT ON COLUMN Task.Name IS '';
+COMMENT ON TABLE Task IS 'Represent an activity of the studio.';
+COMMENT ON COLUMN Task.TaskID IS 'The unique ID of the task.';
+COMMENT ON COLUMN Task.IsRoot IS 'Determines if the task is a root of the tree.';
+COMMENT ON COLUMN Task.Description IS 'The descriprion of the task.';
+COMMENT ON COLUMN Task.StartDate IS 'The start date of the task.';
+COMMENT ON COLUMN Task.EndDate IS 'The end date of the task.';
+COMMENT ON COLUMN Task.TemplateID IS 'The unique identifier of the template.';
+COMMENT ON COLUMN Task.Name IS 'The name of the task.';
 
 -- Compose
 CREATE TABLE Compose(
@@ -193,10 +193,10 @@ CREATE TABLE Compose(
 	FOREIGN KEY (ProjectID) REFERENCES Project(ProjectID)
 );
 
-COMMENT ON TABLE Compose IS '';
-COMMENT ON COLUMN Compose.Parent IS '';
-COMMENT ON COLUMN Compose.Child IS '';
-COMMENT ON COLUMN Compose.ProjectID IS '';
+COMMENT ON TABLE Compose IS 'Represent which tasks compose a project.';
+COMMENT ON COLUMN Compose.Parent IS 'The identifier of the parent task.';
+COMMENT ON COLUMN Compose.Child IS 'The identifier of the child task.';
+COMMENT ON COLUMN Compose.ProjectID IS 'The unique identifier of the project.';
 
 
 -- TimeSlot
@@ -213,14 +213,14 @@ CREATE TABLE TimeSlot(
 	FOREIGN KEY(FiscalCode) REFERENCES Employee(FiscalCode)
 );
 
-COMMENT ON TABLE TimeSlot IS '';
-COMMENT ON COLUMN TimeSlot.TimeSlotID IS '';
-COMMENT ON COLUMN TimeSlot.TaskID IS '';
-COMMENT ON COLUMN TimeSlot.TimeStamp IS '';
-COMMENT ON COLUMN TimeSlot.FiscalCode IS '';
-COMMENT ON COLUMN TimeSlot.Notes IS '';
-COMMENT ON COLUMN TimeSlot.Hours IS '';
-COMMENT ON COLUMN TimeSlot.HourlyWage IS '';
+COMMENT ON TABLE TimeSlot IS 'Represent the contribute of each employee in different fractions of time.';
+COMMENT ON COLUMN TimeSlot.TimeSlotID IS 'The unique identifier of a specific time slot.';
+COMMENT ON COLUMN TimeSlot.TaskID IS 'The unique identifier of the task.';
+COMMENT ON COLUMN TimeSlot.TimeStamp IS 'The date whene a time slot has been reported.';
+COMMENT ON COLUMN TimeSlot.FiscalCode IS 'The unique fiscal code of the employee.';
+COMMENT ON COLUMN TimeSlot.Notes IS 'The notes about the time slot.';
+COMMENT ON COLUMN TimeSlot.Hours IS 'The total number of hours spent in the time slot.';
+COMMENT ON COLUMN TimeSlot.HourlyWage IS 'The employee’s wage per hour.';
 
 -- Expense
 CREATE TABLE Expense(
@@ -228,8 +228,8 @@ CREATE TABLE Expense(
 	PRIMARY KEY (Type)
 );
 
-COMMENT ON TABLE Expense IS '';
-COMMENT ON COLUMN Expense.Type IS '';
+COMMENT ON TABLE Expense IS 'Represent the expense incurred by an employee that has to be reimbursed.';
+COMMENT ON COLUMN Expense.Type IS 'The type of expense.';
 
 -- Has
 CREATE TABLE Has(
@@ -243,10 +243,10 @@ CREATE TABLE Has(
 );
 
 COMMENT ON TABLE Has IS '';
-COMMENT ON COLUMN Has.TimeSlotID IS '';
-COMMENT ON COLUMN Has.Type IS '';
-COMMENT ON COLUMN Has.Cost IS '';
-COMMENT ON COLUMN Has.Description IS '';
+COMMENT ON COLUMN Has.TimeSlotID IS 'The unique identifier of a specific time slot.';
+COMMENT ON COLUMN Has.Type IS 'The type of expense.';
+COMMENT ON COLUMN Has.Cost IS 'The cost of the time slot.';
+COMMENT ON COLUMN Has.Description IS 'The description of the time slot.';
 
 -- Document
 CREATE TABLE Document(
@@ -262,11 +262,11 @@ CREATE TABLE Document(
 );
 
 COMMENT ON TABLE Document IS '';
-COMMENT ON COLUMN Document.DocumentID IS '';
-COMMENT ON COLUMN Document.Title IS '';
-COMMENT ON COLUMN Document.Content IS '';
-COMMENT ON COLUMN Document.TimeStamp IS '';
-COMMENT ON COLUMN Document.TaskID IS '';
+COMMENT ON COLUMN Document.DocumentID IS 'The unique identifier of the document.';
+COMMENT ON COLUMN Document.Title IS 'The title of the document.';
+COMMENT ON COLUMN Document.Content IS 'The content of the document.';
+COMMENT ON COLUMN Document.TimeStamp IS 'The date when a document has been received.';
+COMMENT ON COLUMN Document.TaskID IS 'The unique identifier of the task.';
 COMMENT ON COLUMN Document.Producer IS '';
 
 -- Version
@@ -279,8 +279,8 @@ CREATE TABLE Version(
 );
 
 COMMENT ON TABLE Version IS '';
-COMMENT ON COLUMN Version.Predecessor IS '';
-COMMENT ON COLUMN Version.Successor IS '';
+COMMENT ON COLUMN Version.Predecessor IS 'The unique identifier of the document predecessor.';
+COMMENT ON COLUMN Version.Successor IS 'The unique identifier of the document successor.';
 
 -- Validate
 create TABLE ValidateDocument(
@@ -293,9 +293,9 @@ create TABLE ValidateDocument(
 );
 
 COMMENT ON TABLE ValidateDocument IS '';
-COMMENT ON COLUMN ValidateDocument.DocumentID IS '';
-COMMENT ON COLUMN ValidateDocument.FiscalCode IS '';
-COMMENT ON COLUMN ValidateDocument.TimeStamp IS '';
+COMMENT ON COLUMN ValidateDocument.DocumentID IS 'The unique identifier of the document.';
+COMMENT ON COLUMN ValidateDocument.FiscalCode IS 'The unique fiscal code of the employee.';
+COMMENT ON COLUMN ValidateDocument.TimeStamp IS 'The date when a document has been validated.';
 
 -- Approve
 create TABLE ApproveDocument(
@@ -308,6 +308,6 @@ create TABLE ApproveDocument(
 );
 
 COMMENT ON TABLE ApproveDocument IS '';
-COMMENT ON COLUMN ApproveDocument.DocumentID IS '';
-COMMENT ON COLUMN ApproveDocument.FiscalCode IS '';
-COMMENT ON COLUMN ApproveDocument.TimeStamp IS '';
+COMMENT ON COLUMN ApproveDocument.DocumentID IS 'The unique identifier of the document.';
+COMMENT ON COLUMN ApproveDocument.FiscalCode IS 'The unique fiscal code of the employee.';
+COMMENT ON COLUMN ApproveDocument.TimeStamp IS 'The date when a document has been approved.';
