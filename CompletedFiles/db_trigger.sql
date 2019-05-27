@@ -1,8 +1,7 @@
+-- Connect to the database ennedue
+\c ennedue
+
 -- ************************************************** HOURLY WAGE CONSISTENCY CHECK ***********************************************************
-
-DROP TRIGGER IF EXISTS CheckWage ON TimeSlot;
-DROP FUNCTION IF EXISTS checkHourlyWage();
-
 -- When an Employee reports a certain Task, the HourlyWage declared in his dedicated Timeslot must be consistent with the one assigned to him in the Employee relation.
 CREATE FUNCTION checkHourlyWage() RETURNS TRIGGER AS $$
 	

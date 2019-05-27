@@ -1,5 +1,7 @@
---Insert Operations
+-- Connect to examode db to create data for its 'public' schema
+\c ennedue
 
+--Insert Operations
 
 --Contact
 INSERT INTO Contact(FiscalCode, Name, Surname, BirthDate, Email,PhoneNumber, ZIP, Street, Number) VALUES

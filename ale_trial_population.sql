@@ -95,26 +95,3 @@ INSERT INTO Has(TimeSlotID, Type, Cost, Description) VALUES
 ('3e636e45-034a-4269-b868-a0a8958086d4','DesignMaterials','250.80','Paper and some other materials needed for the design'),
 ('69aed574-6572-42f0-863e-c7ba2260d752','TripExpenses','540.12',NULL),
 ('fe2ef85c-752b-4af5-ae67-dfc1f247f979','FuelExpenses','320.00','Fuel for 150 km');
-
---Document
-/*
-INSERT INTO Document(DocumentID, Title, Content, TimeStamp, TaskID, Producer) VALUES
-('ef88126a-5133-4ce4-aea8-45a5781e54ca', 'After Inspection',?????,'2019-06-25 09:29:25+01','c769d3a6-41d1-4883-9edf-e74a977446ad','LRNBTT96C01D149A'),
-('c7ba2260d752-4af5-034a-a0a8958086d4','Planimetry Computations',????????,'2019-04-25 10:08:25+01','7ba08242-0397-4137-9275-e18d8be8ef8e','RSSGVN76A15E189E'),
-('ccdfba04-6725-49cb-8814-c214c35fe3ea', '2D final design',?????,'2019-05-26 13:15:25+01','6ef9878a-416e-4782-8e7e-7aa9dd42c140','RSSGVN76A15E189E'),
-('04cfbbab-14ea-4af5-ae67-dfc1f247f979', '2D final design updated',?????,'2019-05-26 14:25:25+01','6ef9878a-416e-4782-8e7e-7aa9dd42c140','LRNBTT96C01D149A');
-
---Version
-INSERT INTO Version( Predecessor, Successor) VALUES
-('ccdfba04-6725-49cb-8814-c214c35fe3ea','04cfbbab-14ea-4af5-ae67-dfc1f247f979');
-
---Validate
-INSERT INTO ValidateDocument(DocumentID, FiscalCode, TimeStamp) VALUES
-('ef88126a-5133-4ce4-aea8-45a5781e54ca','BRNGNN64G46H005D','2019-06-25 11:29:25+01'),
-
---Approve
---Shown two cases where one document is validated by the chief and another by the Area Manager
-INSERT INTO ApproveDocument(DocumentID, FiscalCode, TimeStamp) VALUES
-('04cfbbab-14ea-4af5-ae67-dfc1f247f979','MNGSLV89H60Z100C','2019-05-27 12:25:25+01'),
-('c7ba2260d752-4af5-034a-a0a8958086d4','BRNGNN64G46H005D','2019-04-25 30:08:25+01');
-*/
