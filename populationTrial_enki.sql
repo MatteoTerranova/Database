@@ -30,10 +30,10 @@ INSERT INTO Customer(FiscalCode,Note) VALUES
 ('BRDSRA77C43M401T','Very polite and punctual');
 
 --Project
-INSERT INTO Project(ProjectID, Title, StartDate, EndDate, Location, Quote, Deadline, EstimatedHours, HoursSpent) VALUES
-('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULL,'Padova',??,'2019-12-25',112,94.00),
-('757ca527-b338-42f5-bbe2-1075d63b492c','New Project','2019-08-15','2020-09-05','Roma',??,'2020-09-05',80,45.00),
-('866adc89-5a04-463b-82a3-3bf0ad77491b','Company Building','2018-04-26','2021-04-01','Venezia',??,'2021-06-06',1600,1000.00);
+INSERT INTO Project(ProjectID, Title, StartDate, EndDate, Location, Quote, Deadline, EstimatedHours, HoursSpent) VALUES	-- BETA TEST VALUES FOR EstimatedHours (NEED UPDATE)
+('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULL,'Padova','300','2019-12-25',112,94.00),
+('757ca527-b338-42f5-bbe2-1075d63b492c','New Project','2019-08-15','2020-09-05','Roma','160','2020-09-05',80,45.00),
+('866adc89-5a04-463b-82a3-3bf0ad77491b','Company Building','2018-04-26','2021-04-01','Venezia','230','2021-06-06',1600,1000.00);
 
 --Request
 INSERT INTO Request(FiscalCode, ProjectID) VALUES
@@ -48,11 +48,11 @@ INSERT INTO Department(Name, FiscalCode) VALUES
 ('ProjectingDepartment', 'MNGSLV89H60Z100C');
 
 --Template
-INSERT INTO Template(TemplateID, Description, IsRoot) VALUES
-('Take-Over',??,'1'), --consider this as a site-inspection
-('Computations',??,'0'), --consider this as the planimetry done after the site inspection
-('Design',??,'0'), --consider this as the technical report done after site-inspection and planimetry
-('Design 2D',??,'0'); --consider this as the drawing done after the above three ones
+INSERT INTO Template(TemplateID, Description, IsRoot) VALUES	-- BETA TEST VALUES FOR Description (NEED UPDATE)
+('Take-Over','Descrizione1','1'), --consider this as a site-inspection
+('Computations','Descrizione2','0'), --consider this as the planimetry done after the site inspection
+('Design','Descrizione3','0'), --consider this as the technical report done after site-inspection and planimetry
+('Design 2D','Descrizione4','0'); --consider this as the drawing done after the above three ones
 
 --OrderTemplate
 
@@ -66,18 +66,18 @@ INSERT INTO OrderTemplate(Child, Parent) VALUES
 INSERT INTO Task(TaskID, IsRoot, Description, EndDate,StartDate, TemplateID, Name) VALUES
 ('c769d3a6-41d1-4883-9edf-e74a977446ad','0',NULL,'2019-08-25','2019-07-25','Take-Over','PlanificationDepartment'),
 ('7ba08242-0397-4137-9275-e18d8be8ef8e','0','This task needs to be completed 1 week before deadline','2019-10-10','2019-08-10','Computations','VeficationDepartment'),
-('102bcee0-501b-4c63-a5c0-31a82a14a8a5','0',NULL,'2019-04-26','2019-02-15','Design','ProjectingDepartment');
+('102bcee0-501b-4c63-a5c0-31a82a14a8a5','0',NULL,'2019-04-26','2019-02-15','Design','ProjectingDepartment'),
 ('6ef9878a-416e-4782-8e7e-7aa9dd42c140','0','Task to be completed carefully','2019-12-01','2019-09-01','Design 2D','ProjectingDepartment');
 
 --Compose
 --In the first operation, the parent is take over and the child is computations of the project The new house
 --In the second operation Design is the parent, instead design 2D is the child for the project New project
-INSERT INTO Compose(TaskId_Parent, TaskId_Child, ProjectID) VALUES
+INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 ('c769d3a6-41d1-4883-9edf-e74a977446ad','7ba08242-0397-4137-9275-e18d8be8ef8e','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
 ('102bcee0-501b-4c63-a5c0-31a82a14a8a5','6ef9878a-416e-4782-8e7e-7aa9dd42c140','757ca527-b338-42f5-bbe2-1075d63b492c');
 
 --TimeSlot
-INSERT INTO TimeSlot(TimeSlotID, TaskID, TimeStamp, Notes, HourlyWage,FiscalCode, Hours) VALUES
+INSERT INTO TimeSlot(TimeSlotID, TaskID, CurTime, Notes, HourlyWage,FiscalCode, Hours) VALUES
 ('69aed574-6572-42f0-863e-c7ba2260d752','c769d3a6-41d1-4883-9edf-e74a977446ad','2019-07-26 16:32:25+01',NULL,'6.50','LRNBTT96C01D149A','5.5'),
 ('3e636e45-034a-4269-b868-a0a8958086d4','102bcee0-501b-4c63-a5c0-31a82a14a8a5','2019-03-15 10:05:25+01','Finished the last part the projection','7.80','RSSGVN76A15E189E','3.25'),
 ('fe2ef85c-752b-4af5-ae67-dfc1f247f979','6ef9878a-416e-4782-8e7e-7aa9dd42c140','2019-10-05 12:14:25+01',NULL,'9.30','MNGSLV89H60Z100C','4.0');
@@ -95,7 +95,7 @@ INSERT INTO Has(TimeSlotID, Type, Cost, Description) VALUES
 ('fe2ef85c-752b-4af5-ae67-dfc1f247f979','FuelExpenses','320.00','Fuel for 150 km');
 
 --Document
-INSERT INTO Document(DocumentID, Title, Content, TimeStamp, TaskID, Producer) VALUES
+INSERT INTO Document(DocumentID, Title, Content, CurTime, TaskID, Producer) VALUES
 ('ef88126a-5133-4ce4-aea8-45a5781e54ca', 'After Inspection',?????,'2019-06-25 09:29:25+01','c769d3a6-41d1-4883-9edf-e74a977446ad','LRNBTT96C01D149A'),
 ('c7ba2260d752-4af5-034a-a0a8958086d4','Planimetry Computations',????????,'2019-04-25 10:08:25+01','7ba08242-0397-4137-9275-e18d8be8ef8e','RSSGVN76A15E189E'),
 ('ccdfba04-6725-49cb-8814-c214c35fe3ea', '2D final design',?????,'2019-05-26 13:15:25+01','6ef9878a-416e-4782-8e7e-7aa9dd42c140','RSSGVN76A15E189E'),
@@ -106,11 +106,11 @@ INSERT INTO Version( Predecessor, Successor) VALUES
 ('ccdfba04-6725-49cb-8814-c214c35fe3ea','04cfbbab-14ea-4af5-ae67-dfc1f247f979');
 
 --Validate
-INSERT INTO ValidateDocument(DocumentID, FiscalCode, TimeStamp) VALUES
+INSERT INTO ValidateDocument(DocumentID, FiscalCode, CurTime) VALUES
 ('ef88126a-5133-4ce4-aea8-45a5781e54ca','BRNGNN64G46H005D','2019-06-25 11:29:25+01'),
 
 --Approve
 --Shown two cases where one document is validated by the chief and another by the Area Manager
-INSERT INTO ApproveDocument(DocumentID, FiscalCode, TimeStamp) VALUES
+INSERT INTO ApproveDocument(DocumentID, FiscalCode, CurTime) VALUES
 ('04cfbbab-14ea-4af5-ae67-dfc1f247f979','MNGSLV89H60Z100C','2019-05-27 12:25:25+01'),
 ('c7ba2260d752-4af5-034a-a0a8958086d4','BRNGNN64G46H005D','2019-04-25 30:08:25+01');
