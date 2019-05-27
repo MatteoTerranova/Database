@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package it.unipd.dei.bding;
-
 import java.io.*;
 
 import java.io.BufferedReader;
@@ -56,7 +54,7 @@ public class InsertDocument {
 	/**
 	 * The password for accessing the database
 	 */
-	private static final String PASSWORD = "Wmarco24";
+	private static final String PASSWORD = "galligio96";
 	
 	/**
 	 * The default input file for reading the data
