@@ -129,7 +129,7 @@ CREATE TABLE Department(
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode)
 );
 
-COMMENT ON TABLE Departement IS 'Represents a specific area of the studio.';
+COMMENT ON TABLE Department IS 'Represents a specific area of the studio.';
 COMMENT ON COLUMN Department.Name IS 'The name of the department.';
 COMMENT ON COLUMN Department.FiscalCode IS 'The fiscal code of the employee who leads the department.';
 
