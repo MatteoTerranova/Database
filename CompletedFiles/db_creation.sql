@@ -71,15 +71,15 @@ COMMENT ON COLUMN Employee.Role IS 'The role in the studio of the employee.';
 -- Customer
 CREATE TABLE Customer(
 	FiscalCode VARCHAR(16),
-	Note VARCHAR,
+	Note TEXT,
 
 	PRIMARY KEY (FiscalCode),
 	FOREIGN KEY (FiscalCode) REFERENCES Contact(FiscalCode)
 );
 
-COMMENT ON TABLE Employee IS 'Represents a customer.';
-COMMENT ON COLUMN Employee.FiscalCode IS 'The unique FiscalCode of the customer.';
-COMMENT ON COLUMN Employee.Note IS 'Some annotations about the customer.';
+COMMENT ON TABLE Customer IS 'Represents a customer.';
+COMMENT ON COLUMN Customer.FiscalCode IS 'The unique FiscalCode of the customer.';
+COMMENT ON COLUMN Customer.Note IS 'Some annotations about the customer.';
 
 -- Project
 CREATE TABLE Project(
@@ -136,7 +136,7 @@ COMMENT ON COLUMN Department.FiscalCode IS 'The fiscal code of the employee who 
 -- Template
 CREATE TABLE Template(
 	TemplateID VARCHAR,
-	Description VARCHAR,
+	Description TEXT,
 	IsRoot BOOLEAN NOT NULL,
 	PRIMARY KEY (TemplateID)
 );
@@ -163,7 +163,7 @@ COMMENT ON COLUMN OrderTemplate.Parent IS 'The identifier of the parent node.';
 CREATE TABLE Task(
 	TaskID UUID,
 	IsRoot BOOLEAN NOT NULL,
-	Description VARCHAR,
+	Description TEXT,
 	StartDate DATE NOT NULL,
 	EndDate DATE,
 	TemplateID VARCHAR NOT NULL,
@@ -179,13 +179,8 @@ COMMENT ON COLUMN Task.IsRoot IS 'Determines if the task is the root of the tree
 COMMENT ON COLUMN Task.Description IS 'The description of the task.';
 COMMENT ON COLUMN Task.StartDate IS 'The start date of the task.';
 COMMENT ON COLUMN Task.EndDate IS 'The end date of the task.';
-<<<<<<< HEAD
 COMMENT ON COLUMN Task.TemplateID IS 'The name of the template.';
 COMMENT ON COLUMN Task.Name IS 'The name of the department associated to the task.';
-=======
-COMMENT ON COLUMN Task.TemplateID IS 'The unique identifier of the template.';
-COMMENT ON COLUMN Task.Name IS 'The name of the department, that is in charge of the task.';
->>>>>>> e32a4411d4d1cd6d5592134f9eb312a0b081a3f6
 
 -- Compose
 CREATE TABLE Compose(
@@ -210,7 +205,7 @@ CREATE TABLE TimeSlot(
 	TaskID UUID,
 	CurTime TIMESTAMP NOT NULL,
 	FiscalCode VARCHAR(16) NOT NULL,
-	Notes VARCHAR,
+	Notes TEXT,
 	Hours float(2) NOT NULL,
 	HourlyWage float(2) NOT NULL,
 	PRIMARY KEY(TimeSlotID),
@@ -221,7 +216,7 @@ CREATE TABLE TimeSlot(
 COMMENT ON TABLE TimeSlot IS 'Represents the contribute of each employee in different fractions of time.';
 COMMENT ON COLUMN TimeSlot.TimeSlotID IS 'The unique identifier of a specific time slot.';
 COMMENT ON COLUMN TimeSlot.TaskID IS 'The unique identifier of the task.';
-COMMENT ON COLUMN TimeSlot.TimeStamp IS 'The date and time when a time slot has been reported.';
+COMMENT ON COLUMN TimeSlot.CurTime IS 'The date and time when a time slot has been reported.';
 COMMENT ON COLUMN TimeSlot.FiscalCode IS 'The unique fiscal code of the employee.';
 COMMENT ON COLUMN TimeSlot.Notes IS 'Notes about the time slot.';
 COMMENT ON COLUMN TimeSlot.Hours IS 'The number of hours spent in the time slot.';
@@ -241,7 +236,7 @@ CREATE TABLE Has(
 	TimeSlotID UUID,
 	Type VARCHAR,
 	Cost float(2) NOT NULL,
-	Description VARCHAR,
+	Description TEXT,
 	PRIMARY KEY (TimeSlotID, Type),
 	FOREIGN KEY (TimeSlotID) REFERENCES Timeslot(TimeSlotID),
 	FOREIGN KEY (Type) REFERENCES Expense (Type)
@@ -256,7 +251,7 @@ COMMENT ON COLUMN Has.Description IS 'The description of the time slot.';
 -- Document
 CREATE TABLE Document(
 	DocumentID UUID,
-	Title TEXT NOT NULL,
+	Title VARCHAR NOT NULL,
 	Content BYTEA NOT NULL,
 	CurTime TIMESTAMP NOT NULL,
 	TaskID UUID NOT NULL,
