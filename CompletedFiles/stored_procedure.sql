@@ -14,16 +14,16 @@ AS $$
 
 DECLARE 
 	-- The fiscal code of the employee
-    fiscalCodeEmployee VARCHAR(16);
+    fiscalCodeCheck VARCHAR;
 
 BEGIN
     -- Check whether the employee fiscal code exists
-    SELECT targetEmployeeFiscalCode INTO fiscalCodeEmployee 
+    SELECT FiscalCode INTO fiscalCodeCheck 
 		FROM Employee WHERE FiscalCode = targetEmployeeFiscalCode;
 	
 	IF NOT FOUND THEN
 
-			RAISE EXCEPTION 'employee fiscal code % does not exist', fiscalCodeEmployee;
+			RAISE EXCEPTION 'employee fiscal code % does not exist', targetEmployeeFiscalCode;
 
 	ELSE
 		IF fromDate > toDate THEN

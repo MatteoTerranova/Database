@@ -5,7 +5,7 @@
 -- Stored procedure
 -- Positive case
 SELECT * FROM viewEmployeeHours('LRNBTT96C01D149A','2018-07-20','2018-08-10');
--- Negative case
+-- Negative case (generates an error)
 SELECT * FROM viewEmployeeHours('LRNBTT96C01D149F','2019-07-01','2019-07-31');
 
 -- Retrieve customer's names, surnames and the names of the projects assigned by them
@@ -19,7 +19,7 @@ SELECT surname, name, title
 ORDER BY surname, name, title ASC;
 
 -- Retrieve the title of the project and the total effective amount of hours spent on it
-SELECT title, hours_Spent 
+SELECT title, hoursSpent 
 	FROM Project
 ORDER BY title ASC;
 
@@ -46,7 +46,7 @@ ORDER BY Title, Surname, Name ASC;
 WITH RECURSIVE proj_subpart AS (
 	SELECT Parent, Child, ProjectID, 1 AS Depth
 	FROM Task as t INNER JOIN Compose AS C 
-		ON t.taskID = C.Parent
+		ON t.taskID = C.Child
 	WHERE isRoot = TRUE
 	UNION ALL
 	SELECT C.Parent, C.Child, C.ProjectID, Depth + 1
