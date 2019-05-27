@@ -91,7 +91,7 @@ CREATE TABLE Project(
 	Quote BYTEA,
 	Deadline DATE NOT NULL,
 	EstimatedHours INTEGER NOT NULL,
-	HoursSpent FLOAT(2),
+	HoursSpent FLOAT(2) DEFAULT 0.00,
 	PRIMARY KEY (ProjectID)
 );
 
