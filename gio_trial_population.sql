@@ -60,7 +60,12 @@ INSERT INTO Task(TaskID, IsRoot, Description, EndDate,StartDate, TemplateID, Nam
 ('104bcee0-501b-4c63-a5c0-31a82a14a8a5',FALSE,NULL,'2019-04-26','2019-02-15','02cc96bb-5276-42d7-82e4-ff262aa60efd','ProjectingDepartment'),
 ('8ef9878a-416e-4782-8e7e-7aa9dd42c140',FALSE,'Task to be completed carefully','2019-12-01','2019-09-01','02cc96bb-5276-42d7-82e4-ff262aa60efd','VeficationDepartment'),
 ('9ef9878a-416e-4782-8e7e-7aa9dd42c140',FALSE,'Task to be completed carefully','2019-12-01','2019-09-01','02cc96bb-5276-42d7-82e4-ff262aa60efd','VeficationDepartment'),
-('9ef9878a-516e-4782-8e7e-7aa9dd42c140',FALSE,'Task to be completed carefully','2019-12-01','2019-09-01','02cc96bb-5276-42d7-82e4-ff262aa60efd','VeficationDepartment');
+('9ef9878a-516e-4782-8e7e-7aa9dd42c140',FALSE,'Task to be completed carefully','2019-12-01','2019-09-01','02cc96bb-5276-42d7-82e4-ff262aa60efd','VeficationDepartment'),
+
+('c869d3a6-41d1-4883-9edf-e74a977446ad','0',NULL,'2019-08-25','2019-07-25','bf44a0cb-3aad-4aa4-8282-17bae578e1d2','PlanificationDepartment'),
+('c969d3a6-41d1-4883-9edf-e74a977446ad','0',NULL,'2019-08-25','2019-07-25','bf44a0cb-3aad-4aa4-8282-17bae578e1d2','PlanificationDepartment'),
+('c999d3a6-41d1-4883-9edf-e74a977446ad','0',NULL,'2019-08-25','2019-07-25','bf44a0cb-3aad-4aa4-8282-17bae578e1d2','PlanificationDepartment');
+
 --Compose
 --In the first operation, the parent is take over and the child is computations of the project The new house
 --In the second operation Design is the parent, instead design 2D is the child for the project New project
@@ -70,7 +75,10 @@ INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 ('103bcee0-501b-4c63-a5c0-31a82a14a8a5','7ef9878a-416e-4782-8e7e-7aa9dd42c140','866adc89-5a04-463b-82a3-3bf0ad77491b'),
 ('103bcee0-501b-4c63-a5c0-31a82a14a8a5','104bcee0-501b-4c63-a5c0-31a82a14a8a5','866adc89-5a04-463b-82a3-3bf0ad77491b'),
 ('103bcee0-501b-4c63-a5c0-31a82a14a8a5','8ef9878a-416e-4782-8e7e-7aa9dd42c140','866adc89-5a04-463b-82a3-3bf0ad77491b'),
-('8ef9878a-416e-4782-8e7e-7aa9dd42c140','9ef9878a-416e-4782-8e7e-7aa9dd42c140','866adc89-5a04-463b-82a3-3bf0ad77491b');
+('8ef9878a-416e-4782-8e7e-7aa9dd42c140','9ef9878a-516e-4782-8e7e-7aa9dd42c140','866adc89-5a04-463b-82a3-3bf0ad77491b'),
+('8ef9878a-416e-4782-8e7e-7aa9dd42c140','c869d3a6-41d1-4883-9edf-e74a977446ad','866adc89-5a04-463b-82a3-3bf0ad77491b'),
+('9ef9878a-516e-4782-8e7e-7aa9dd42c140','c969d3a6-41d1-4883-9edf-e74a977446ad','866adc89-5a04-463b-82a3-3bf0ad77491b'),
+('c869d3a6-41d1-4883-9edf-e74a977446ad','c999d3a6-41d1-4883-9edf-e74a977446ad','866adc89-5a04-463b-82a3-3bf0ad77491b');
 
 --TimeSlot
 INSERT INTO TimeSlot(TimeSlotID, TaskID, TimeStamp, Notes, HourlyWage,FiscalCode, Hours) VALUES

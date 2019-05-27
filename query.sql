@@ -70,7 +70,7 @@ SELECT p.Title, COUNT(*) AS workers_number
 		ON ts.FiscalCode = e.FiscalCode
 	WHERE Depth = (SELECT MAX(Depth) 
 		FROM proj_subpart)
-GROUP BY title, FiscalCode;
+GROUP BY title, e.FiscalCode;
 	
 
 	
