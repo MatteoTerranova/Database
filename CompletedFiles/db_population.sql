@@ -1,5 +1,7 @@
---Insert Operations
+-- Connect to the database ennedue
+\c ennedue
 
+--Insert Operations
 
 --Contact
 INSERT INTO Contact(FiscalCode, Name, Surname, BirthDate, Email, PhoneNumber, ZIP, Street, Number) VALUES
@@ -59,7 +61,7 @@ INSERT INTO Template(TemplateID, Description, IsRoot) VALUES	-- TEST VALUES FOR 
 ('draft', 'd8', '0'),
 ('drawing', 'd9', '0'),
 ('computations', 'd10', '0'),
-('modeling', 'd11', '0'),
+('modelling', 'd11', '0'),
 ('take-over', 'd12', '0');
 
 --OrderTemplate
