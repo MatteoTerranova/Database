@@ -30,10 +30,12 @@ ORDER BY d.Name ASC;
 SELECT Title, Surname, Name, SUM(employeeHours.Hours) AS Total_Hours
 FROM (
 	SELECT Contact.Surname, Contact.Name, Task.TaskID, TimeSlot.Hours 
-	FROM Employee INNER JOIN TimeSlot ON Employee.FiscalCode = TimeSlot.FiscalCode
-	INNER JOIN Task ON TimeSlot.TimeSlotID = Task.TaskID
-	INNER JOIN Contact ON TimeSlot.FiscalCode = Contact.FiscalCode
-	) AS employeeHours INNER JOIN Compose ON employeeHours.TaskID = Compose.Child OR employeeHours.TaskID = Compose.Parent
+	FROM Employee 
+		INNER JOIN TimeSlot ON Employee.FiscalCode = TimeSlot.FiscalCode
+		INNER JOIN Task ON TimeSlot.TaskID = Task.TaskID
+		INNER JOIN Contact ON TimeSlot.FiscalCode = Contact.FiscalCode
+	) AS employeeHours 
+	INNER JOIN Compose ON employeeHours.TaskID = Compose.Child
 	INNER JOIN Project ON Compose.ProjectID = Project.ProjectID
 GROUP BY Title, Surname, Name
 ORDER BY Title, Surname, Name ASC;

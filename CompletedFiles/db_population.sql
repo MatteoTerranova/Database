@@ -50,19 +50,19 @@ INSERT INTO Department(Name, FiscalCode) VALUES
 ('ProjectingDepartment', 'MNGSLV89H60Z100C');
 
 --Template
-INSERT INTO Template(TemplateID, Description, IsRoot) VALUES	-- TEST VALUES FOR Description (NEED UPDATE)
-('concept', 'd1', '1'),
-('sketches','d2', '0'),
-('architectural model', 'd3', '0'),
-('realization', 'd4', '0'),
-('architectural executive', 'd5', '1'),
-('task assignment', 'd6', '0'),
-('details analysis', 'd7', '0'),
-('draft', 'd8', '0'),
-('drawing', 'd9', '0'),
-('computations', 'd10', '0'),
-('modelling', 'd11', '0'),
-('take-over', 'd12', '0');
+INSERT INTO Template(TemplateID, Description, IsRoot) VALUES
+('concept', 'Concept design for the project.', '1'),
+('sketches','Sketches with drawings.', '0'),
+('architectural model', 'Model of the hourse.', '0'),
+('realization', 'Creation of the final drawing.', '0'),
+('architectural executive', 'Realization of the project.', '1'),
+('task assignment', 'Organize and assign the task to employees.', '0'),
+('details analysis', 'Get all the measures for the realization of the project.', '0'),
+('draft', 'Create a simple concept of the project.', '0'),
+('drawing', '2D Drawing.', '0'),
+('computations', 'Calculus.', '0'),
+('modelling', 'Create a model for the project.', '0'),
+('take-over', 'Get all the necessary informations for the project.', '0');
 
 --OrderTemplate
 
