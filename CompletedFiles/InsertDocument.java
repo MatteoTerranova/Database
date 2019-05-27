@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.UUID;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  * Reads data inside a file to be inserted to the database
@@ -46,6 +48,12 @@ public class InsertDocument {
 	 */
 	private static final String INSERT_DOCUMENT = "INSERT INTO Document (DocumentID, Title, Content, CurTime, TaskID, Producer) VALUES (?, ?, ?, ?, ?, ?)";
 
+
+
+
+	private static final String RETRIEVE = "SELECT Content FROM Document WHERE DocumentID = '6fd2ef9f-3812-4317-914b-b4bb5b685686'";
+
+
 	/**
 	 * The password for accessing the database, initialized during runtime
 	 */
@@ -75,6 +83,7 @@ public class InsertDocument {
 
 		// The SQL statement to be executed
 		PreparedStatement pstmt = null;
+		Statement ret_stmt = null;
 
 		// Start time of a statement
 		long start;
@@ -101,6 +110,10 @@ public class InsertDocument {
 		UUID taskID = null;
 		String producer = null;
 		
+		// The results of the statement execution
+		ResultSet result = null;
+
+
 		try {
 			// Register the JDBC driver
 			Class.forName(DRIVER);
@@ -131,6 +144,7 @@ public class InsertDocument {
 			start = System.currentTimeMillis();
 			
 			pstmt = con.prepareStatement(INSERT_DOCUMENT);
+
 			
 			end = System.currentTimeMillis();
 			
@@ -280,6 +294,82 @@ public class InsertDocument {
 			s.close();
 
 			System.out.printf("%nInput file successfully closed.%n");
+
+
+
+
+
+
+			try {
+
+				// Create the statement to execute the query and count the time
+				start = System.currentTimeMillis();
+
+				ret_stmt = con.createStatement();
+
+				// Stop timing
+				end = System.currentTimeMillis();
+
+				System.out.printf(
+					"Statement successfully created in %,d milliseconds.%n",
+					end-start);
+
+				// Execute the query
+				start = System.currentTimeMillis();
+
+				result = ret_stmt.executeQuery(RETRIEVE);
+
+				end = System.currentTimeMillis();
+
+				System.out.printf("Query: %n%s%nsuccessfully executed in %,d milliseconds.%n",
+					RETRIEVE, end - start);
+
+				byte[] fileBytes;
+
+
+
+
+
+				try {
+
+					result.next();
+					fileBytes = result.getBytes("Content");
+
+					OutputStream targetFile=  new FileOutputStream("C:\\Users\\Marco\\OneDrive\\ICT\\Database\\HW4\\Database\\CompletedFiles\\Result.pdf");
+		                targetFile.write(fileBytes);
+		                targetFile.close();
+
+                	System.out.println("Document successfully retrieved");
+
+	            } catch (Exception e) {
+	            	e.printStackTrace();
+	       		}
+       		} catch (Exception e) {
+				e.printStackTrace();
+			}	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			try {
 
