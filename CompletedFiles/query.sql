@@ -53,16 +53,16 @@ WITH RECURSIVE proj_subpart AS (
 	FROM proj_subpart AS pr INNER JOIN Compose AS C 
 		ON C.Parent = pr.Child
 )
-/*
+
 SELECT *
 FROM proj_subpart;
-*/
+
 /*
 WITH proj_lastpart AS (
 	SELECT Parent, Child, projectID
 	FROM proj_subpart AS ps
 	WHERE ps.Child IS NULL
-)*/
+)
 
 SELECT p.Title, COUNT(*) AS workers_number
 
@@ -77,7 +77,7 @@ SELECT p.Title, COUNT(*) AS workers_number
 	WHERE Depth = (SELECT MAX(Depth) 
 		FROM proj_subpart)
 GROUP BY title, FiscalCode;
-	
+	*/
 
 	
 /*
