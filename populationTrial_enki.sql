@@ -68,13 +68,13 @@ INSERT INTO OrderTemplate(Child, Parent) VALUES
 INSERT INTO Task(TaskID, IsRoot, Description, EndDate,StartDate, TemplateID, Name) VALUES
 ('c769d3a6-41d1-4883-9edf-e74a977446ad','0',NULL,'2019-08-25','2019-07-25','Take-Over','PlanificationDepartment'),
 ('7ba08242-0397-4137-9275-e18d8be8ef8e','0','This task needs to be completed 1 week before deadline','2019-10-10','2019-08-10','Computations','VeficationDepartment'),
-('102bcee0-501b-4c63-a5c0-31a82a14a8a5','0',NULL,'2019-04-26','2019-02-15','Design','ProjectingDepartment');
+('102bcee0-501b-4c63-a5c0-31a82a14a8a5','0',NULL,'2019-04-26','2019-02-15','Design','ProjectingDepartment'),
 ('6ef9878a-416e-4782-8e7e-7aa9dd42c140','0','Task to be completed carefully','2019-12-01','2019-09-01','Design 2D','ProjectingDepartment');
 
 --Compose
 --In the first operation, the parent is take over and the child is computations of the project The new house
 --In the second operation Design is the parent, instead design 2D is the child for the project New project
-INSERT INTO Compose(TaskId_Parent, TaskId_Child, ProjectID) VALUES
+INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 ('c769d3a6-41d1-4883-9edf-e74a977446ad','7ba08242-0397-4137-9275-e18d8be8ef8e','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
 ('102bcee0-501b-4c63-a5c0-31a82a14a8a5','6ef9878a-416e-4782-8e7e-7aa9dd42c140','757ca527-b338-42f5-bbe2-1075d63b492c');
 

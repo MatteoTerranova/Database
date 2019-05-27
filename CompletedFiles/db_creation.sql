@@ -129,7 +129,7 @@ CREATE TABLE Department(
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode)
 );
 
-COMMENT ON TABLE Departement IS 'Represents a specific area of the studio.';
+COMMENT ON TABLE Department IS 'Represents a specific area of the studio.';
 COMMENT ON COLUMN Department.Name IS 'The name of the department.';
 COMMENT ON COLUMN Department.FiscalCode IS 'The fiscal code of the employee who leads the department.';
 
@@ -203,7 +203,7 @@ COMMENT ON COLUMN Compose.ProjectID IS 'The unique identifier of the associated 
 CREATE TABLE TimeSlot(
 	TimeSlotID UUID,
 	TaskID UUID,
-	CurTime TIMESTAMP NOT NULL,
+	CurTime TIMESTAMPTZ NOT NULL,
 	FiscalCode VARCHAR(16) NOT NULL,
 	Notes TEXT,
 	Hours float(2) NOT NULL,
@@ -253,7 +253,7 @@ CREATE TABLE Document(
 	DocumentID UUID,
 	Title VARCHAR NOT NULL,
 	Content BYTEA NOT NULL,
-	CurTime TIMESTAMP NOT NULL,
+	CurTime TIMESTAMPTZ NOT NULL,
 	TaskID UUID NOT NULL,
 	Producer VARCHAR(16),
 	PRIMARY KEY (DocumentID),
@@ -286,7 +286,7 @@ COMMENT ON COLUMN Version.Successor IS 'The unique identifier of the updated ver
 create TABLE ValidateDocument(
 	DocumentID UUID,
 	FiscalCode VARCHAR(16) NOT NULL,
-	CurTime TIMESTAMP NOT NULL,
+	CurTime TIMESTAMPTZ NOT NULL,
 	PRIMARY KEY (DocumentID),
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
 	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
@@ -301,7 +301,7 @@ COMMENT ON COLUMN ValidateDocument.CurTime IS 'The date when a document has been
 create TABLE ApproveDocument(
 	DocumentID UUID,
 	FiscalCode VARCHAR(16) NOT NULL,
-	CurTime TIMESTAMP NOT NULL,
+	CurTime TIMESTAMPTZ NOT NULL,
 	PRIMARY KEY (DocumentID),
 	FOREIGN KEY (FiscalCode) REFERENCES Employee(FiscalCode),
 	FOREIGN KEY (DocumentID) REFERENCES Document(DocumentID)
