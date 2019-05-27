@@ -6,6 +6,10 @@
 `psql -U postgres < stored_procedure.sql`
 `psql -U postgres < query.sql`
 
-## JAVA code
+## JAVA code (PrintProjects)
 `javac -cp .;postgresql-9.4-1201.jdbc4.jar PrintProjects.java`
 `java -cp .;postgresql-9.4-1201.jdbc4.jar PrintProjects password`
+
+## JAVA code (InsertDocument)
+`javac -cp .;postgresql-9.4-1201.jdbc4.jar InsertDocument.java`
+`java -cp .;postgresql-9.4-1201.jdbc4.jar InsertDocument password`
