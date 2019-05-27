@@ -9,7 +9,7 @@ BEGIN
 	
 	-- Join the Employee table with the TimeSlot table
 	-- Check if the new HourlyWage inserted in TimeSlot is different from the one related to the associated Employee
-	IF NOT NEW.HourlyWage = (SELECT E.HourlyWage
+	IF NOT NEW.HourlyWage IN (SELECT E.HourlyWage
 								FROM Employee AS E INNER JOIN TimeSlot AS TS
 								ON E.FiscalCode = TS.FiscalCode
 								WHERE TS.TaskID = NEW.TaskID) THEN
@@ -31,10 +31,7 @@ CREATE TRIGGER CheckWage
 -- Test: INSERT INTO TimeSlot(TimeSlotID, TaskID, TimeStamp, Notes, HourlyWage,FiscalCode, Hours) VALUES ('69aed574-6572-42f0-863e-c7ba2260d752','c769d3a6-41d1-4883-9edf-e74a977446ad','2019-07-26 16:32:25+01',NULL,'7.50','LRNBTT96C01D149A','5.5');
 
 -- ********************************************************** HOURS SPENT UPDATE ***************************************************************
-	
-DROP TRIGGER IF EXISTS UpdateHours ON TimeSlot;
-DROP FUNCTION IF EXISTS updateHoursSpent();
-	
+		
 -- When an Employee inserts new data into the TimeSlot table, the total amout of HoursSpent for the Project must be updated by adding the new ones.
 CREATE FUNCTION updateHoursSpent() RETURNS TRIGGER AS $$
 	
