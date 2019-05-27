@@ -31,9 +31,9 @@ INSERT INTO Customer(FiscalCode,Note) VALUES
 
 --Project
 INSERT INTO Project(ProjectID, Title, StartDate, EndDate, Location, Quote, Deadline, EstimatedHours, HoursSpent) VALUES	-- BETA TEST VALUES FOR EstimatedHours (NEED UPDATE)
-('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-03-01',NULL,'Padova','300','2019-12-25',112,94.00),
-('757ca527-b338-42f5-bbe2-1075d63b492c','New Project','2019-08-15','2020-09-05','Roma','160','2020-09-05',80,45.00),
-('866adc89-5a04-463b-82a3-3bf0ad77491b','Company Building','2018-04-26','2021-04-01','Venezia','230','2021-06-06',1600,1000.00);
+('de7c222e-98f0-4eae-b690-7fb37a246bdd','The New House','2018-07-25','2018-08-25','Padova','300','2018-08-30',112,94.00),
+('757ca527-b338-42f5-bbe2-1075d63b492c','Bathroom','2018-08-10','2018-10-17','Roma','160','2018-10-20',80,45.00),
+('866adc89-5a04-463b-82a3-3bf0ad77491b','Company Building','2019-08-10',NULL,'Venezia','230','2020-01-12',1600,1000.00);
 
 --Request
 INSERT INTO Request(FiscalCode, ProjectID) VALUES
@@ -48,26 +48,81 @@ INSERT INTO Department(Name, FiscalCode) VALUES
 ('ProjectingDepartment', 'MNGSLV89H60Z100C');
 
 --Template
-INSERT INTO Template(TemplateID, Description, IsRoot) VALUES	-- BETA TEST VALUES FOR Description (NEED UPDATE)
-('Take-Over','Descrizione1','1'), --consider this as a site-inspection
-('Computations','Descrizione2','0'), --consider this as the planimetry done after the site inspection
-('Design','Descrizione3','0'), --consider this as the technical report done after site-inspection and planimetry
-('Design 2D','Descrizione4','0'); --consider this as the drawing done after the above three ones
+INSERT INTO Template(TemplateID, Description, IsRoot) VALUES	-- TEST VALUES FOR Description (NEED UPDATE)
+('concept', 'd1', '1'),
+('sketches','d2', '0'),
+('architectural model', 'd3', '0'),
+('realization', 'd4', '0'),
+('architectural executive', 'd5', '1'),
+('task assignment', 'd6', '0'),
+('details analysis', 'd7', '0'),
+('draft', 'd8', '0'),
+('drawing', 'd9', '0'),
+('computations', 'd10', '0'),
+('modeling', 'd11', '0'),
+('take-over', 'd12', '0');
 
 --OrderTemplate
 
 INSERT INTO OrderTemplate(Child, Parent) VALUES
-('Computations','Take-Over'),
-('Design','Computations'),
-('Design 2D','Design');
+('sketches','concept'),
+('architectural model','concept'),
+('realization','concept'),
+('task assignment', 'architectural executive'),
+('details analysis','architectural executive'),
+('draft','architectural executive'),
+('drawing','sketches'),
+('computations','sketches'),
+('modelling','sketches'),
+('take-over','sketches'),
+('drawing','architectural model'),
+('computations','architectural model'),
+('modelling','architectural model'),
+('take-over','architectural model'),
+('drawing','realization'),
+('computations','realization'),
+('modelling','realization'),
+('take-over','realization'),
+('drawing','task assignment'),
+('computations','task assignment'),
+('modelling','task assignment'),
+('take-over','task assignment'),
+('drawing','details analysis'),
+('computations','details analysis'),
+('modelling','details analysis'),
+('take-over','details analysis'),
+('drawing','draft'),
+('computations','draft'),
+('modelling','draft'),
+('take-over','draft');
 
 --Task
 --For the first operation insert, I have considered a template and I have specified that the specified task need to be done for that template
 INSERT INTO Task(TaskID, IsRoot, Description, EndDate, StartDate, TemplateID, Name) VALUES
-('c769d3a6-41d1-4883-9edf-e74a977446ad','0',NULL,'2019-08-25','2019-07-25','Take-Over','PlanificationDepartment'),
-('7ba08242-0397-4137-9275-e18d8be8ef8e','0','This task needs to be completed 1 week before deadline','2019-10-10','2019-08-10','Computations','VeficationDepartment'),
-('102bcee0-501b-4c63-a5c0-31a82a14a8a5','0',NULL,'2019-04-26','2019-02-15','Design','ProjectingDepartment'),
-('6ef9878a-416e-4782-8e7e-7aa9dd42c140','0','Task to be completed carefully','2019-12-01','2019-09-01','Design 2D','ProjectingDepartment');
+-- Project 1
+('c769d3a6-41d1-4883-9edf-e74a977446ad','1','The living room must have a large open space.','2018-08-25','2018-07-25','concept','PlanificationDepartment'),
+('f77d1e8b-3b5f-491c-987c-8d5d77baba3a','0',NULL,'2018-08-03','2018-07-25','sketches','PlanificationDepartment'),
+('e527d149-b101-4bbb-b86f-29ca2ccf6b99','0',NULL,'2018-08-03','2018-07-25','drawing','PlanificationDepartment'),
+('353bf9d0-183e-469d-978a-9484f6c25b15','0',NULL,'2018-08-03','2018-07-25','modelling','PlanificationDepartment'),
+('fc63b2ab-4aa3-45e7-a5a0-85f1436f81b2','0',NULL,'2018-08-25','2018-08-03','architectural model','PlanificationDepartment'),
+('7632306e-63eb-4a48-a630-8891a06580a8','0',NULL,'2018-08-25','2018-08-03','modelling','PlanificationDepartment'),
+
+-- Project 2
+('bb6a4192-90d6-4f97-ab66-6518d29a3537','1','This task needs to be completed 1 week before deadline.','2018-10-17','2018-08-10','architectural executive','ProjectingDepartment'),
+('f23af6d9-6f21-42fd-b35b-e8f9bbc8a753','0',NULL,'2018-10-03','2018-08-10','task assignment','ProjectingDepartment'),
+('fe081609-5c64-465c-b96e-e3c7668d72bc','0',NULL,'2018-10-03','2018-08-10','computations','ProjectingDepartment'),
+('056d76ff-01c6-4248-9749-8a36a26a1144','0',NULL,'2018-10-03','2018-08-10','take-over','ProjectingDepartment'),
+('197dd0f2-56f3-449b-9241-92491a773e5e','0',NULL,'2018-10-10','2018-10-03','draft','ProjectingDepartment'),
+('735dcc1b-2843-41de-a74c-c040d6f8155b','0',NULL,'2018-10-10','2018-10-03','drawing','ProjectingDepartment'),
+('d17c7007-fa6a-4cbb-bc72-9d51fd6c1796','0',NULL,'2018-10-10','2018-10-03','computations','ProjectingDepartment'),
+
+-- Project 3
+('e6f40259-69f5-402c-9616-dc58fbd1fb4b','1','Task to be completed carefully.',NULL,'2019-08-10','concept','VeficationDepartment'),
+('84a0ee99-4702-41de-8aff-185d257c9dc1','0',NULL,NULL,'2019-08-10','realization','VeficationDepartment'),
+('165b25b4-8b44-46eb-b8ca-4becc7e6ca7c','0',NULL,NULL,'2019-08-10','drawing','VeficationDepartment'),
+('35e0ef16-edee-4a30-9f46-80b0b959610c','0',NULL,NULL,'2019-08-10','computations','VeficationDepartment'),
+('644932c2-c6c5-4872-b6a8-114634c6a472','0',NULL,NULL,'2019-08-10','modelling','VeficationDepartment'),
+('850216a6-3c23-4aca-ad7d-ee0b1916bc7b','0',NULL,'2019-08-25','2019-08-10','take-over','VeficationDepartment'),
 
 --Compose
 --In the first operation, the parent is take over and the child is computations of the project The new house
