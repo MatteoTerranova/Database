@@ -2,6 +2,12 @@
 
 \c ennedue
 
+-- Stored procedure
+-- Positive case
+SELECT * FROM viewEmployeeHours('LRNBTT96C01D149A','2019-07-01','2019-07-31');
+-- Negative case
+SELECT * FROM viewEmployeeHours('LRNBTT96C01D149F','2019-07-01','2019-07-31');
+
 -- Retrieve customer's names, surnames and the names of the projects assigned by them
 SELECT name, surname, title
 	FROM Contact AS Co INNER JOIN Customer AS Cu
