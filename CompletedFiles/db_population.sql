@@ -129,6 +129,7 @@ INSERT INTO Task(TaskID, IsRoot, Description, EndDate, StartDate, TemplateID, Na
 --Compose
 INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 --Project 1
+(NULL,'c769d3a6-41d1-4883-9edf-e74a977446ad','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
 ('c769d3a6-41d1-4883-9edf-e74a977446ad','f77d1e8b-3b5f-491c-987c-8d5d77baba3a','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
 ('f77d1e8b-3b5f-491c-987c-8d5d77baba3a','e527d149-b101-4bbb-b86f-29ca2ccf6b99','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
 ('f77d1e8b-3b5f-491c-987c-8d5d77baba3a','353bf9d0-183e-469d-978a-9484f6c25b15','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
@@ -136,6 +137,7 @@ INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 ('fc63b2ab-4aa3-45e7-a5a0-85f1436f81b2','7632306e-63eb-4a48-a630-8891a06580a8','de7c222e-98f0-4eae-b690-7fb37a246bdd'),
 
 --Project 2
+(NULL,'bb6a4192-90d6-4f97-ab66-6518d29a3537','757ca527-b338-42f5-bbe2-1075d63b492c'),
 ('bb6a4192-90d6-4f97-ab66-6518d29a3537','f23af6d9-6f21-42fd-b35b-e8f9bbc8a753','757ca527-b338-42f5-bbe2-1075d63b492c'),
 ('f23af6d9-6f21-42fd-b35b-e8f9bbc8a753','fe081609-5c64-465c-b96e-e3c7668d72bc','757ca527-b338-42f5-bbe2-1075d63b492c'),
 ('f23af6d9-6f21-42fd-b35b-e8f9bbc8a753','056d76ff-01c6-4248-9749-8a36a26a1144','757ca527-b338-42f5-bbe2-1075d63b492c'),
@@ -144,6 +146,7 @@ INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 ('197dd0f2-56f3-449b-9241-92491a773e5e','d17c7007-fa6a-4cbb-bc72-9d51fd6c1796','757ca527-b338-42f5-bbe2-1075d63b492c'),
 
 --Project 3
+(NULL,'e6f40259-69f5-402c-9616-dc58fbd1fb4b','866adc89-5a04-463b-82a3-3bf0ad77491b'),
 ('e6f40259-69f5-402c-9616-dc58fbd1fb4b','84a0ee99-4702-41de-8aff-185d257c9dc1','866adc89-5a04-463b-82a3-3bf0ad77491b'),
 ('84a0ee99-4702-41de-8aff-185d257c9dc1','165b25b4-8b44-46eb-b8ca-4becc7e6ca7c','866adc89-5a04-463b-82a3-3bf0ad77491b'),
 ('84a0ee99-4702-41de-8aff-185d257c9dc1','35e0ef16-edee-4a30-9f46-80b0b959610c','866adc89-5a04-463b-82a3-3bf0ad77491b'),
