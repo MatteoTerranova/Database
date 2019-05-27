@@ -26,6 +26,13 @@ FROM Department as d LEFT OUTER JOIN TASK AS t ON d.Name = t.Name
 GROUP BY d.Name
 ORDER BY d.Name ASC;
 
+-- Subquery for retriving the total number of hours spent by each employeeHours
+SELECT Contact.Surname, Contact.Name, Task.TaskID, TimeSlot.Hours 
+	FROM Employee 
+		INNER JOIN TimeSlot ON Employee.FiscalCode = TimeSlot.FiscalCode
+		INNER JOIN Task ON TimeSlot.TaskID = Task.TaskID
+		INNER JOIN Contact ON TimeSlot.FiscalCode = Contact.FiscalCode
+		
 -- Return how many hours the employees have spent on the projects
 SELECT Title, Surname, Name, SUM(employeeHours.Hours) AS Total_Hours
 FROM (

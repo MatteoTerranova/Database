@@ -1,7 +1,6 @@
 -- Connect to the database ennedue
 \c ennedue
 
--- ************************************************** HOURLY WAGE CONSISTENCY CHECK ***********************************************************
 -- When an Employee reports a certain Task, the HourlyWage declared in his dedicated Timeslot must be consistent with the one assigned to him in the Employee relation.
 CREATE FUNCTION checkHourlyWage() RETURNS TRIGGER AS $$
 	
@@ -27,10 +26,6 @@ CREATE TRIGGER CheckWage
 	AFTER INSERT ON TimeSlot
 	FOR EACH ROW
 	EXECUTE PROCEDURE checkHourlyWage();
-	
--- Test: INSERT INTO TimeSlot(TimeSlotID, TaskID, TimeStamp, Notes, HourlyWage,FiscalCode, Hours) VALUES ('69aed574-6572-42f0-863e-c7ba2260d752','c769d3a6-41d1-4883-9edf-e74a977446ad','2019-07-26 16:32:25+01',NULL,'7.50','LRNBTT96C01D149A','5.5');
-
--- ********************************************************** HOURS SPENT UPDATE ***************************************************************
 		
 -- When an Employee inserts new data into the TimeSlot table, the total amout of HoursSpent for the Project must be updated by adding the new ones.
 CREATE FUNCTION updateHoursSpent() RETURNS TRIGGER AS $$
@@ -59,8 +54,6 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER UpdateHours 
-	AFTER INSERT ON TimeSlot
+	AFTER INSERT OR UPDATE ON TimeSlot
 	FOR EACH ROW
 	EXECUTE PROCEDURE updateHoursSpent();
-	
--- Test:  INSERT INTO TimeSlot(TimeSlotID, TaskID, TimeStamp, Notes, HourlyWage,FiscalCode, Hours) VALUES ('de7c222e-98f0-4eae-b690-7fb37a246bee', '6ef9878a-416e-4782-8e7e-7aa9dd42c140', '2018-01-01 15:25:13', 'prova' , '4', 'RSSGVN76A15E189E', '23');
