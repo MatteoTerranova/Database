@@ -242,7 +242,7 @@ public class InsertDocument {
 					pstmt.setString(2, title);
 					pstmt.setBinaryStream(3, fis, len);
 					pstmt.setTimestamp(4, timeStamp);
-					pstmt.setString(5, taskID);
+					pstmt.setObject(5, taskID);
 					pstmt.setString(6, producer);
 					pstmt.execute();
 
