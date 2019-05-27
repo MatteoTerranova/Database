@@ -4,7 +4,7 @@
 
 -- Stored procedure
 -- Positive case
-SELECT * FROM viewEmployeeHours('LRNBTT96C01D149A','2019-07-01','2019-07-31');
+SELECT * FROM viewEmployeeHours('LRNBTT96C01D149A','2018-07-20','2018-08-10');
 -- Negative case
 SELECT * FROM viewEmployeeHours('LRNBTT96C01D149F','2019-07-01','2019-07-31');
 

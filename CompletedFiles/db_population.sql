@@ -154,12 +154,12 @@ INSERT INTO Compose(Parent, Child, ProjectID) VALUES
 ('84a0ee99-4702-41de-8aff-185d257c9dc1','850216a6-3c23-4aca-ad7d-ee0b1916bc7b','866adc89-5a04-463b-82a3-3bf0ad77491b');
 
 --TimeSlot
+--The hours specified in this insertions are added to the total amount of hours dedicated to the project by means of the UpdateHours trigger
 INSERT INTO TimeSlot(TimeSlotID, TaskID, CurTime, Notes, HourlyWage, FiscalCode, Hours) VALUES
 --Project 1
 ('69aed574-6572-42f0-863e-c7ba2260d752','353bf9d0-183e-469d-978a-9484f6c25b15','2018-07-25 16:32:25+01',NULL,'6.50','LRNBTT96C01D149A','5.5'),
 ('e5b6ca51-14e6-4959-b0c4-e9d882a2fcde','353bf9d0-183e-469d-978a-9484f6c25b15','2018-07-28 13:32:25+01',NULL,'6.50','LRNBTT96C01D149A','6.0'),
 ('6f4fc82d-0e6c-4395-85ab-e6f919620f93','353bf9d0-183e-469d-978a-9484f6c25b15','2018-07-30 18:32:25+01',NULL,'6.50','LRNBTT96C01D149A','18.5'),
-('b4614a62-215a-4cbe-a080-4ac35032aeef','353bf9d0-183e-469d-978a-9484f6c25b15','2018-08-02 04:32:25+01',NULL,'6.50','LRNBTT96C01D149A','2.0'),
 ('b0426e09-1097-44db-9a55-113c9330ab1e','e527d149-b101-4bbb-b86f-29ca2ccf6b99','2018-08-01 11:32:25+01',NULL,'9.30','MNGSLV89H60Z100C','9.0'),
 ('ee6b4167-1c71-4b16-9f9d-9ddbeda67c1c','7632306e-63eb-4a48-a630-8891a06580a8','2018-08-24 10:32:25+01',NULL,'9.30','MNGSLV89H60Z100C','4.0'),
 
@@ -174,6 +174,10 @@ INSERT INTO TimeSlot(TimeSlotID, TaskID, CurTime, Notes, HourlyWage, FiscalCode,
 ('1a14cdb1-6d78-4266-b9ea-7e76d8822701', '35e0ef16-edee-4a30-9f46-80b0b959610c','2018-05-14 12:32:25+01',NULL,'12.50','BRNGNN64G46H005D','10.5'),
 ('2cae32d3-7bf1-435f-b851-9220fb8c2ca1', '644932c2-c6c5-4872-b6a8-114634c6a472','2018-05-17 18:32:25+01',NULL,'12.50','BRNGNN64G46H005D','9.0'),
 ('7134af62-a1e2-43df-a150-1ec98e44c8fb', '850216a6-3c23-4aca-ad7d-ee0b1916bc7b','2018-05-21 15:32:25+01',NULL,'12.50','BRNGNN64G46H005D','7.5');
+
+--This insertion attempt fails since the specified hourly wage is different from the one declared in the employee table (see trigger CheckWage)
+INSERT INTO TimeSlot(TimeSlotID, TaskID, CurTime, Notes, HourlyWage, FiscalCode, Hours) VALUES
+('b4614a62-215a-4cbe-a080-4ac35032aeef','353bf9d0-183e-469d-978a-9484f6c25b15','2018-08-02 04:32:25+01',NULL,'6.55','LRNBTT96C01D149A','2.0');
 
 --Expense
 INSERT INTO Expense(Type) VALUES

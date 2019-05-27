@@ -21,27 +21,27 @@ BEGIN
     SELECT targetEmployeeFiscalCode INTO fiscalCodeEmployee 
 		FROM Employee WHERE FiscalCode = targetEmployeeFiscalCode;
 	
-	IF fromDate > toDate THEN
-		
-		RAISE EXCEPTION 'date interval is not valid';
-	
-	ELSE
-		IF NOT FOUND THEN
+	IF NOT FOUND THEN
 
 			RAISE EXCEPTION 'employee fiscal code % does not exist', fiscalCodeEmployee;
 
+	ELSE
+		IF fromDate > toDate THEN
+		
+			RAISE EXCEPTION 'date interval is not valid';
+	
 		ELSE
 			-- Return all the timeslots of the employee
 			RETURN QUERY 
 				SELECT TimeSlot.TimeSlotID, TimeSlot.Hours 
 				FROM Employee 
 					INNER JOIN TimeSlot ON Employee.FiscalCode = TimeSlot.FiscalCode
-					INNER JOIN Task ON TimeSlot.TimeSlotID = Task.TaskID
+					INNER JOIN Task ON TimeSlot.TaskID = Task.TaskID
 				WHERE TimeSlot.CurTime::DATE >= fromDate
 					AND TimeSlot.CurTime::DATE < toDate
 					AND Employee.FiscalCode = targetEmployeeFiscalCode;
+		END IF;	
 
-		END IF;
 	END IF;
 END;
 $$;
