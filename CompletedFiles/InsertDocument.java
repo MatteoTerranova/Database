@@ -44,14 +44,10 @@ public class InsertDocument {
 	private static final String DEFAULT_INPUT_FILE = "data.txt";
 	
 	/**
-	 * The SQL statement for inserting data into the Document table.
+	 * The SQL statement for inserting/retrieving data into/from the Document table.
 	 */
 	private static final String INSERT_DOCUMENT = "INSERT INTO Document (DocumentID, Title, Content, CurTime, TaskID, Producer) VALUES (?, ?, ?, ?, ?, ?)";
-
-
-
-
-	private static final String RETRIEVE = "SELECT Content FROM Document WHERE DocumentID = '6fd2ef9f-3812-4317-914b-b4bb5b685686'";
+	private static final String RETRIEVE = "SELECT Content, Title FROM Document WHERE DocumentID = '6fd2ef9f-3812-4317-914b-b4bb5b685686'";
 
 
 	/**
@@ -295,11 +291,6 @@ public class InsertDocument {
 
 			System.out.printf("%nInput file successfully closed.%n");
 
-
-
-
-
-
 			try {
 
 				// Create the statement to execute the query and count the time
@@ -325,17 +316,15 @@ public class InsertDocument {
 					RETRIEVE, end - start);
 
 				byte[] fileBytes;
-
-
-
-
+				String PDFName;
 
 				try {
 
 					result.next();
 					fileBytes = result.getBytes("Content");
+					PDFName = result.getString("Title");
 
-					OutputStream targetFile=  new FileOutputStream("C:\\Users\\Marco\\OneDrive\\ICT\\Database\\HW4\\Database\\CompletedFiles\\Result.pdf");
+					OutputStream targetFile=  new FileOutputStream(PDFName+".pdf");
 		                targetFile.write(fileBytes);
 		                targetFile.close();
 
@@ -347,29 +336,6 @@ public class InsertDocument {
        		} catch (Exception e) {
 				e.printStackTrace();
 			}	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 			try {
 

@@ -33,19 +33,14 @@ SELECT Contact.Surname, Contact.Name, Task.TaskID, TimeSlot.Hours
 		INNER JOIN Task ON TimeSlot.TaskID = Task.TaskID
 		INNER JOIN Contact ON TimeSlot.FiscalCode = Contact.FiscalCode
 		
--- Return how many hours the employees have spent on the projects
-SELECT Title, Surname, Name, SUM(employeeHours.Hours) AS Total_Hours
-FROM (
-	SELECT Contact.Surname, Contact.Name, Task.TaskID, TimeSlot.Hours 
-	FROM Employee 
-		INNER JOIN TimeSlot ON Employee.FiscalCode = TimeSlot.FiscalCode
-		INNER JOIN Task ON TimeSlot.TaskID = Task.TaskID
-		INNER JOIN Contact ON TimeSlot.FiscalCode = Contact.FiscalCode
-	) AS employeeHours 
-	INNER JOIN Compose ON employeeHours.TaskID = Compose.Child
-	INNER JOIN Project ON Compose.ProjectID = Project.ProjectID
-GROUP BY Title, Surname, Name
-ORDER BY Title, Surname, Name ASC;
+-- Return the eployee that has the highest salary in a certain period
+SELECT MAX(DaylySalary) AS Dayly_Salary
+FROM(SELECT Employee.FiscalCode, SUM(TimeSlot.Hours * TimeSlot.hourlyWage) AS DaylySalary 
+ FROM Employee
+ INNER JOIN TimeSlot ON Employee.FiscalCode = TimeSlot.FiscalCode
+ INNER JOIN Task ON TimeSlot.TaskID = Task.TaskID
+WHERE TimeSlot.CurTime >= '2018-07-01 00:00:00+01'::DATE AND TimeSlot.CurTime < '2018-07-30 23:59:59+01'::DATE
+GROUP BY Employee.FiscalCode) AS Count;
 
 --Display the structure of the projects along with their descriptions
 WITH RECURSIVE proj_subpart AS (
