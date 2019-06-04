@@ -166,12 +166,27 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 						break;
 				}
 			} else {
-				// the request URI is: /employee/timeslot/{fiscalcode}
+				// the request URI is: /employee/timeslot/{fiscalcode}/fromdate/{date}/todate/{date}
 				if (path.contains("timeslot")) {
 					path = path.substring(path.lastIndexOf("timeslot") + 8);
+					
+					// To detect the missing part of the message
+					int indexTimeSlot = path.lastIndexOf("timeslot");
+					int indexFrom = path.lastIndexOf("fromdate");
+					int indexTo = path.lastIndexOf("todate");
 
-					if (path.length() == 0 || path.equals("/")) {
+					if (indexTimeSlot + 9 == indexFrom) {
 						m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}: no {fiscalcode} specified.",
+										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
+						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+						m.toJSON(res.getOutputStream());
+					} else if (indexFrom + 9 == indexTo){
+						m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}/fromdate/{fdate}: no {fdate} specified.",
+										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
+						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+						m.toJSON(res.getOutputStream());
+					} else if (indexTo + 7 == path.length()){
+						m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}/fromdate/{fdate}/todate/{tdate}: no {tdate} specified.",
 										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
 						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 						m.toJSON(res.getOutputStream());

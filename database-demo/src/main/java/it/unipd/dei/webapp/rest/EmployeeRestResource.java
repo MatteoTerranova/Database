@@ -61,9 +61,14 @@ public final class EmployeeRestResource extends RestResource {
 			// parse the URI path to extract the fiscal code
 			String path = req.getRequestURI();
 			path = path.substring(path.lastIndexOf("timeslot") + 8);
-
-			final String fiscalCode = path.substring(1);
-			final SearchRange range =  SearchRange.fromJSON(req.getInputStream());
+			
+			// Extract data from URL
+			final String fiscalCode = path.substring(1,path.lastIndexOf("fromdate") - 1);
+			final String fromDate = path.substring((path.lastIndexOf("fromdate") + 9), (path.lastIndexOf("todate") - 1));
+			final String toDate = path.substring(path.lastIndexOf("todate") + 7);
+			
+			//final SearchRange range =  SearchRange.fromJSON(req.getInputStream());
+			final SearchRange range = new SearchRange(fromDate, toDate);
 			
 			// Creates a new object for accessing the database and lists all the employees
 			el = new SearchTimeSlotByFiscalCodeDatabase(con, fiscalCode, range.getFromDate(), range.getToDate()).searchTimeSlotByFiscalCode();
@@ -78,7 +83,7 @@ public final class EmployeeRestResource extends RestResource {
 				m.toJSON(res.getOutputStream());
 			}
 		} catch (Throwable t) {
-			m = new Message("Cannot search employee's fiscal code for timeslot: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot search employee's fiscal code for timeslot: unexpected error. ", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}
