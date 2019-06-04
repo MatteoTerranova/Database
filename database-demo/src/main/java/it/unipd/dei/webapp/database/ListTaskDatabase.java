@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Lists all the projects in the database.
@@ -49,8 +50,11 @@ public final class ListTaskDatabase {
 		final List<Task> tasks = new ArrayList<>();
 		
 		try {
+			
+			UUID id = UUID.fromString(uuid);
+			
 			pstmt = con.prepareStatement(STATEMENT);
-			pstmt.setString(1, uuid);
+			pstmt.setObject(1, id);
 			
 			rs = pstmt.executeQuery();
 

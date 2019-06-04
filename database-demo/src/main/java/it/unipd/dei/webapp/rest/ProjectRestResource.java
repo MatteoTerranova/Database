@@ -81,11 +81,13 @@ public final class ProjectRestResource extends RestResource {
 
 		List<Task> el  = null;
 		Message m = null;
+		String test = "";
 		
 		try{
 			// parse the URI path to extract the project uuid
 			String path = req.getRequestURI();
 			String uuid = path.substring(path.lastIndexOf("project") + 8, path.lastIndexOf("task") -1);
+			test = uuid;
 			
 			// Creates a new object for accessing the database and lists all the employees
 			el = new ListTaskDatabase(con, uuid).listTask();
@@ -100,7 +102,7 @@ public final class ProjectRestResource extends RestResource {
 				m.toJSON(res.getOutputStream());
 			}
 		} catch (Throwable t) {
-			m = new Message("Cannot search tasks: unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Cannot search tasks: unexpected error. " + test, "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}
