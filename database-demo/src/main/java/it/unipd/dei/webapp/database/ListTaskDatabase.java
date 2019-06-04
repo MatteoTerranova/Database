@@ -60,7 +60,7 @@ public final class ListTaskDatabase {
 
 			while (rs.next()) {
 				tasks.add(new Task( 
-						rs.getString("tmt.TemplateID"), rs.getString("tmt.Description"),
+						rs.getString("task_description"), rs.getString("general_task_description"),
 						rs.getInt("Depth")));
 			}
 		} finally {
