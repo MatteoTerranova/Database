@@ -48,7 +48,7 @@ public final class ListEmployeeDatabase {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				employees.add(new Employee(rs.getString("E.FiscalCode"), 
+				employees.add(new Employee(rs.getString("FiscalCode"), 
 						rs.getString("Name"), rs.getString("Surname"),
 						rs.getString("IBAN"), rs.getDouble("HourlyWage"),
 						rs.getString("Role")));
