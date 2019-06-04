@@ -1,10 +1,13 @@
+C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\database\ListProjectDatabase.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\Resource.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\rest\EmployeeRestResource.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\Employee.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\Message.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\ResourceList.java
+C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\database\ListTaskDatabase.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\servlet\package-info.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\rest\RestResource.java
+C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\database\ListActiveProjectDatabase.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\rest\package-info.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\package-info.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\database\package-info.java
@@ -15,4 +18,5 @@ C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Databas
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\database\ListEmployeeDatabase.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\Project.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\resource\TimeSlot.java
+C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\rest\ProjectRestResource.java
 C:\Users\aleca\OneDrive\Documenti\Università\Magistrale\Coorte 2018-2019\Database Management\Database\database-demo\src\main\java\it\unipd\dei\webapp\servlet\RestManagerServlet.java

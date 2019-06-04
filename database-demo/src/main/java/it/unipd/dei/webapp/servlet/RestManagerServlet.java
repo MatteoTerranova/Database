@@ -1,7 +1,7 @@
 package it.unipd.dei.webapp.servlet;
 
 import it.unipd.dei.webapp.resource.*;
-import it.unipd.dei.webapp.rest.EmployeeRestResource;
+import it.unipd.dei.webapp.rest.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -218,70 +218,49 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 	 */
 	private boolean processProject(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
-		/*final String method = req.getMethod();
+		final String method = req.getMethod();
 		final OutputStream out = res.getOutputStream();
 
 		String path = req.getRequestURI();
 		Message m = null;
 
-		// the requested resource was not an employee
-		if(path.lastIndexOf("rest/employee") <= 0) {
+		// the requested resource was not a project
+		if(path.lastIndexOf("rest/project") <= 0) {
 			return false;
 		}
 
 		try {
-			// strip everyhing until after the /employee
-			path = path.substring(path.lastIndexOf("employee") + 8);
+			// Strip everyhing until after the /project
+			path = path.substring(path.lastIndexOf("project") + 7);
 
-			// the request URI is: /employee
-			// if method GET, list employees
-			// if method POST, create employee
+			// The request URI is: /project
+			// if method GET, list project
 			if (path.length() == 0 || path.equals("/")) {
 
 				switch (method) {
 					case "GET":
-						new EmployeeRestResource(req, res, getDataSource().getConnection()).listEmployee();
-						break;
-					case "POST":
-						new EmployeeRestResource(req, res, getDataSource().getConnection()).createEmployee();
+						new ProjectRestResource(req, res, getDataSource().getConnection()).listProject();
 						break;
 					default:
-						m = new Message("Unsupported operation for URI /employee.",
+						m = new Message("Unsupported operation for URI /projects.",
 										"E4A5", String.format("Requested operation %s.", method));
 						res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 						m.toJSON(res.getOutputStream());
 						break;
 				}
 			} else {
-				// the request URI is: /employee/salary/{salary}
-				if (path.contains("salary")) {
-					path = path.substring(path.lastIndexOf("salary") + 6);
+				// the request URI is: /project/active
+				if (path.contains("active")) {
+					path = path.substring(path.lastIndexOf("active") + 6);
 
 					if (path.length() == 0 || path.equals("/")) {
-						m = new Message("Wrong format for URI /employee/salary/{salary}: no {salary} specified.",
-										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
-						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						m.toJSON(res.getOutputStream());
-					} else {
+						
 						switch (method) {
 							case "GET":
-
-								// check that the parameter is actually an integer
-								try {
-									Integer.parseInt(path.substring(1));
-
-									new EmployeeRestResource(req, res, getDataSource().getConnection()).searchEmployeeBySalary();
-								} catch (NumberFormatException e) {
-									m = new Message(
-											"Wrong format for URI /employee/salary/{salary}: {salary} is not an integer.",
-											"E4A7", e.getMessage());
-									res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-									m.toJSON(res.getOutputStream());
-								}
-
+								new ProjectRestResource(req, res, getDataSource().getConnection()).listActiveProject();
 								break;
 							default:
-								m = new Message("Unsupported operation for URI /employee/salary/{salary}.", "E4A5",
+								m = new Message("Unsupported operation for URI /project/active.", "E4A5",
 												String.format("Requested operation %s.", method));
 								res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 								m.toJSON(res.getOutputStream());
@@ -289,33 +268,28 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 						}
 					}
 				} else {
-					// the request URI is: /employee/{badge}
-					try {
-
-						// check that the parameter is actually an integer
-						Integer.parseInt(path.substring(1));
-
+					// the request URI is: /project/{projectuuid}/task
+					
+					int indexTask = path.lastIndexOf("task");
+					int indexProject = path.lastIndexOf("project");
+					
+					if (indexProject + 8 >= indexTask) {
+						m = new Message("Unsupported operation for URI /project/{projectuuid}/task missing {projectuuid}.",
+										"E4A5", String.format("Requested operation %s.", method));
+						res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+						m.toJSON(res.getOutputStream());
+					} else {
 						switch (method) {
 							case "GET":
-								new EmployeeRestResource(req, res, getDataSource().getConnection()).readEmployee();
+								new ProjectRestResource(req, res, getDataSource().getConnection()).listTask();
 								break;
-							case "PUT":
-								new EmployeeRestResource(req, res, getDataSource().getConnection()).updateEmployee();
-								break;
-							case "DELETE":
-								new EmployeeRestResource(req, res, getDataSource().getConnection()).deleteEmployee();
-								break;
+								
 							default:
-								m = new Message("Unsupported operation for URI /employee/{badge}.",
+								m = new Message("Unsupported operation for URI  /project/{projectuuid}/task missing {projectuuid}.",
 												"E4A5", String.format("Requested operation %s.", method));
 								res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 								m.toJSON(res.getOutputStream());
 						}
-					} catch (NumberFormatException e) {
-						m = new Message("Wrong format for URI /employee/{badge}: {badge} is not an integer.",
-										"E4A7", e.getMessage());
-						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						m.toJSON(res.getOutputStream());
 					}
 				}
 			}
@@ -323,7 +297,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 			m = new Message("Unexpected error.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
-		}*/
+		}
 		return true;
 	}
 }

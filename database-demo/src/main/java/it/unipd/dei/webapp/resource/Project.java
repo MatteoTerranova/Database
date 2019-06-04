@@ -9,6 +9,9 @@ import java.io.*;
  */
 public class Project extends Resource {
 
+	// Project UUID
+	private final String UUID;
+	
 	// Project title
 	private final String title;
 
@@ -31,7 +34,8 @@ public class Project extends Resource {
 	private final double hoursSpent;
 	
 	// Creates new Project
-	public Project(final String title, final String startDate, final String endDate, final String location, final String deadline, final int estimatedHours, final double hoursSpent){
+	public Project(final String UUID, final String title, final String startDate, final String endDate, final String location, final String deadline, final int estimatedHours, final double hoursSpent){
+		this.UUID = UUID;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -41,6 +45,10 @@ public class Project extends Resource {
 		this.hoursSpent = hoursSpent;
 	}
 
+	
+	public final String getUUID() {
+		return UUID;
+	}
 
 	public final String getTitle() {
 		return title;
@@ -81,6 +89,8 @@ public class Project extends Resource {
 		jg.writeFieldName("project");
 
 		jg.writeStartObject();
+		
+		jg.writeStringField("uuid", UUID);
 
 		jg.writeStringField("title", title);
 

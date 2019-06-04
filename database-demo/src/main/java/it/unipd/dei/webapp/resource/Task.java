@@ -9,9 +9,6 @@ import java.io.*;
  */
 public class Task extends Resource {
 
-	// Department of the task
-	private final String department;
-
 	// TemplateID of the task
 	private final String name;
 	
@@ -22,18 +19,11 @@ public class Task extends Resource {
 	private final int level;
 	
 	// Creates new Task
-	public Task(final String department, final String name, final String description, final int level){
-		this.department = department;
+	public Task(final String name, final String description, final int level){
 		this.name = name;
 		this.description = description;
 		this.level = level;
 	}
-
-
-	public final String getDepartment() {
-		return department;
-	}
-
 	
 	public final String getName() {
 		return name;
@@ -57,8 +47,6 @@ public class Task extends Resource {
 		jg.writeFieldName("task");
 
 		jg.writeStartObject();
-
-		jg.writeStringField("department", department);
 
 		jg.writeStringField("name", name);
 		
