@@ -1,0 +1,53 @@
+/*
+ * Copyright 2018 University of Padua, Italy
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package it.unipd.dei.webapp.resource;
+
+import com.fasterxml.jackson.core.*;
+
+import java.io.*;
+
+/**
+ * Represents a generic resource.
+ * 
+ * @author Nicola Ferro (ferro@dei.unipd.it)
+ * @version 1.00
+ * @since 1.00
+ */
+public abstract class Resource {
+
+	/**
+	 * The JSON factory to be used for creating JSON parsers and generators.
+	 */
+	protected static final JsonFactory JSON_FACTORY;
+
+	static {
+		// setup the JSON factory
+		JSON_FACTORY = new JsonFactory();
+		JSON_FACTORY.disable(JsonGenerator.Feature.AUTO_CLOSE_TARGET);
+		JSON_FACTORY.disable(JsonParser.Feature.AUTO_CLOSE_SOURCE);
+	}
+
+	/**
+	/**
+	 * Returns a JSON representation of the {@code Resource} into the given {@code OutputStream}.
+	 *
+	 * @param out  the stream to which the JSON representation of the {@code Resource} has to be written.
+	 *
+	 * @throws IOException if something goes wrong during the parsing.
+	 */
+	public abstract void toJSON(final OutputStream out) throws IOException;
+}
