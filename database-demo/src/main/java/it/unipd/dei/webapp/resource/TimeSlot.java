@@ -25,10 +25,10 @@ public class TimeSlot extends Resource {
 	private final double hourlyWage;
 	
 	// Number of hours reported in the TimeSlot
-	private final int numHours;
+	private final double numHours;
 	
 	// Creates new TimeSlot
-	public TimeSlot(final String projectTitle, final String templateID, final String timestamp, final String note, final double hourlyWage, final int numHours){
+	public TimeSlot(final String projectTitle, final String templateID, final String timestamp, final String note, final double hourlyWage, final double numHours){
 		this.projectTitle = projectTitle;
 		this.templateID = templateID;
 		this.timestamp = timestamp;
@@ -59,7 +59,7 @@ public class TimeSlot extends Resource {
 		return hourlyWage;
 	}
 	
-	public final int getNumHours() {
+	public final double getNumHours() {
 		return numHours;
 	}
 	
