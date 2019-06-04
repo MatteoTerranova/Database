@@ -63,10 +63,11 @@ public final class EmployeeRestResource extends RestResource {
 			path = path.substring(path.lastIndexOf("timeslot") + 8);
 
 			final String fiscalCode = path.substring(1);
+			final SearchRange range =  SearchRange.fromJSON(req.getInputStream());
 			
 			// Creates a new object for accessing the database and lists all the employees
-			el = new SearchTimeSlotByFiscalCodeDatabase(con, fiscalCode).searchTimeSlotByFiscalCode();
-
+			el = new SearchTimeSlotByFiscalCodeDatabase(con, fiscalCode, range.getFromDate(), range.getToDate()).searchTimeSlotByFiscalCode();
+			
 			if(el != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
 				new ResourceList(el).toJSON(res.getOutputStream());
