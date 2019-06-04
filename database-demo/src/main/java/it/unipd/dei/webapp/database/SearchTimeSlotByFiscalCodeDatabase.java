@@ -56,7 +56,7 @@ public final class SearchTimeSlotByFiscalCodeDatabase {
 
 			while (rs.next()) {
 				timeslots.add(new TimeSlot(rs.getString("Title"), 
-						rs.getString("TemplteID"), rs.getString("CurTime"),
+						rs.getString("TemplateID"), rs.getString("CurTime"),
 						rs.getString("Notes"), rs.getDouble("HourlyWage"),
 						rs.getDouble("Hours")));
 			}

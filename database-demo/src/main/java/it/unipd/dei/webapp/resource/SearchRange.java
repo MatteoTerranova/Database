@@ -9,9 +9,6 @@ import java.io.*;
  */
 public class SearchRange extends Resource {
 
-	// Employee fiscal code to search
-	private final String fiscalCode;
-
 	// From date to search
 	private final String fromDate;
 
@@ -19,17 +16,10 @@ public class SearchRange extends Resource {
 	private final String toDate;
 	
 	// Creates new SearchRange
-	public SearchRange(final String fiscalCode, final String fromDate, final String toDate){
-		this.fiscalCode = fiscalCode;
+	public SearchRange(final String fromDate, final String toDate){
 		this.fromDate = fromDate;
 		this.toDate = toDate;
 	}
-
-
-	public final String getFiscalCode() {
-		return fiscalCode;
-	}
-
 	
 	public final String getFromDate() {
 		return fromDate;
@@ -50,8 +40,6 @@ public class SearchRange extends Resource {
 
 		jg.writeStartObject();
 
-		jg.writeStringField("fiscalcode", fiscalCode);
-
 		jg.writeStringField("fromdate", fromDate);
 		
 		jg.writeStringField("todate", toDate);
@@ -69,7 +57,6 @@ public class SearchRange extends Resource {
 	public static SearchRange fromJSON(final InputStream in) throws IOException {
 
 		// The fields read from JSON
-		String jFiscalCode = null;
 		String jFromDate = null;
 		String jToDate = null;
 
@@ -90,10 +77,6 @@ public class SearchRange extends Resource {
 			if (jp.getCurrentToken() == JsonToken.FIELD_NAME) {
 
 				switch (jp.getCurrentName()) {
-					case "fiscalcode":
-						jp.nextToken();
-						jFiscalCode = jp.getText();
-						break;
 					case "fromdate":
 						jp.nextToken();
 						jFromDate = jp.getText();
@@ -106,7 +89,7 @@ public class SearchRange extends Resource {
 			}
 		}
 
-		return new SearchRange(jFiscalCode, jFromDate, jToDate);
+		return new SearchRange(jFromDate, jToDate);
 	}
 
 }
