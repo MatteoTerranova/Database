@@ -1,19 +1,3 @@
-/*
- * Copyright 2018 University of Padua, Italy
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package it.unipd.dei.webapp.servlet;
 
 import it.unipd.dei.webapp.resource.*;
@@ -27,10 +11,6 @@ import java.io.OutputStream;
 
 /**
  * Manages the REST API for the different REST resources.
- * 
- * @author Nicola Ferro (ferro@dei.unipd.it)
- * @version 1.00
- * @since 1.00
  */
 public final class RestManagerServlet extends AbstractDatabaseServlet {
 
@@ -57,24 +37,24 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		final OutputStream out = res.getOutputStream();
 
 		try {
-			// if the request method and/or the MIME media type are not allowed, return.
-			// Appropriate error message sent by {@code checkMethodMediaType}
+			// If the request method and/or the MIME media type are not allowed, return.
+			// Appropriate error message sent by checkMethodMediaType
 			if (!checkMethodMediaType(req, res)) {
 				return;
 			}
 
-			// if the requested resource was an Employee, delegate its processing and return
-			if (processEmployee(req, res)) {
+			// If it is requested a resource delegate its processing and return
+			if (processResource(req, res)) {
 				return;
 			}
 
-			// if none of the above process methods succeeds, it means an unknow resource has been requested
+			// If none of the above process methods succeeds, it means an unknow resource has been requested
 			final Message m = new Message("Unknown resource requested.", "E4A6",
 										  String.format("Requested resource is %s.", req.getRequestURI()));
 			res.setStatus(HttpServletResponse.SC_NOT_FOUND);
 			m.toJSON(out);
 		} finally {
-			// ensure to always flush and close the output stream
+			// Ensure to always flush and close the output stream
 			out.flush();
 			out.close();
 		}
@@ -82,12 +62,6 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 	/**
 	 * Checks that the request method and MIME media type are allowed.
-	 *
-	 * @param req the HTTP request.
-	 * @param res the HTTP response.
-	 * @return {@code true} if the request method and the MIME type are allowed; {@code false} otherwise.
-	 *
-	 * @throws IOException if any error occurs in the client/server communication.
 	 */
 	private boolean checkMethodMediaType(final HttpServletRequest req, final HttpServletResponse res)
 			throws IOException {
@@ -106,6 +80,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 			return false;
 		}
 
+		// Acceptable media types
 		if(!accept.contains(JSON_MEDIA_TYPE) && !accept.equals(ALL_MEDIA_TYPE)) {
 			m = new Message("Unsupported output media type. Resources are represented only in application/json.",
 							"E4A2", String.format("Requested representation is %s.", accept));
@@ -115,11 +90,10 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		}
 
 		switch(method) {
-			case "GET":
 			case "DELETE":
-				// nothing to do
 				break;
-
+			
+			case "GET":
 			case "POST":
 			case "PUT":
 				if(contentType == null) {
@@ -128,7 +102,8 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 					m.toJSON(out);
 					return false;
 				}
-
+				
+				// Supported Media types
 				if(!contentType.contains(JSON_MEDIA_TYPE)) {
 					m = new Message("Unsupported input media type. Resources are represented only in application/json.",
 									"E4A4", String.format("Submitted representation is %s.", contentType));
@@ -151,16 +126,11 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 
 	/**
-	 * Checks whether the request if for an {@link Employee} resource and, in case, processes it.
-	 *
-	 * @param req the HTTP request.
-	 * @param res the HTTP response.
-	 * @return {@code true} if the request was for an {@code Employee}; {@code false} otherwise.
-	 *
-	 * @throws IOException if any error occurs in the client/server communication.
+	 * Checks whether the request is for a known resource and, in case, processes it.
 	 */
-	private boolean processEmployee(HttpServletRequest req, HttpServletResponse res) throws IOException {
-
+	private boolean processResource(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		/*
 		final String method = req.getMethod();
 		final OutputStream out = res.getOutputStream();
 
@@ -267,8 +237,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}
-
+		*/
 		return true;
-
 	}
 }
