@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Lists all the employees in the database.
@@ -17,7 +19,7 @@ public final class ListDocumentDatabase {
 	/**
 	 * The SQL statement to be executed
 	 */
-	private static final String STATEMENT = "SELECT DocumentID, Title, Content, CurTime, TaskID, Producer FROM Document";
+	private static final String STATEMENT = "SELECT DocumentID, Title, Content, TaskID, Producer FROM Document";
 
 	/**
 	 * The connection to the database
@@ -42,13 +44,17 @@ public final class ListDocumentDatabase {
 		// The results of the search
 		final List<Document> documents = new ArrayList<>();
 
+		Base64.Encoder encoder = Base64.getEncoder(); 
+
 		try {
 			pstmt = con.prepareStatement(STATEMENT);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				documents.add(new Document(rs.getString("Title")));
+				documents.add(new Document((UUID)rs.getObject(1), rs
+						.getString(2), encoder.encodeToString(rs.getBytes(3)),
+						(UUID)rs.getObject(4), rs.getString(5)));
 			}
 		} finally {
 			if (rs != null) {
