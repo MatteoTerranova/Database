@@ -24,14 +24,14 @@ public final class DocumentRestResource extends RestResource {
 		super(req, res, con);
 	}
 	
-	// List all the employees
+	// List all the documents
 	public void listDocument() throws IOException {
 
 		List<Document> el  = null;
 		Message m = null;
 
 		try{
-			// Creates a new object for accessing the database and lists all the employees
+			// Creates a new object for accessing the database and lists all the documents
 			el = new ListDocumentDatabase(con).listDocument();
 
 			if(el != null) {

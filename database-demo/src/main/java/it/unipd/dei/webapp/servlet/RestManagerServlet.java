@@ -134,15 +134,6 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		return true;
 	}
 
-
-
-
-
-
-
-
-
-
 	/**
 	 * Checks whether the request is an employee and, in case, processes it.
 	 */
@@ -225,17 +216,6 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		}
 		return true;
 	}
-	
-
-
-
-
-
-
-
-
-
-
 
 	/**
 	 * Checks whether the request is a project and, in case, processes it.
@@ -324,11 +304,6 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		}
 		return true;
 	}
-
-
-
-
-
 
 	/**
 	 * Checks whether the request is an document and, in case, processes it.
