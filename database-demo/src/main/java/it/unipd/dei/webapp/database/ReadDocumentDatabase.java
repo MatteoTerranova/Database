@@ -21,11 +21,11 @@ public final class ReadDocumentDatabase {
 	private final Connection con;
 
 	
-	private final String id;
+	private final UUID id;
 
 	public ReadDocumentDatabase(final Connection con, final String id) {
 		this.con = con;
-		this.id = id;
+		this.id = UUID.fromString(id);
 	}
 
 	
@@ -41,7 +41,7 @@ public final class ReadDocumentDatabase {
 
 		try {
 			pstmt = con.prepareStatement(STATEMENT);
-			pstmt.setString(1, id);
+			pstmt.setObject(1, id);
 
 			rs = pstmt.executeQuery();
 

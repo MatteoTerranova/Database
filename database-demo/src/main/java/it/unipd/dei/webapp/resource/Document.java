@@ -48,7 +48,7 @@ public class Document extends Resource {
 		return taskID;
 	}
 
-	public final String getProducert() {
+	public final String getProducer() {
 		return producer;
 	}
 	
