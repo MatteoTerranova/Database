@@ -76,7 +76,7 @@
 									<p class="text">
 										Select Project
 									</p>
-									<select name="project" id="project">
+									<select name="project" id="project" onchange="func()">
 									</select>
 									<br><br>
 									<button type="submit" class="btn btn-primary">Submit</button>
@@ -95,11 +95,7 @@
 									<p class="text">
 										Select Task
 									</p>
-									<select name="task">
-										<option value="Uno">Uno</option>
-										<option value="Due">Due</option>
-										<option value="Tre">Tre</option>
-										<option value="Quattro">Quattro</option>
+									<select name="task" id="task">
 									</select>
 									<br><br>
 									<button type="submit" class="btn btn-primary">Submit</button>
@@ -112,11 +108,7 @@
 									<p class="text">
 										Select Employee
 									</p>
-									<select name="employee">
-										<option value="Uno">Uno</option>
-										<option value="Due">Due</option>
-										<option value="Tre">Tre</option>
-										<option value="Quattro">Quattro</option>
+									<select name="employee" id="employee2">
 									</select>
 									<br><br>
 									<button type="submit" class="btn btn-primary">Submit</button>
@@ -235,26 +227,14 @@
 								Active Projects
 							</h5>
 							
-							<table>
+							<table id="activeprojects">
 								<tr>
 									<th>Project Name</th>
 									<th>Location</th>
 									<th>Start Date</th>
-									<th>End Date</th>
-									<th>Quote</th>
 									<th>Deadline</th>
 									<th>Estimated Hours</th>
 									<th>Hours Spent</th>
-								</tr>
-								<tr>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
-									<td>Da inserire</td>
 								</tr>
 							</table>
 							

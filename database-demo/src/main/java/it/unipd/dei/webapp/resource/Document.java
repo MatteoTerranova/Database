@@ -11,36 +11,37 @@ import java.io.*;
  // TODO: CLASS MUST BE COMPLETED WITH WHAT WE WANT TO SHOW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class Document extends Resource {
 
-	private final UUID id;
+	//private final UUID id;
 
 	private final String name;
 	
-	private final byte[] fileBytes;
+	//private final byte[] fileBytes;
 
 	//private final String description;
 
 	//private final int level;
 	
 	// Creates new Document
-	public Document(final UUID id, final String name, final byte[] fileBytes) {//, final String description, final int level){
+	public Document(final UUID id) {//, final String name, final byte[] fileBytes) {//, final String description, final int level){
 		this.id = id;
-		this.name = name;
-		this.fileBytes = fileBytes;
+		//this.name = name;
+		//this.fileBytes = fileBytes;
+
 		//his.description = description;
 		//this.level = level;
 	}
 	
-	public final UUID getID() {
+	/*public final UUID getID() {
 		return id;
-	}
+	}*/
 	
 	public final String getName() {
 		return name;
 	}
 
-	public final byte[] getFileBytes() {
+	/*public final byte[] getFileBytes() {
 		return fileBytes;
-	}
+	}*/
 	/*public final String getDescription() {
 		return description;
 	}
