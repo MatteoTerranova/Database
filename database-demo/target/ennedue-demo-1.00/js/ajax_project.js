@@ -20,7 +20,7 @@ function displayProjects(data) {
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
-		option.text = list[i].title;
+		option.text = list[i].project.title;
 		select.add(option);
 	}
 
@@ -48,7 +48,7 @@ function displayProjects2(data) {
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
-		option.text = list[i].title;
+		option.text = list[i].project.title;
 		select.add(option);
 	}
 
@@ -77,7 +77,7 @@ function displayEmployees(data) {
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
-		option.text = list[i].name + " " + list[i].surname;
+		option.text = list[i].employee.name + " " + list[i].employee.surname;
 		select.add(option);
 	}
 
