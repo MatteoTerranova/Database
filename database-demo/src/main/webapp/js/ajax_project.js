@@ -1,93 +1,55 @@
-/* (function() {
-  var httpRequest;
-  document.getElementById('ajaxButton').addEventListener('click', makeRequest);
+// *************************** SELECT PROJECT *****************************
 
-  function makeRequest() {
+// Ajax request
+$.ajax({
+  contentType: "application/json; charset=utf-8",
+  url: "rest/project",
+  success: displayProjects
+});
 
-    var salary = document.getElementsByName('project')[0].value;
+function displayProjects(data) {
+	
+	// Log error message
+	if (data.message != null){
+		console.log(data.message);
+		console.log(data.message.error-code);
+		console.log(data.message.error-details);
+	}
+		
+	var select = document.getElementById("project");
+	var list = data["resource-list"];
+	for (i = 0; i < list.length; i++) {
+		var option = document.createElement("option");
+		option.text = list[i].title;
+		select.add(option);
+	}
 
-    var url = 'http://localhost:8080/ennedue-demo-1.00/rest/project' + salary;
+}	
 
-    httpRequest = new XMLHttpRequest();
+// *************************** SELECT EMPLOYEE *****************************
 
-    if (!httpRequest) {
-      alert('Giving up :( Cannot create an XMLHTTP instance');
-      return false;
-    }
-    httpRequest.onreadystatechange = alertContents;
-    httpRequest.open('GET', url);
-    httpRequest.send();
-  }
+// Ajax request
+$.ajax({
+  contentType: "application/json; charset=utf-8",
+  url: "rest/employee",
+  success: displayEmployees
+});
 
-  function alertContents() {
-    if (httpRequest.readyState === XMLHttpRequest.DONE) {
-      
-      if (httpRequest.status == 200) {
+function displayEmployees(data) {
+	
+	// Log error message
+	if (data.message != null){
+		console.log(data.message);
+		console.log(data.message.error-code);
+		console.log(data.message.error-details);
+	}
+		
+	var select = document.getElementById("employee");
+	var list = data["resource-list"];
+	for (i = 0; i < list.length; i++) {
+		var option = document.createElement("option");
+		option.text = list[i].name + " " + list[i].surname;
+		select.add(option);
+	}
 
-
-        var div = document.getElementById('results');
-        var table = document.createElement('table');
-
-        var thead = document.createElement('thead');
-
-        var tr = document.createElement('tr');
-
-        var th = document.createElement('th');
-        th.appendChild(document.createTextNode('Badge'));
-        tr.appendChild(th);
-
-        var th = document.createElement('th');
-        th.appendChild(document.createTextNode('Surname'));
-        tr.appendChild(th);
-
-        var th = document.createElement('th');
-        th.appendChild(document.createTextNode('Age'));
-        tr.appendChild(th);
-
-        var th = document.createElement('th');
-        th.appendChild(document.createTextNode('Salary'));
-        tr.appendChild(th);
-
-        thead.appendChild(tr);
-        table.appendChild(thead);
-
-        var tbody = document.createElement('tbody');
-        
-        
-        var jsonData = JSON.parse(httpRequest.responseText);
-        var resource = jsonData['resource-list'];
-
-        for (var i = 0; i < resource.length; i++) {
-          var employee = resource[i].employee;
-
-          var tr = document.createElement('tr');
-
-          var td_badge = document.createElement('td');
-          td_badge.appendChild(document.createTextNode(employee['badge']));
-          tr.appendChild(td_badge);
-
-          var td_surname = document.createElement('td');
-          td_surname.appendChild(document.createTextNode(employee['surname']));
-          tr.appendChild(td_surname);
-
-          var td_age = document.createElement('td');
-          td_age.appendChild(document.createTextNode(employee['age']));
-          tr.appendChild(td_age);
-
-          var td_salary = document.createElement('td');
-          td_salary.appendChild(document.createTextNode(employee['salary']));
-          tr.appendChild(td_salary);
-
-          tbody.appendChild(tr);
-        }
-
-        table.appendChild(tbody);
-
-        div.appendChild(table);
-
-      } else {
-        alert('There was a problem with the request.');
-      }
-    }
-  }
-})(); */
+}	
