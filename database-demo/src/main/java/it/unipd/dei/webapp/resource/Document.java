@@ -113,7 +113,7 @@ public class Document extends Resource {
 			}
 		}
 
-		return new SearchRange(jFromDate, jToDate);
+		return new Document(jFromDate);
 	}
 
 }
