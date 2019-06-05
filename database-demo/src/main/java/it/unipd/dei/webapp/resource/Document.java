@@ -15,20 +15,20 @@ public class Document extends Resource {
 
 	private final String name;
 	
-	//private final byte[] fileBytes;
+	//private final String content;
 
-	//private final String description;
+	//private final String taskID;
 
-	//private final int level;
-	
+	//private final String producer;
+
 	// Creates new Document
-	public Document(final String name) {//, final String id, final byte[] fileBytes) {//, final String description, final int level){
+	public Document(final String name) {//, final String id, final String content, final String taskID, final String producer) {
 		//this.id = id;
 		this.name = name;
-		//this.fileBytes = fileBytes;
-
-		//his.description = description;
-		//this.level = level;
+		//this.content = content;
+		//this.taskID = taskID;
+		//this.producer = producer;
+		
 	}
 	
 	/*public final String getID() {
@@ -39,16 +39,18 @@ public class Document extends Resource {
 		return name;
 	}
 
-	/*public final byte[] getFileBytes() {
-		return fileBytes;
+	/*public final String getContent() {
+		return content;
 	}*/
-	/*public final String getDescription() {
-		return description;
-	}
+
+	/*public final String getTaskID() {
+		return taskID;
+	}*/
+
+	/*public final String getProducert() {
+		return producer;
+	}*/
 	
-	public final int getLevel() {
-		return level;
-	}*/
 	
 	@Override
 	public final void toJSON(final OutputStream out) throws IOException {
@@ -61,11 +63,15 @@ public class Document extends Resource {
 
 		jg.writeStartObject();
 
+		//jg.writeStringField("id", id);
+
 		jg.writeStringField("name", name);
 		
-		//jg.writeStringField("description", description);
+		//jg.writeStringField("content", content);
 
-		//jg.writeNumberField("level", level);
+		//jg.writeStringField("taskid", taskID);
+
+		//jg.writeStringField("producer", producer);
 
 		jg.writeEndObject();
 
