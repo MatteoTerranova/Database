@@ -88,4 +88,39 @@ public final class EmployeeRestResource extends RestResource {
 			m.toJSON(res.getOutputStream());
 		}
 	}
+	
+	// Create a new shif of an employee
+	public void createEmployeeShift() throws IOException {
+
+		TimeSlot el = null;
+		Message m = null;
+		
+		try{
+			
+			final TimeSlot timeslot = TimeSlot.fromJSON(req.getInputStream());
+			
+			// Create a new object for accessing the database
+			el = new CreateTimeSlotDatabase(con, timeslot).createTimeSlot();
+			
+			if(el != null) {
+				res.setStatus(HttpServletResponse.SC_CREATED);
+				el.toJSON(res.getOutputStream());
+			} else {
+				// It should not happen
+				m = new Message("Cannot create the employee's timeshift: unexpected error.", "E5A1", null);
+				res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				m.toJSON(res.getOutputStream());
+			}
+		} catch (Throwable t) {
+			if (t instanceof SQLException && ((SQLException) t).getSQLState().equals("23505")) {
+				m = new Message("Cannot create the employee's timeslot: it already exists.", "E5A2", t.getMessage());
+				res.setStatus(HttpServletResponse.SC_CONFLICT);
+				m.toJSON(res.getOutputStream());
+			} else {
+				m = new Message("Cannot create the employee's timeslot: unexpected error.", "E5A1", t.getMessage());
+				res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+				m.toJSON(res.getOutputStream());
+			}
+		}
+	}
 }

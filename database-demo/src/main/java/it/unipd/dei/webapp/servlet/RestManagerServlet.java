@@ -173,40 +173,57 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 				// the request URI is: /employee/timeslot/{fiscalcode}/fromdate/{date}/todate/{date}
 				if (path.contains("timeslot")) {
 					path = path.substring(path.lastIndexOf("timeslot") + 8);
+					String tmp = path.substring(path.lastIndexOf("employee") + 8);
 					
-					// To detect the missing part of the message
-					int indexTimeSlot = path.lastIndexOf("timeslot");
-					int indexFrom = path.lastIndexOf("fromdate");
-					int indexTo = path.lastIndexOf("todate");
-
-					if (indexTimeSlot + 9 == indexFrom) {
-						m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}: no {fiscalcode} specified.",
-										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
-						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						m.toJSON(res.getOutputStream());
-					} else if (indexFrom + 9 == indexTo){
-						m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}/fromdate/{fdate}: no {fdate} specified.",
-										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
-						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						m.toJSON(res.getOutputStream());
-					} else if (indexTo + 7 == path.length()){
-						m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}/fromdate/{fdate}/todate/{tdate}: no {tdate} specified.",
-										"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
-						res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-						m.toJSON(res.getOutputStream());
-					} else {
+					// the request URI is: /employee/timeslot only
+					if (tmp.length() == 0 || tmp.equals("/")){
 						switch (method) {
-							case "GET":
-								new EmployeeRestResource(req, res, getDataSource().getConnection()).listEmployeeShift();
-								break;
-							default:
-								m = new Message("Unsupported operation for URI /employee/timeslot/{fiscalcode}.", "E4A5",
-												String.format("Requested operation %s.", method));
-								res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
-								m.toJSON(res.getOutputStream());
-								break;
+								case "POST":
+									new EmployeeRestResource(req, res, getDataSource().getConnection()).createEmployeeShift();
+									break;
+								default:
+									m = new Message("Unsupported operation for URI /employee/timeslot.", "E4A5",
+													String.format("Requested operation %s.", method));
+									res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+									m.toJSON(res.getOutputStream());
+									break;
+						}
+					} else {
+						// To detect the missing part of the message
+						int indexTimeSlot = path.lastIndexOf("timeslot");
+						int indexFrom = path.lastIndexOf("fromdate");
+						int indexTo = path.lastIndexOf("todate");
+						
+						if (indexTimeSlot + 9 == indexFrom) {
+							m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}: no {fiscalcode} specified.",
+											"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
+							res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+							m.toJSON(res.getOutputStream());
+						} else if (indexFrom + 9 == indexTo){
+							m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}/fromdate/{fdate}: no {fdate} specified.",
+											"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
+							res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+							m.toJSON(res.getOutputStream());
+						} else if (indexTo + 7 == path.length()){
+							m = new Message("Wrong format for URI /employee/timeslot/{fiscalcode}/fromdate/{fdate}/todate/{tdate}: no {tdate} specified.",
+											"E4A7", String.format("Requesed URI: %s.", req.getRequestURI()));
+							res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+							m.toJSON(res.getOutputStream());
+						} else {
+							switch (method) {
+								case "GET":
+									new EmployeeRestResource(req, res, getDataSource().getConnection()).listEmployeeShift();
+									break;
+								default:
+									m = new Message("Unsupported operation for URI /employee/timeslot/{fiscalcode}.", "E4A5",
+													String.format("Requested operation %s.", method));
+									res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+									m.toJSON(res.getOutputStream());
+									break;
+							}
 						}
 					}
+					
 				}
 			}
 		} catch(Throwable t) {
