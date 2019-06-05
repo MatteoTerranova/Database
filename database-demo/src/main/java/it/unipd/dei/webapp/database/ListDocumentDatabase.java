@@ -48,7 +48,7 @@ public final class ListDocumentDatabase {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				documents.add(new Document(rs.getString(2)));
+				documents.add(new Document(rs.getString("Title")));
 			}
 		} finally {
 			if (rs != null) {
