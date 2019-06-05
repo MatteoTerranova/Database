@@ -52,6 +52,11 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 			if (processProject(req, res)) {
 				return;
 			}
+
+			// If it is requested a documet delegate its processing and return
+			if (processDocument(req, res)) {
+				return;
+			}
 			
 			// If none of the above process methods succeeds, it means an unknow resource has been requested
 			final Message m = new Message("Unknown resource requested.", "E4A6",
@@ -128,6 +133,14 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 		return true;
 	}
+
+
+
+
+
+
+
+
 
 
 	/**
@@ -213,6 +226,17 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 		return true;
 	}
 	
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * Checks whether the request is a project and, in case, processes it.
 	 */
@@ -291,6 +315,55 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 								m.toJSON(res.getOutputStream());
 						}
 					}
+				}
+			}
+		} catch(Throwable t) {
+			m = new Message("Unexpected error.", "E5A1", t.getMessage());
+			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			m.toJSON(res.getOutputStream());
+		}
+		return true;
+	}
+
+
+
+
+
+
+	/**
+	 * Checks whether the request is an document and, in case, processes it.
+	 */
+	private boolean processDocument(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		final String method = req.getMethod();
+		final OutputStream out = res.getOutputStream();
+
+		String path = req.getRequestURI();
+		Message m = null;
+
+		// the requested resource was not a document
+		if(path.lastIndexOf("rest/document") <= 0) {
+			return false;
+		}
+
+		try {
+			// strip everyhing until after the /document
+			path = path.substring(path.lastIndexOf("document") + 8);
+
+			// the request URI is: /document
+			// if method GET, list documents
+			if (path.length() == 0 || path.equals("/")) {
+
+				switch (method) {
+					case "GET":
+						new DocumentRestResource(req, res, getDataSource().getConnection()).listDocument();
+						break;
+					default:
+						m = new Message("Unsupported operation for URI /document.",
+										"E4A5", String.format("Requested operation %s.", method));
+						res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+						m.toJSON(res.getOutputStream());
+						break;
 				}
 			}
 		} catch(Throwable t) {

@@ -3,11 +3,13 @@ it\unipd\dei\webapp\resource\Resource.class
 it\unipd\dei\webapp\rest\RestResource.class
 it\unipd\dei\webapp\resource\TimeSlot.class
 it\unipd\dei\webapp\resource\Employee.class
+it\unipd\dei\webapp\rest\DocumentRestResource.class
 it\unipd\dei\webapp\database\ListProjectDatabase.class
 it\unipd\dei\webapp\resource\Task.class
 it\unipd\dei\webapp\servlet\RestManagerServlet.class
 it\unipd\dei\webapp\rest\EmployeeRestResource.class
 it\unipd\dei\webapp\rest\ProjectRestResource.class
+it\unipd\dei\webapp\database\ListDocumentDatabase.class
 it\unipd\dei\webapp\database\ListTaskDatabase.class
 it\unipd\dei\webapp\resource\Project.class
 it\unipd\dei\webapp\resource\Message.class
