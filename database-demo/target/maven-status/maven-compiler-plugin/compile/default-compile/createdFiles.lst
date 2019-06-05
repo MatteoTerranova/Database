@@ -15,4 +15,5 @@ it\unipd\dei\webapp\servlet\AbstractDatabaseServlet.class
 it\unipd\dei\webapp\resource\ResourceList.class
 it\unipd\dei\webapp\resource\SearchRange.class
 it\unipd\dei\webapp\database\SearchTimeSlotByFiscalCodeDatabase.class
+it\unipd\dei\webapp\resource\Document.class
 it\unipd\dei\webapp\database\ListEmployeeDatabase.class
