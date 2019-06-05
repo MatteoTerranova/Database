@@ -16,10 +16,10 @@ public final class CreateDocumentDatabase {
 	private static final String STATEMENT = "INSERT INTO Document (DocumentID, Title, Content, CurTime, TaskID, Producer) VALUES (?, ?, ?, ?, ?, ?)";
 
 	
-	private final Connection con;
+	//private final Connection con;
 
 	
-	private final Document document;
+	//private final Document document;
 
 	
 	/*public CreateDocumentDatabase(final Connection con, final Document document) {

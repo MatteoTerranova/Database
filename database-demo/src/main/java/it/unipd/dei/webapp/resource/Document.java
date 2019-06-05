@@ -80,46 +80,6 @@ public class Document extends Resource {
 		jg.flush();
 	}
 	
-	/**
-	 * Creates a Document from its JSON representation.
-	 */
-	 // TODO: Implemetn this method to store the documents inside the database
-	public static Document fromJSON(final InputStream in) throws IOException {
-
-		// The fields read from JSON
-		String jFromDate = null;
-		String jToDate = null;
-
-		final JsonParser jp = JSON_FACTORY.createParser(in);
-
-		// While we are not on the start of an element or the element is not
-		// a token element, advance to the next element (if any)
-		while (jp.getCurrentToken() != JsonToken.FIELD_NAME || "range".equals(jp.getCurrentName()) == false) {
-
-			// there are no more events
-			if (jp.nextToken() == null) {
-				throw new IOException("Unable to parse JSON: no range object found.");
-			}
-		}
-
-		while (jp.nextToken() != JsonToken.END_OBJECT) {
-
-			if (jp.getCurrentToken() == JsonToken.FIELD_NAME) {
-
-				switch (jp.getCurrentName()) {
-					case "fromdate":
-						jp.nextToken();
-						jFromDate = jp.getText();
-						break;
-					case "todate":
-						jp.nextToken();
-						jToDate = jp.getText();
-						break;
-				}
-			}
-		}
-
-		return new SearchRange(jFromDate, jToDate);
-	}
+	
 
 }
