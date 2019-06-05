@@ -43,7 +43,7 @@
 				
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Insert Document</a>
+						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Documents</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="shift-tab" data-toggle="tab" href="#shift" role="tab" aria-controls="shift" aria-selected="false">Select Shift</a>
@@ -66,6 +66,11 @@
 						<!-- ********* INSERT DOCUMENT *******************************************-->
 					
 						<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+							
+							<h3>
+								Insert Document
+							</h3>
+						
 							<form>
 								<div class="form-group">
 									<p class="text">
@@ -132,6 +137,42 @@
 								</div>
 								<button type="send" class="btn btn-primary">Submit</button>
 							</form>
+							
+							<h3>
+								Retrieve Document
+							</h3>
+							
+							<form>
+								<div class="form-group">
+									<p class="text">
+										Select Project
+									</p>
+									<select name="retrievedocument">
+										<option value="Uno">Uno</option>
+										<option value="Due">Due</option>
+										<option value="Tre">Tre</option>
+										<option value="Quattro">Quattro</option>
+									</select>
+									<br><br>
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</form>
+							
+							<form>
+								<div class="form-group">
+									<p class="text">
+										Select Task
+									</p>
+									<select name="retrievetask">
+										<option value="Uno">Uno</option>
+										<option value="Due">Due</option>
+										<option value="Tre">Tre</option>
+										<option value="Quattro">Quattro</option>
+									</select>
+									<br><br>
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</div>
+							</form>
 						</div>
 						
 						<!-- ********* SELECT SHIFT *******************************************-->
@@ -172,8 +213,33 @@
 									<input type="date" id="start" name="trip-start" value="2018-07-22" min="2018-01-01" max="2018-12-31">
 								</div>
 							</form>
+							
+							<p class="text">
+								Shifts
+							</p>
+							
+							<table>
+								<tr>
+									<th>Task</th>
+									<th>Time</th>
+									<th>Fiscal Code</th>
+									<th>Notes</th>
+									<th>Hours</th>
+									<th>Hourly Wage</th>
+								</tr>
+								<tr>
+									<td>Da inserire</td>
+									<td>Da inserire</td>
+									<td>Da inserire</td>
+									<td>Da inserire</td>
+									<td>Da inserire</td>
+									<td>Da inserire</td>
+								</tr>
+							</table>
 						</div>
 						
+						<!-- ********* PROJECTS *******************************************-->
+						<!-- ********* PROJECTS *******************************************-->
 						<!-- ********* PROJECTS *******************************************-->
 						
 						<div class="tab-pane fade" id="projects" role="tabpanel" aria-labelledby="projects-tab">

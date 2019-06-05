@@ -30,12 +30,14 @@ select, input	{
 	border: 0px;
 }
 
-h5	{
+h5, h3	{
+	margin-top: 15px;
 	margin-bottom: 10px;
 }
 
 table	{
 	margin-bottom: 20px;
+	width: 100%;
 }
 
 th, td {
