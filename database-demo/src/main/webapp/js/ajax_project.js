@@ -123,7 +123,6 @@ function displayEmployees2(data) {
 var documentToBeReceived = new Object();
 
 var uuids2 = [null];
-var tsks2 = [];
 
 // Ajax request
 $.ajax({
@@ -154,6 +153,8 @@ function displayProjects2(data) {
 
 // *************************** SELECT TASK 2 *****************************
 
+var tsks2 = [];
+
 $('#project2').change(function()	{
 	
 	var sel = document.getElementById("project2");
@@ -181,7 +182,7 @@ $('#project2').change(function()	{
 		for (i = 0; i < list.length; i++) {
 			var option = document.createElement("option");
 			option.text = list[i].task.name + " - level " + list[i].task.level;
-			tsks2.push(list[i].task.uuid);
+			tsks2.push(list[i].task.taskuuid);
 			select.add(option);
 		}
 	  }
@@ -191,11 +192,12 @@ $('#project2').change(function()	{
 
 $('#task2').change(function()	{
 	
-	var sel = document.getElementById("tsk2");
+	var sel = document.getElementById("task2");
 	var ind = sel.selectedIndex;
 	documentToBeReceived.task = tsks2[ind];
 	console.log(ind);
 	console.log("Selected Task ID: " + tsks2[ind]);
+	console.log(documentToBeReceived.task);
 	
 });
 
@@ -208,13 +210,8 @@ id_document2.addEventListener("click", function(event){
 	// Prevent default behaviour
 	event.preventDefault();
 	
-	// Check if id missing something!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	var jsonToBeSent = JSON.stringify(documentToBeReceived);
-	
 	$.ajax({
 		type: "GET",
-		dataType: "json",
-		data: jsonToBeSent,
 		contentType: "application/json; charset=utf-8",
 		url: "rest/document/" + documentToBeReceived.task,
 		success: alert("Object Sent to server!")
