@@ -1,4 +1,28 @@
 // *************************** SELECT PROJECT 1 *****************************
+// Create object to be sent to the server
+var documentToBeSent = new Object();
+
+// Set action on botton click
+var id_document = document.getElementById("id-button-1");
+
+// Make ajax call to server
+id_document.addEventListener("click", function(event){
+	
+	// Prevent default behaviour
+	event.preventDefault()
+	
+	// Check if id missing something!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	var jsonToBeSent = JSON.stringify(documentToBeSent);
+	
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		data: jsonToBeSent,
+		contentType: "application/json; charset=utf-8",
+		url: "rest/document",
+		success: alert("Object Sent to server!")
+	});
+});
 
 var uuids = [null];
 
