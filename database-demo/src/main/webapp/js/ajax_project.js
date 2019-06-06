@@ -225,8 +225,19 @@ id_document2.addEventListener("click", function(event){
 	});
 });
 
-// *************************** Convert File into Base64 String *****************************
 
+// *************************** DOWNLOAD FUNCTION ***************************
+
+var downloadButton = document.getElementById("id-button-2");
+
+downloadButton.addEventListener("click", function()	{
+
+	downloadButton.href = url;		// CHANGE URL
+	downloadButton.download = 'file.pdf'; // CHANGE FILE NAME
+	
+});
+
+// *************************** Convert File into Base64 String *****************************
 
 var base64String;
 
