@@ -225,6 +225,9 @@ id_document2.addEventListener("click", function(event){
 	});
 });
 
+// *************************** Convert File into Base64 String *****************************
+
+
 var base64String;
 
 function handleFileSelect(evt) {
@@ -236,11 +239,9 @@ function handleFileSelect(evt) {
       var binaryData = e.target.result;
       //Converting Binary Data to base 64
       base64String = window.btoa(binaryData);
-      
-    
-      //alert('File converted to base64 successfuly!\nCheck in Textarea');
     };
   })(f);
   // Read in the image file as a data URL.
   reader.readAsBinaryString(f);
 }
+
