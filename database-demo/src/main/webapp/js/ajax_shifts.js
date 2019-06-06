@@ -1,4 +1,10 @@
-// *************************** SELECT PROJECT 3 *****************************
+// ********* SELECT SHIFT *******************************************
+var ss_project = document.getElementById("project3");
+var ss_project_uuid = [];
+var ss_task = document.getElementById("task3");
+var ss_task_uuid = [];
+var ss_employee = document.getElementById("employee3");
+var ss_employee_uuid = [];
 
 // Ajax request
 $.ajax({
@@ -15,13 +21,12 @@ function displayProjects3(data) {
 		console.log(data.message.error-code);
 		console.log(data.message.error-details);
 	}
-		
-	var select = document.getElementById("project3");
+
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
 		option.text = list[i].project.title;
-		select.add(option);
+		ss_project.add(option);
 	}
 
 }
@@ -29,7 +34,7 @@ function displayProjects3(data) {
 // *************************** SELECT EMPLOYEE 3 *****************************
 
 // Ajax request
-$.ajax({
+/*$.ajax({
   contentType: "application/json; charset=utf-8",
   url: "rest/employee",
   success: displayEmployees3
@@ -80,4 +85,4 @@ function displayEmployees(data) {
 		select.add(option);
 	}
 
-}	
+}	*/

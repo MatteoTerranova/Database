@@ -76,21 +76,21 @@
 									<p class="text">
 										Select Project
 									</p>
-									<select name="project" id="project" onchange="func()">
+									<select name="project" id="project">
+										<option>
+											--- Choose Project ---
+										</option>
 									</select>
 									<br><br>
-									<button type="submit" class="btn btn-primary">Submit</button>
 									<!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Submit</button> -->
 								</div>
-							</form>
-							
+								
 							<!-- <div class="collapse" id="collapseExample">
 								<div class="card card-body">
 									Sas
 								</div>
 							</div> -->
 							
-							<form>
 								<div class="form-group">
 									<p class="text">
 										Select Task
@@ -98,12 +98,9 @@
 									<select name="task" id="task">
 									</select>
 									<br><br>
-									<button type="submit" class="btn btn-primary">Submit</button>
 									<!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Submit</button> -->
 								</div>
-							</form>
 							
-							<form>
 								<div class="form-group">
 									<p class="text">
 										Select Employee
@@ -111,17 +108,15 @@
 									<select name="employee" id="employee2">
 									</select>
 									<br><br>
-									<button type="submit" class="btn btn-primary">Submit</button>
 								</div>
-							</form>
 							
-							<form id="document">
 								<div class="form-group">
 									<p class="text">Import Document</p>
 									<div class="input-group">
 										<input type="file" name="myFile"><br><br>
 									</div>
 								</div>
+								
 								<button type="send" class="btn btn-primary">Submit</button>
 							</form>
 							
@@ -135,26 +130,24 @@
 										Select Project
 									</p>
 									<select name="retrievedocument" id="project2">
+										<option>
+											--- Choose Project ---
+										</option>
 									</select>
 									<br><br>
-									<button type="submit" class="btn btn-primary">Submit</button>
 								</div>
-							</form>
-							
-							<form>
+
 								<div class="form-group">
 									<p class="text">
 										Select Task
 									</p>
-									<select name="retrievetask">
-										<option value="Uno">Uno</option>
-										<option value="Due">Due</option>
-										<option value="Tre">Tre</option>
-										<option value="Quattro">Quattro</option>
+									<select name="retrievetask" id="task2">
 									</select>
 									<br><br>
-									<button type="submit" class="btn btn-primary">Submit</button>
 								</div>
+								
+								<button type="submit" class="btn btn-primary">Submit</button>
+								
 							</form>
 						</div>
 						
@@ -354,10 +347,9 @@
 			
 		</div>
 
-		<script src="/ennedue-demo-1.00/js/jquery-3.3.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 		<script language="JavaScript" type="text/javascript" src="/ennedue-demo-1.00/js/ajax_project.js"></script>
 		<!-- Bootstrap -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"crossorigin="anonymous"></script>
 

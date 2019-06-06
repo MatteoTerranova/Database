@@ -1,6 +1,6 @@
 // *************************** SELECT PROJECT 1 *****************************
 
-var uuids = [];
+var uuids = [null];
 
 // Ajax request
 $.ajax({
@@ -29,66 +29,44 @@ function displayProjects(data) {
 
 }
 
-console.log(uuids);
+// *************************** SELECT TASK 1 *****************************
 
-function func()	{
+$('#project').change(function()	{
+	
 	var sel = document.getElementById("project");
+	var tsk = $("#task");
+	tsk.find('option').remove();
 	var ind = sel.selectedIndex;
 	console.log(ind);
 	console.log(uuids[ind]);
-	return uuids[ind];
-}
-
-// *************************** SELECT TASK 1 *****************************
-
-// Ajax request
-/*$.ajax({
-  contentType: "application/json; charset=utf-8",
-  url: "rest/project",
-  success: getSelectedID
-});
-
-function getSelectedID(data) {
-		
-	var selectedElement = func();
-	var select = document.getElementById("project");
-	var list = data["resource-list"];
-	for (i = 0; i < list.length; i++) {
-		if(selectedElement === list[i].project.title)	{
-			selectedID = list[i].project.uuid;
-			return selectedID;
-		}
-	}
-			
-}*/
-
-// Ajax request
-$.ajax({
-  contentType: "application/json; charset=utf-8",
-  url: "rest/project/" + func() + "/task",
-  success: displayTasks
-});
-
-function displayTasks(data) {
 	
-	// Log error message
-	if (data.message != null){
-		console.log(data.message);
-		console.log(data.message.error-code);
-		console.log(data.message.error-details);
-	}
-		
-	var select = document.getElementById("task");
-	var list = data["resource-list"];
-	for (i = 0; i < list.length; i++) {
-		var option = document.createElement("option");
-		option.text = list[i].task.name;
-		select.add(option);
-	}
-
-}	
+	// Ajax request
+	$.ajax({
+	  contentType: "application/json; charset=utf-8",
+	  url: "rest/project/" + uuids[ind] + "/task",
+	  success: function(data)	{
+		// Log error message
+		if (data.message != null){
+			console.log(data.message);
+			console.log(data.message.error-code);
+			console.log(data.message.error-details);
+		}
+			
+		var select = document.getElementById("task");
+		var list = data["resource-list"];
+		for (i = 0; i < list.length; i++) {
+			var option = document.createElement("option");
+			option.text = list[i].task.name;
+			select.add(option);
+		}
+	  }
+	});
+	
+});
 
 // *************************** SELECT PROJECT 2 *****************************
+
+var uuids2 = [null];
 
 // Ajax request
 $.ajax({
@@ -111,10 +89,46 @@ function displayProjects2(data) {
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
 		option.text = list[i].project.title;
+		uuids2.push(list[i].project.uuid);
 		select.add(option);
 	}
 
 }
+
+// *************************** SELECT TASK 2 *****************************
+
+$('#project2').change(function()	{
+	
+	var sel = document.getElementById("project2");
+	var tsk = $("#task2");
+	tsk.find('option').remove();
+	var ind = sel.selectedIndex;
+	console.log(ind);
+	console.log(uuids2[ind]);
+	
+	// Ajax request
+	$.ajax({
+	  contentType: "application/json; charset=utf-8",
+	  url: "rest/project/" + uuids2[ind] + "/task",
+	  success: function(data)	{
+		// Log error message
+		if (data.message != null){
+			console.log(data.message);
+			console.log(data.message.error-code);
+			console.log(data.message.error-details);
+		}
+			
+		var select = document.getElementById("task2");
+		var list = data["resource-list"];
+		for (i = 0; i < list.length; i++) {
+			var option = document.createElement("option");
+			option.text = list[i].task.name;
+			select.add(option);
+		}
+	  }
+	});
+	
+});
 
 // *************************** SELECT EMPLOYEE 2 *****************************
 
