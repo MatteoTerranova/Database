@@ -2,10 +2,12 @@
 // *************************** Convert File into Base64 String *****************************
 var base64String;
 var contentT = 'application/pdf';
+var filename;
 
 
 function handleFileSelect(evt) {
   var f = evt.target.files[0]; // FileList object
+  filename = f.name;
   var reader = new FileReader();
   // Closure to capture the file information.
   reader.onload = (function(theFile) {
@@ -207,6 +209,10 @@ id_document.addEventListener("click", function(event){
 	documentToBeSent.producer = producer;
 	
 	documentToBeSent.content = base64String;
+	
+	documentToBeSent.name = filename;
+	
+	documentToBeSent.uuid = "-";
 	
 	// Prevent default behaviour
 	event.preventDefault();
