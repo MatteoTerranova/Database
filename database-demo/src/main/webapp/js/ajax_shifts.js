@@ -1,5 +1,5 @@
 // ********* SELECT SHIFT *******************************************
-var ss_project = document.getElementById("project3");
+/* var ss_project = document.getElementById("project3");
 var ss_project_uuid = [];
 var ss_task = document.getElementById("task3");
 var ss_task_uuid = [];
@@ -29,7 +29,7 @@ function displayProjects3(data) {
 		ss_project.add(option);
 	}
 
-}
+} */
 
 // *************************** SELECT EMPLOYEE 3 *****************************
 

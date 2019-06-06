@@ -56,7 +56,7 @@ $('#project').change(function()	{
 		var list = data["resource-list"];
 		for (i = 0; i < list.length; i++) {
 			var option = document.createElement("option");
-			option.text = list[i].task.name;
+			option.text = list[i].task.name + " - level " + list[i].task.level;
 			select.add(option);
 		}
 	  }
@@ -122,7 +122,7 @@ $('#project2').change(function()	{
 		var list = data["resource-list"];
 		for (i = 0; i < list.length; i++) {
 			var option = document.createElement("option");
-			option.text = list[i].task.name;
+			option.text = list[i].task.name + " - level " + list[i].task.level;
 			select.add(option);
 		}
 	  }
