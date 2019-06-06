@@ -216,3 +216,14 @@ id_document2.addEventListener("click", function(event){
 		success: alert("Object Sent to server!")
 	});
 });
+
+// *************************** DOWNLOAD FUNCTION ***************************
+
+var downloadButton = document.getElementById("id-button-2");
+
+downloadButton.addEventListener("click", function()	{
+
+	downloadButton.href = url;		// CHANGE URL
+	downloadButton.download = 'file.pdf'; // CHANGE FILE NAME
+
+}
