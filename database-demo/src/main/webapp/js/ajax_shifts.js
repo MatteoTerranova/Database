@@ -269,12 +269,12 @@ $('#ss-button-2').click(function()	{
 				cell2.innerHTML = list[i].timeslot.template;
 				cell3.innerHTML = list[i].timeslot.timestamp;
 				cell4.innerHTML = list[i].timeslot.note;
-				cell5.innerHTML = list[i].timeslot.hourlywage;
+				cell5.innerHTML = parseFloat(list[i].timeslot.hourlywage).toFixed(2);
 				cell6.innerHTML = list[i].timeslot.hours;
 				total += list[i].timeslot.hourlywage * list[i].timeslot.hours;	
 			}
 			var displayHours = document.getElementById("totalhours");
-			displayHours.innerHTML = "Total wage: " + total;
+			displayHours.innerHTML = "Total wage: " + parseFloat(total).toFixed(2);;
 		}
 	});
 	
