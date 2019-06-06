@@ -99,17 +99,24 @@ function displayEmployees3(data) {
 
 }	
 
+// *************************** SELECT EMPLOYEE *****************************
+// All the action element
+var s_startDate = document.getElementById('start-date');
+var s_endDate = document.getElementById('end-date');
+var s_employee = document.getElementById('employee');
+var b_listShift = document.getElementById('ss-button-2');
+
+// Save additional informations
 var empuuids = [];
 
-// *************************** SELECT EMPLOYEE *****************************
-
-// Ajax request
+// Ajax request to populate project select
 $.ajax({
   contentType: "application/json; charset=utf-8",
   url: "rest/employee",
   success: displayEmployees
 });
 
+// Function to populate employees
 function displayEmployees(data) {
 	
 	// Log error message
@@ -119,27 +126,31 @@ function displayEmployees(data) {
 		console.log(data.message.error-details);
 	}
 		
-	var select = document.getElementById("employee");
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
 		option.text = list[i].employee.name + " " + list[i].employee.surname;
+		s_employee.add(option);
+		
+		// Fill the array with all the employee's fiscal codes
 		empuuids.push(list[i].employee.fiscalcode);
-		select.add(option);
 	}
 
 }
 
+
 // *************************** SHOW SHIFTS TABLE *****************************
 
-$('#employee').change(function()	{
+$('#ss-button-2').click(function()	{
 	
-	var sel = document.getElementById("employee");
 	var tsk = $("#shifts");
 	//tsk.find('option').remove();		CHECK REMOVE TABLE
-	var ind = sel.selectedIndex;
-	console.log(ind);
-	console.log(empuuids[ind]);
+	var fcemp = empuuids[s_employee.selectedIndex];
+	var sDate = new Date(s_startDate.value);
+	var eDate = new Date(s_endDate.value);
+	console.log(fcemp);
+	console.log(sDate);
+	console.log(eDate);
 	
 	// Ajax request
 	$.ajax({
