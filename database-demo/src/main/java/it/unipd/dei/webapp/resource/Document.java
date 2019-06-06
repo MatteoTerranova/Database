@@ -3,6 +3,7 @@ package it.unipd.dei.webapp.resource;
 import com.fasterxml.jackson.core.*;
 
 import java.io.*;
+import java.util.UUID;
 
 /**
  * Document of the Ennedue Studio
@@ -11,45 +12,45 @@ import java.io.*;
  // TODO: CLASS MUST BE COMPLETED WITH WHAT WE WANT TO SHOW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 public class Document extends Resource {
 
-	//private final String id;
+	private final UUID id;
 
 	private final String name;
 	
-	//private final String content;
+	private final String content;
 
-	//private final String taskID;
+	private final UUID taskID;
 
-	//private final String producer;
+	private final String producer;
 
 	// Creates new Document
-	public Document(final String name) {//, final String id, final String content, final String taskID, final String producer) {
-		//this.id = id;
+	public Document(final UUID id, final String name, final String content, final UUID taskID, final String producer) {
+		this.id = id;
 		this.name = name;
-		//this.content = content;
-		//this.taskID = taskID;
-		//this.producer = producer;
+		this.content = content;
+		this.taskID = taskID;
+		this.producer = producer;
 		
 	}
 	
-	/*public final String getID() {
+	public final UUID getID() {
 		return id;
-	}*/
+	}
 	
 	public final String getName() {
 		return name;
 	}
 
-	/*public final String getContent() {
+	public final String getContent() {
 		return content;
-	}*/
+	}
 
-	/*public final String getTaskID() {
+	public final UUID getTaskID() {
 		return taskID;
-	}*/
+	}
 
-	/*public final String getProducert() {
+	public final String getProducer() {
 		return producer;
-	}*/
+	}
 	
 	
 	@Override
@@ -63,15 +64,15 @@ public class Document extends Resource {
 
 		jg.writeStartObject();
 
-		//jg.writeStringField("id", id);
+		jg.writeStringField("id", id.toString());
 
 		jg.writeStringField("name", name);
 		
-		//jg.writeStringField("content", content);
+		jg.writeStringField("content", content);
 
-		//jg.writeStringField("taskid", taskID);
+		jg.writeStringField("taskid", taskID.toString());
 
-		//jg.writeStringField("producer", producer);
+		jg.writeStringField("producer", producer);
 
 		jg.writeEndObject();
 
