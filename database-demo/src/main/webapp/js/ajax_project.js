@@ -202,17 +202,24 @@ var id_document = document.getElementById("id-button-1");
 // Make ajax call to server
 id_document.addEventListener("click", function(event){
 	
+	var innerEl = new Object();
+	
 	var taskuuid = ss_task_uuid[document.getElementById("task").selectedIndex];
-	documentToBeSent.taskuuid = taskuuid;
+	innerEl.taskuuid = taskuuid;
 	
 	var producer = emp[document.getElementById("employee2").selectedIndex];
-	documentToBeSent.producer = producer;
-	alert('Producer '+ documentToBeSent.producer);
-	documentToBeSent.content = base64String;
+
+
+	innerEl.producer = producer;
 	
-	documentToBeSent.name = filename;
+	innerEl.content = base64String;
 	
-	documentToBeSent.uuid = "-";
+	innerEl.name = filename;
+
+	
+	innerEl.uuid = "-";
+	
+	documentToBeSent.document = innerEl;
 	
 	// Prevent default behaviour
 	event.preventDefault();
