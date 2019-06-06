@@ -29,6 +29,8 @@ function displayProjects(data) {
 
 }
 
+var project = document.getElementById("project");
+project.addEventListener("change", func);
 console.log(uuids);
 
 function func()	{
@@ -38,6 +40,8 @@ function func()	{
 	console.log(uuids[ind]);
 	return uuids[ind];
 }
+
+console.log("rest/" + func());
 
 // *************************** SELECT TASK 1 *****************************
 
