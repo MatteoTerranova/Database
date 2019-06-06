@@ -89,14 +89,17 @@ public class Document extends Resource {
 	public static Document fromJSON(final InputStream in) throws IOException {
 
 		// The fields read from JSON
-		String jFromDate = null;
-		String jToDate = null;
+		UUID jUuid = null;
+		String jName = null;
+		String jContent = null;
+		UUID jTaskID = null;
+		String jProducer = null;
 
 		final JsonParser jp = JSON_FACTORY.createParser(in);
 
 		// While we are not on the start of an element or the element is not
 		// a token element, advance to the next element (if any)
-		while (jp.getCurrentToken() != JsonToken.FIELD_NAME || "range".equals(jp.getCurrentName()) == false) {
+		while (jp.getCurrentToken() != JsonToken.FIELD_NAME || "document".equals(jp.getCurrentName()) == false) {
 
 			// there are no more events
 			if (jp.nextToken() == null) {
@@ -109,19 +112,31 @@ public class Document extends Resource {
 			if (jp.getCurrentToken() == JsonToken.FIELD_NAME) {
 
 				switch (jp.getCurrentName()) {
-					case "fromdate":
+					case "uuid":
 						jp.nextToken();
-						jFromDate = jp.getText();
+						jUuid = UUID.fromString(jp.getText());
 						break;
-					case "todate":
+					case "name":
 						jp.nextToken();
-						jToDate = jp.getText();
+						jName = jp.getText();
+						break;
+					case "content":
+						jp.nextToken();
+						jContent = jp.getText();
+						break;
+					case "taskuuid":
+						jp.nextToken();
+						jTaskID = UUID.fromString(jp.getText());
+						break;
+					case "producer":
+						jp.nextToken();
+						jProducer = jp.getText();
 						break;
 				}
 			}
 		}
 
-		return new Document(jFromDate);
+		return new Document(jUuid, jName, jContent, jTaskID, jProducer);
 	}
 
 }
