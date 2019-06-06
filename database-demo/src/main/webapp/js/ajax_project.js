@@ -169,7 +169,6 @@ $('#project2').change(function()	{
 	var tsk = $("#task2");
 	tsk.find('option').remove();
 	var ind = sel.selectedIndex;
-	documentToBeReceived.uuid = uuids2[ind];
 	console.log(ind);
 	console.log(uuids2[ind]);
 	
