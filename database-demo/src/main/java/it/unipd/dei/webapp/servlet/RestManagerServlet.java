@@ -352,6 +352,9 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 					case "GET":
 						new DocumentRestResource(req, res, getDataSource().getConnection()).listDocument();
 						break;
+					case "POST":
+						new DocumentRestResource(req, res, getDataSource().getConnection()).createDocument();
+						break;
 					default:
 						m = new Message("Unsupported operation for URI /document.",
 										"E4A5", String.format("Requested operation %s.", method));
