@@ -146,17 +146,17 @@ $('#ss-button-2').click(function()	{
 	var tsk = $("#shifts");
 	//tsk.find('option').remove();		CHECK REMOVE TABLE
 	var fcemp = empuuids[s_employee.selectedIndex];
-	var sDate = new Date(s_startDate.value);
-	var eDate = new Date(s_endDate.value);
+	var sDate = s_startDate.value;
+	var eDate = s_endDate.value;
 	console.log(fcemp);
 	console.log(sDate);
 	console.log(eDate);
 	
 	// Ajax request
 	$.ajax({
-	  contentType: "application/json; charset=utf-8",
-	  url: "rest/employee/timeslot/" + empuuids[ind] + "/fromdate/" + startdate + "/todate/" + enddate,
-	  success: function(data)	{
+		contentType: "application/json; charset=utf-8",
+		url: "rest/employee/timeslot/" + fcemp + "/fromdate/" + sDate + "/todate/" + eDate,
+		success: function(data)	{
 		// Log error message
 		if (data.message != null){
 			console.log(data.message);
@@ -181,7 +181,7 @@ $('#ss-button-2').click(function()	{
 			cell5.innerHTML = list[i].timeslot.hourlywage;
 			cell6.innerHTML = list[i].timeslot.hours;
 		}
-	  }
+		}
 	});
 	
 });
