@@ -29,15 +29,22 @@ function displayProjects(data) {
 
 }
 
+var project = document.getElementById("project");
+project.addEventListener("change", func);
 console.log(uuids);
+
+var array = []
 
 function func()	{
 	var sel = document.getElementById("project");
 	var ind = sel.selectedIndex;
 	console.log(ind);
 	console.log(uuids[ind]);
+	array.push(uuids[ind]);
 	return uuids[ind];
 }
+
+console.log("rest/" + array[array.length - 1]);
 
 // *************************** SELECT TASK 1 *****************************
 
@@ -65,7 +72,7 @@ function getSelectedID(data) {
 // Ajax request
 $.ajax({
   contentType: "application/json; charset=utf-8",
-  url: "rest/project/" + func() + "/task",
+  url: "rest/project/" + array[array.length - 1] + "/task",
   success: displayTasks
 });
 
