@@ -176,8 +176,8 @@ $('#ss-button-2').click(function()	{
 			var cell6 = row.insertCell(5);
 			cell1.innerHTML = list[i].timeslot.title;
 			cell2.innerHTML = list[i].timeslot.template;
-			cell3.innerHTML = list[i].timeslot.time;
-			cell4.innerHTML = list[i].timeslot.notes;
+			cell3.innerHTML = list[i].timeslot.timestamp;
+			cell4.innerHTML = list[i].timeslot.note;
 			cell5.innerHTML = list[i].timeslot.hourlywage;
 			cell6.innerHTML = list[i].timeslot.hours;
 		}
