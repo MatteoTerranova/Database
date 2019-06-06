@@ -185,7 +185,7 @@ function displayEmployees2(data) {
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
 		option.text = list[i].employee.name + " " + list[i].employee.surname;
-		emp.push(list[i].fiscalcode);
+		emp.push(list[i].employee.fiscalcode);
 		select.add(option);
 	}
 
