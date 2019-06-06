@@ -7,6 +7,10 @@ var ss_wage = document.getElementById("hourlywageinput");
 var ss_hours = document.getElementById("hoursinput");
 var ss_notes = document.getElementById("notesinput");
 
+
+// Empty text note
+ss_notes.value = "";
+
 // Auxiliary elements
 var ss_project_uuid = [];
 var ss_task_uuid = [];
