@@ -86,7 +86,7 @@ public class Document extends Resource {
 	 * Creates a Document from its JSON representation.
 	 */
 	 // TODO: Implemetn this method to store the documents inside the database
-	public static Document fromJSON(final InputStream in) throws IOException {
+	/* public static Document fromJSON(final InputStream in) throws IOException {
 
 		// The fields read from JSON
 		String jFromDate = null;
@@ -122,6 +122,6 @@ public class Document extends Resource {
 		}
 
 		return new Document(jFromDate);
-	}
+	} */
 
 }
