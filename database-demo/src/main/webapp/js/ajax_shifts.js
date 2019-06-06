@@ -247,30 +247,34 @@ $('#ss-button-2').click(function()	{
 		contentType: "application/json; charset=utf-8",
 		url: "rest/employee/timeslot/" + fcemp + "/fromdate/" + sDate + "/todate/" + eDate,
 		success: function(data)	{
-		// Log error message
-		if (data.message != null){
-			console.log(data.message);
-			console.log(data.message.error-code);
-			console.log(data.message.error-details);
-		}
-			
-		var table = document.getElementById("shifts");
-		var list = data["resource-list"];
-		for (i = 0; i < list.length; i++) {
-			var row = table.insertRow(1);
-			var cell1 = row.insertCell(0);
-			var cell2 = row.insertCell(1);
-			var cell3 = row.insertCell(2);
-			var cell4 = row.insertCell(3);
-			var cell5 = row.insertCell(4);
-			var cell6 = row.insertCell(5);
-			cell1.innerHTML = list[i].timeslot.title;
-			cell2.innerHTML = list[i].timeslot.template;
-			cell3.innerHTML = list[i].timeslot.timestamp;
-			cell4.innerHTML = list[i].timeslot.note;
-			cell5.innerHTML = list[i].timeslot.hourlywage;
-			cell6.innerHTML = list[i].timeslot.hours;
-		}
+			// Log error message
+			if (data.message != null){
+				console.log(data.message);
+				console.log(data.message.error-code);
+				console.log(data.message.error-details);
+			}
+				
+			var total = 0;
+			var table = document.getElementById("shifts");
+			var list = data["resource-list"];
+			for (i = 0; i < list.length; i++) {
+				var row = table.insertRow(1);
+				var cell1 = row.insertCell(0);
+				var cell2 = row.insertCell(1);
+				var cell3 = row.insertCell(2);
+				var cell4 = row.insertCell(3);
+				var cell5 = row.insertCell(4);
+				var cell6 = row.insertCell(5);
+				cell1.innerHTML = list[i].timeslot.title;
+				cell2.innerHTML = list[i].timeslot.template;
+				cell3.innerHTML = list[i].timeslot.timestamp;
+				cell4.innerHTML = list[i].timeslot.note;
+				cell5.innerHTML = list[i].timeslot.hourlywage;
+				cell6.innerHTML = list[i].timeslot.hours;
+				total += list[i].timeslot.hourlywage * list[i].timeslot.hours;	
+			}
+			var displayHours = document.getElementById("totalhours");
+			displayHours.innerHTML = "Total wage: " + total;
 		}
 	});
 	
