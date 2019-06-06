@@ -221,25 +221,21 @@ id_document2.addEventListener("click", function(event){
 		type: "GET",
 		contentType: "application/json; charset=utf-8",
 		url: "rest/document/" + documentToBeReceived.task,
-		success: alert("Object Sent to server!")
+		success: alert("Object Retrieved from the server!")
 	});
 });
 
 
-// *************************** DOWNLOAD FUNCTION ***************************
 
-var downloadButton = document.getElementById("id-button-2");
 
-downloadButton.addEventListener("click", function()	{
 
-	downloadButton.href = url;		// CHANGE URL
-	downloadButton.download = 'file.pdf'; // CHANGE FILE NAME
-	
-});
+
+
 
 // *************************** Convert File into Base64 String *****************************
-
 var base64String;
+var contentT = 'application/pdf';
+
 
 function handleFileSelect(evt) {
   var f = evt.target.files[0]; // FileList object
@@ -250,9 +246,53 @@ function handleFileSelect(evt) {
       var binaryData = e.target.result;
       //Converting Binary Data to base 64
       base64String = window.btoa(binaryData);
+      alert('File converted to base64 successfuly!');
     };
   })(f);
   // Read in the image file as a data URL.
   reader.readAsBinaryString(f);
+
 }
+
+
+
+function converBase64toBlob(content, contentType) {
+  contentType = contentType || '';
+  var sliceSize = 512;
+  var byteCharacters = window.atob(content); //method which converts base64 to binary
+  var byteArrays = [
+  ];
+  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    var slice = byteCharacters.slice(offset, offset + sliceSize);
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  var blob = new Blob(byteArrays, {
+    type: contentType
+  }); //statement which creates the blob
+  alert('File decoded from base64 successfuly!');
+  return blob;
+}
+
+// *************************** DOWNLOAD FUNCTION ***************************
+var blob;
+var downloadButton = document.getElementById("id-button-2");
+//WORK IN PROGRESS
+
+
+downloadButton.addEventListener("click", function(){
+	blob = converBase64toBlob(base64String, 'application/pdf');
+	var blobURL = window.URL.createObjectURL(blob);
+	
+	downloadButton.href = blobURL;		// CHANGE URL
+	
+	downloadButton.target = '_blank';
+
+	downloadButton.download = 'file.pdf'; // CHANGE FILE NAME
+	
+});
 
