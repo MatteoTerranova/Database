@@ -208,11 +208,14 @@ id_document.addEventListener("click", function(event){
 	innerEl.taskuuid = taskuuid;
 	
 	var producer = emp[document.getElementById("employee2").selectedIndex];
+
+
 	innerEl.producer = producer;
 	
 	innerEl.content = base64String;
 	
 	innerEl.name = filename;
+
 	
 	innerEl.uuid = "-";
 	
