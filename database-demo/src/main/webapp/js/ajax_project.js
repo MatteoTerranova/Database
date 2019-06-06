@@ -1,3 +1,11 @@
+// Check for the File API support.
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+} else {
+  alert('The File APIs are not fully supported in this browser.');
+}
+
+
 // *************************** SELECT PROJECT 1 *****************************
 
 // Create object to be sent to the server
@@ -217,3 +225,23 @@ id_document2.addEventListener("click", function(event){
 		success: alert("Object Sent to server!")
 	});
 });
+
+var base64String;
+
+function handleFileSelect(evt) {
+  var f = evt.target.files[0]; // FileList object
+  var reader = new FileReader();
+  // Closure to capture the file information.
+  reader.onload = (function(theFile) {
+    return function(e) {
+      var binaryData = e.target.result;
+      //Converting Binary Data to base 64
+      base64String = window.btoa(binaryData);
+      
+    
+      //alert('File converted to base64 successfuly!\nCheck in Textarea');
+    };
+  })(f);
+  // Read in the image file as a data URL.
+  reader.readAsBinaryString(f);
+}
