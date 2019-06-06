@@ -23,6 +23,7 @@ select, input	{
 .btn	{
 	background-color: #93c354;
 	border: 0px;
+	margin: 20px;
 }
 
 .btn:hover	{
