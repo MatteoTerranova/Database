@@ -33,7 +33,7 @@ var project = document.getElementById("project");
 project.addEventListener("change", func);
 console.log(uuids);
 
-var array = []
+var array = [];
 
 function func()	{
 	var sel = document.getElementById("project");
@@ -41,10 +41,35 @@ function func()	{
 	console.log(ind);
 	console.log(uuids[ind]);
 	array.push(uuids[ind]);
-	return uuids[ind];
+	console.log("rest/" + array[array.length - 1]);
+	
+	// Ajax request
+	$.ajax({
+	  contentType: "application/json; charset=utf-8",
+	  url: "rest/project/" + array[array.length - 1] + "/task",
+	  success: displayTasks
+	});
+
+	function displayTasks(data) {
+		
+		// Log error message
+		if (data.message != null){
+			console.log(data.message);
+			console.log(data.message.error-code);
+			console.log(data.message.error-details);
+		}
+			
+		var select = document.getElementById("task");
+		var list = data["resource-list"];
+		for (i = 0; i < list.length; i++) {
+			var option = document.createElement("option");
+			option.text = list[i].task.name;
+			select.add(option);
+		}
+
+	}	
 }
 
-console.log("rest/" + array[array.length - 1]);
 
 // *************************** SELECT TASK 1 *****************************
 
@@ -68,32 +93,6 @@ function getSelectedID(data) {
 	}
 			
 }*/
-
-// Ajax request
-$.ajax({
-  contentType: "application/json; charset=utf-8",
-  url: "rest/project/" + array[array.length - 1] + "/task",
-  success: displayTasks
-});
-
-function displayTasks(data) {
-	
-	// Log error message
-	if (data.message != null){
-		console.log(data.message);
-		console.log(data.message.error-code);
-		console.log(data.message.error-details);
-	}
-		
-	var select = document.getElementById("task");
-	var list = data["resource-list"];
-	for (i = 0; i < list.length; i++) {
-		var option = document.createElement("option");
-		option.text = list[i].task.name;
-		select.add(option);
-	}
-
-}	
 
 // *************************** SELECT PROJECT 2 *****************************
 
