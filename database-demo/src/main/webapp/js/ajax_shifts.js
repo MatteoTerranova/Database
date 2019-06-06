@@ -1,4 +1,10 @@
-// *************************** SELECT PROJECT 3 *****************************
+// ********* SELECT SHIFT *******************************************
+var ss_project = document.getElementById("project3");
+var ss_project_uuid;
+var ss_task = document.getElementById("task3");
+var ss_task_uuid;
+var ss_employee = document.getElementById("employee3");
+var ss_employee_uuid;
 
 // Ajax request
 $.ajax({

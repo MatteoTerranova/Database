@@ -1,0 +1,19 @@
+json timeslot:
+LRNBTT96C01D149A
+e5b6ca51-14e6-4959-b0c4-e9d882a2fcde
+
+{\"timeslot\":{\"fiscalcode\":\"LRNBTT96C01D149A\",\"taskuuid\":\"e5b6ca51-14e6-4959-b0c4-e9d882a2fcde\",\"timestamp\":\"2018-08-02 04:32:25+01\",\"note\":\"goodwork\",\"hourlywage\":6.50,\"hours\":8}}
+
+REST API:
+rest/employee/timeslot -> Insert new timeslot (Too see triggers in action)
+send to server json:
+{
+	timeslot:{
+		fiscalcode: ...,
+		taskuuid: ...,
+		timestemp: ...,
+		note: ...,
+		hourlywage: ...,
+		hours; ...
+	}
+}
