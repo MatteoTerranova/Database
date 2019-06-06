@@ -119,50 +119,68 @@ $('#ss-button-1').click(function()	{
 	// Build Timestamp
 	var date = new Date();
 	var sec = date.getSeconds();
+	if (sec < 10){
+		sec = "0"+sec;
+	}
 	var min = date.getMinutes();
+	if (min < 10){
+		min = "0"+min;
+	}
 	var hour = date.getHours();
+	if (hour < 10){
+		hour = "0"+hour;
+	}
 	
 	var year = date.getFullYear();
 	var month = date.getMonth()+1;
+	
+	if (month < 10){
+		month = "0"+month;
+	}
+	
 	var day = date.getDate();
+	if (day < 10){
+		day = "0"+day;
+	}
+	
+	var tsres = year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + sec + "+01";
 	
 	// DEBUG
-	console.log(year + ":" + month + ":" + day + " " + hour + ":" + min + ":" + sec + "+01");
+	console.log(tsres);
 	console.log(fcemployee);
 	console.log(taskuuid);
 	console.log(note);
 	console.log(h);
 	console.log(hwage);
 	
+	// Build Object to be sent
+	innerObj = new Object();
+	innerObj.fiscalcode = fcemployee;
+	innerObj.taskuuid = taskuuid;
+	innerObj.timestamp = tsres;
+	innerObj.note = note;
+	innerObj.hourlywage = hwage*1.0;
+	innerObj.hours = h*1.0;
+	timeSlotToBeSent.timeslot = innerObj;
+	
+	var jsonResTs = JSON.stringify(timeSlotToBeSent);
+	
+	console.log(jsonResTs);
+	
 	// Ajax request
 	$.ajax({
+		type: "POST",
+		dataType: "json",
+		data: jsonResTs,
 		contentType: "application/json; charset=utf-8",
-		url: "rest/employee/timeslot/" + fcemp + "/fromdate/" + sDate + "/todate/" + eDate,
+		url: "rest/employee/timeslot",
 		success: function(data)	{
-		// Log error message
-		if (data.message != null){
-			console.log(data.message);
-			console.log(data.message.error-code);
-			console.log(data.message.error-details);
-		}
-			
-		var table = document.getElementById("shifts");
-		var list = data["resource-list"];
-		for (i = 0; i < list.length; i++) {
-			var row = table.insertRow(1);
-			var cell1 = row.insertCell(0);
-			var cell2 = row.insertCell(1);
-			var cell3 = row.insertCell(2);
-			var cell4 = row.insertCell(3);
-			var cell5 = row.insertCell(4);
-			var cell6 = row.insertCell(5);
-			cell1.innerHTML = list[i].timeslot.title;
-			cell2.innerHTML = list[i].timeslot.template;
-			cell3.innerHTML = list[i].timeslot.timestamp;
-			cell4.innerHTML = list[i].timeslot.note;
-			cell5.innerHTML = list[i].timeslot.hourlywage;
-			cell6.innerHTML = list[i].timeslot.hours;
-		}
+			// Log error message
+			if (data.message != null){
+				console.log(data.message);
+				console.log(data.message.error-code);
+				console.log(data.message.error-details);
+			}
 		}
 	});
 	
