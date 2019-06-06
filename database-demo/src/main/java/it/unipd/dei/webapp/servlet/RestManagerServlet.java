@@ -144,6 +144,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 		String path = req.getRequestURI();
 		Message m = null;
+		String tmp = "";
 
 		// the requested resource was not an employee
 		if(path.lastIndexOf("rest/employee") <= 0) {
@@ -172,8 +173,8 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 			} else {
 				// the request URI is: /employee/timeslot/{fiscalcode}/fromdate/{date}/todate/{date}
 				if (path.contains("timeslot")) {
-					path = path.substring(path.lastIndexOf("timeslot") + 8);
-					String tmp = path.substring(path.lastIndexOf("employee") + 8);
+					
+					tmp = path.substring(path.lastIndexOf("timeslot") + 8);
 					
 					// the request URI is: /employee/timeslot only
 					if (tmp.length() == 0 || tmp.equals("/")){
@@ -227,7 +228,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 				}
 			}
 		} catch(Throwable t) {
-			m = new Message("Unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Unexpected error Employee. " + tmp, "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}
@@ -315,7 +316,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 				}
 			}
 		} catch(Throwable t) {
-			m = new Message("Unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Unexpected error Project.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}
@@ -359,7 +360,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 				}
 			}
 		} catch(Throwable t) {
-			m = new Message("Unexpected error.", "E5A1", t.getMessage());
+			m = new Message("Unexpected error Document.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			m.toJSON(res.getOutputStream());
 		}

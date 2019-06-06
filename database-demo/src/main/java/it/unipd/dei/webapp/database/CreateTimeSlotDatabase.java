@@ -2,6 +2,8 @@ package it.unipd.dei.webapp.database;
 
 import it.unipd.dei.webapp.resource.*;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +16,7 @@ import java.util.UUID;
 public final class CreateTimeSlotDatabase {
 
 	
-	private static final String STATEMENT = "INSERT INTO TimeSlot (TimeSlotID, TaskID, CurTime, FiscalCode, Notes, Hours, HourlyWage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private static final String STATEMENT = "INSERT INTO TimeSlot (TimeSlotID, TaskID, CurTime, FiscalCode, Notes, Hours, HourlyWage) VALUES (?::UUID, ?::UUID, ?::TIMESTAMP, ?, ?, ?, ?) RETURNING *";
 
 	private final Connection con;
 
@@ -36,22 +38,24 @@ public final class CreateTimeSlotDatabase {
 		TimeSlot ts = null;
 
 		try {
+			
 			pstmt = con.prepareStatement(STATEMENT);
 			
-			final UUID uuid = UUID.randomUUID();
+			UUID uuid = UUID.randomUUID();
+			
 			pstmt.setObject(1, uuid);
-			pstmt.setString(2, ts.getTaskUUID());
-			pstmt.setString(3, ts.getTimestamp());
-			pstmt.setString(4, ts.getFiscalCode());
-			pstmt.setString(5, ts.getNote());
-			pstmt.setDouble(6, ts.getNumHours());
-			pstmt.setDouble(7, ts.getHourlyWage());
+			pstmt.setObject(2, UUID.fromString(timeslot.getTaskUUID()));
+			pstmt.setString(3, timeslot.getTimestamp());
+			pstmt.setString(4, timeslot.getFiscalCode());
+			pstmt.setString(5, timeslot.getNote());
+			pstmt.setDouble(6, timeslot.getNumHours());
+			pstmt.setDouble(7, timeslot.getHourlyWage());
 
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
 				ts = new TimeSlot(rs.getDouble("Hours"), 
-						rs.getString("TaskUUID"), rs.getString("CurTime"),
+						rs.getString("TaskID"), rs.getString("CurTime"),
 						rs.getString("FiscalCode"), rs.getString("Notes"),
 						rs.getDouble("HourlyWage"));
 			}
