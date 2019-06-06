@@ -42,6 +42,7 @@ public final class CreateDocumentDatabase {
 		java.sql.Timestamp timeStamp = null;
 		Base64.Decoder decoder = Base64.getDecoder();
 		UUID docID = null;
+		String ok = "CONTENT_OK";
 
 		try {
 			pstmt = con.prepareStatement(STATEMENT);
@@ -59,7 +60,7 @@ public final class CreateDocumentDatabase {
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				e = new Document(docID, document.getName(), "OK", document.getTaskID(), document.getProducer());
+				e = new Document(docID, document.getName(), ok, document.getTaskID(), document.getProducer());
 			}
 		} finally {
 			if (rs != null) {

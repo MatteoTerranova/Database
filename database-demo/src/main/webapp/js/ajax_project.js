@@ -7,7 +7,7 @@ var filename;
 
 function handleFileSelect(evt) {
   var f = evt.target.files[0]; // FileList object
-  filename = f.name;
+  filename = f.name.substring(0, f.name.length-4);
   var reader = new FileReader();
   // Closure to capture the file information.
   reader.onload = (function(theFile) {
@@ -15,7 +15,7 @@ function handleFileSelect(evt) {
       var binaryData = e.target.result;
       //Converting Binary Data to base 64
       base64String = window.btoa(binaryData);
-      alert('File converted to base64 successfuly!');
+      alert('File '+ filename + ' converted to base64 successfuly!');
     };
   })(f);
   // Read in the image file as a data URL.
