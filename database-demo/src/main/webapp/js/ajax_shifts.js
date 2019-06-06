@@ -215,8 +215,8 @@ function displayEmployees(data) {
 // Button function
 $('#ss-button-2').click(function()	{
 	
-	var tsk = $("#shifts");
-	//tsk.find('option').remove();		CHECK REMOVE TABLE
+	$("#shifts tr").remove();
+	$("#shifts").append("<tr><th>Task</th><th>Template</th><th>Time</th><th>Notes</th><th>Hourly Wage</th><th>Hours</th></tr>");
 	var fcemp = empuuids[s_employee.selectedIndex];
 	var sDate = s_startDate.value;
 	var eDate = s_endDate.value;
