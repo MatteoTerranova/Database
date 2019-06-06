@@ -82,7 +82,7 @@ function displayTasks(data) {
 	var list = data["resource-list"];
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
-		option.text = list[i].project.title;
+		option.text = list[i].task.name;
 		select.add(option);
 	}
 
