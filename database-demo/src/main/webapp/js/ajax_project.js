@@ -29,29 +29,22 @@ function displayProjects(data) {
 
 }
 
-var project = document.getElementById("project");
-project.addEventListener("change", func);
-console.log(uuids);
+// *************************** SELECT TASK 1 *****************************
 
-var array = [];
-
-function func()	{
+$('#project').change(function()	{
+	
 	var sel = document.getElementById("project");
+	var tsk = $("#task");
+	tsk.find('option').remove();
 	var ind = sel.selectedIndex;
 	console.log(ind);
 	console.log(uuids[ind]);
-	array.push(uuids[ind]);
-	console.log("rest/" + array[array.length - 1]);
 	
 	// Ajax request
 	$.ajax({
 	  contentType: "application/json; charset=utf-8",
-	  url: "rest/project/" + array[array.length - 1] + "/task",
-	  success: displayTasks
-	});
-
-	function displayTasks(data) {
-		
+	  url: "rest/project/" + uuids[ind] + "/task",
+	  success: function(data)	{
 		// Log error message
 		if (data.message != null){
 			console.log(data.message);
@@ -66,33 +59,10 @@ function func()	{
 			option.text = list[i].task.name;
 			select.add(option);
 		}
-
-	}	
-}
-
-
-// *************************** SELECT TASK 1 *****************************
-
-// Ajax request
-/*$.ajax({
-  contentType: "application/json; charset=utf-8",
-  url: "rest/project",
-  success: getSelectedID
+	  }
+	});
+	
 });
-
-function getSelectedID(data) {
-		
-	var selectedElement = func();
-	var select = document.getElementById("project");
-	var list = data["resource-list"];
-	for (i = 0; i < list.length; i++) {
-		if(selectedElement === list[i].project.title)	{
-			selectedID = list[i].project.uuid;
-			return selectedID;
-		}
-	}
-			
-}*/
 
 // *************************** SELECT PROJECT 2 *****************************
 
