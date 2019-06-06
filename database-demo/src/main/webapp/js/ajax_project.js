@@ -207,7 +207,7 @@ id_document.addEventListener("click", function(event){
 	
 	var producer = emp[document.getElementById("employee2").selectedIndex];
 	documentToBeSent.producer = producer;
-	
+	alert('Producer '+ documentToBeSent.producer);
 	documentToBeSent.content = base64String;
 	
 	documentToBeSent.name = filename;
