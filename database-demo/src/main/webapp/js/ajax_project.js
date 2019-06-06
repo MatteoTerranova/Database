@@ -181,7 +181,7 @@ $('#project2').change(function()	{
 		for (i = 0; i < list.length; i++) {
 			var option = document.createElement("option");
 			option.text = list[i].task.name + " - level " + list[i].task.level;
-			tsks2.push(list[i].task.name);		// CHANGE UUID
+			tsks2.push(list[i].task.uuid);
 			select.add(option);
 		}
 	  }
@@ -216,7 +216,7 @@ id_document2.addEventListener("click", function(event){
 		dataType: "json",
 		data: jsonToBeSent,
 		contentType: "application/json; charset=utf-8",
-		url: "rest/document/" + documentToBeReceived.,
+		url: "rest/document/" + documentToBeReceived.task,
 		success: alert("Object Sent to server!")
 	});
 });
