@@ -5,7 +5,7 @@ var ss_task = document.getElementById("task3");
 var ss_task_uuid = [];
 var ss_employee = document.getElementById("employee3");
 var ss_employee_uuid = [];
-
+// Fuck that shit
 // Ajax request
 $.ajax({
   contentType: "application/json; charset=utf-8",
