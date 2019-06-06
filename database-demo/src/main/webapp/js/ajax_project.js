@@ -274,25 +274,40 @@ function converBase64toBlob(content, contentType) {
   var blob = new Blob(byteArrays, {
     type: contentType
   }); //statement which creates the blob
-  alert('File decoded from base64 successfuly!');
   return blob;
 }
 
 // *************************** DOWNLOAD FUNCTION ***************************
-var blob;
+var blobGlob;
+
+
 var downloadButton = document.getElementById("id-button-2");
-//WORK IN PROGRESS
 
 
 downloadButton.addEventListener("click", function(){
-	blob = converBase64toBlob(base64String, 'application/pdf');
-	var blobURL = window.URL.createObjectURL(blob);
-	
-	downloadButton.href = blobURL;		// CHANGE URL
-	
-	downloadButton.target = '_blank';
 
-	downloadButton.download = 'file.pdf'; // CHANGE FILE NAME
+	//base64String has to be sobstituted with the content of the document
+	blobGlob = converBase64toBlob(base64String, 'application/pdf');
 	
+	
+	var saveData = (function () {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    return function (data, fileName) {
+
+        var blob = data,
+            url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+}());
+
+//Name of the retrieved file
+var fileName = "my-download.pdf";
+
+saveData(blobGlob, fileName);
 });
 
