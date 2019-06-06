@@ -15,7 +15,7 @@ import java.util.UUID;
 public final class ReadDocumentDatabase {
 
 	
-	private static final String STATEMENT = "SELECT DocumentID, Title, Content, TaskID, Producer FROM Document WHERE DocumentID = ?";
+	private static final String STATEMENT = "SELECT DocumentID, Title, Content, TaskID, Producer FROM Document WHERE TaskID = ?";
 
 
 	private final Connection con;
@@ -29,15 +29,15 @@ public final class ReadDocumentDatabase {
 	}
 
 	
-	public Document readDocument() throws SQLException {
+	public List<Document> readDocument() throws SQLException {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		// the read employee
-		Document e = null;
+		
 
 		Base64.Encoder encoder = Base64.getEncoder(); 
+		final List<Document> documents = new ArrayList<>();
 
 		try {
 			pstmt = con.prepareStatement(STATEMENT);
@@ -45,10 +45,10 @@ public final class ReadDocumentDatabase {
 
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				e = new Document((UUID)rs.getObject(1), rs
+			while (rs.next()) {
+				documents.add(new Document((UUID)rs.getObject(1), rs
 						.getString(2), encoder.encodeToString(rs.getBytes(3)),
-						(UUID)rs.getObject(4), rs.getString(5));
+						(UUID)rs.getObject(4), rs.getString(5)));
 			}
 		} finally {
 			if (rs != null) {
@@ -62,6 +62,6 @@ public final class ReadDocumentDatabase {
 			con.close();
 		}
 
-		return e;
+		return documents;
 	}
 }
