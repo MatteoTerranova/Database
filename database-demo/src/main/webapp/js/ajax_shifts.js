@@ -8,6 +8,8 @@ var ss_employee_uuid = [];
 
 var uuids3 = [null];
 
+var timeSlotToBeSent = new Object();
+
 // Ajax request
 $.ajax({
   contentType: "application/json; charset=utf-8",
@@ -36,7 +38,7 @@ function displayProjects3(data) {
 
 // *************************** SELECT TASK *****************************
 
-$('#project3').change(function()	{
+$('#project3').change(function(){
 	
 	var sel = document.getElementById("project3");
 	var tsk = $("#task3");

@@ -3,6 +3,7 @@ package it.unipd.dei.webapp.resource;
 import com.fasterxml.jackson.core.*;
 
 import java.io.*;
+import java.util.UUID;
 
 /**
  * TimeSlot of the Ennedue Studio
@@ -12,6 +13,9 @@ public class Task extends Resource {
 	// TemplateID of the task
 	private final String name;
 	
+	// Task UUID
+	private final UUID uuidTask;
+	
 	// Description of the task
 	private final String description;
 
@@ -19,10 +23,15 @@ public class Task extends Resource {
 	private final int level;
 	
 	// Creates new Task
-	public Task(final String name, final String description, final int level){
+	public Task(final String name, final UUID uuidTask,final String description, final int level){
 		this.name = name;
+		this.uuidTask = uuidTask;
 		this.description = description;
 		this.level = level;
+	}
+	
+	public final UUID getTaskID(){
+		return uuidTask;
 	}
 	
 	public final String getName() {
@@ -47,6 +56,8 @@ public class Task extends Resource {
 		jg.writeFieldName("task");
 
 		jg.writeStartObject();
+		
+		jg.writeStringField("taskuuid", uuidTask.toString());
 
 		jg.writeStringField("name", name);
 		
