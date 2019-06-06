@@ -1,3 +1,85 @@
+
+// *************************** Convert File into Base64 String *****************************
+var base64String;
+var contentT = 'application/pdf';
+
+
+function handleFileSelect(evt) {
+  var f = evt.target.files[0]; // FileList object
+  var reader = new FileReader();
+  // Closure to capture the file information.
+  reader.onload = (function(theFile) {
+    return function(e) {
+      var binaryData = e.target.result;
+      //Converting Binary Data to base 64
+      base64String = window.btoa(binaryData);
+      alert('File converted to base64 successfuly!');
+    };
+  })(f);
+  // Read in the image file as a data URL.
+  reader.readAsBinaryString(f);
+
+}
+
+
+
+function converBase64toBlob(content, contentType) {
+  contentType = contentType || '';
+  var sliceSize = 512;
+  var byteCharacters = window.atob(content); //method which converts base64 to binary
+  var byteArrays = [
+  ];
+  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    var slice = byteCharacters.slice(offset, offset + sliceSize);
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  var blob = new Blob(byteArrays, {
+    type: contentType
+  }); //statement which creates the blob
+  return blob;
+}
+
+// *************************** DOWNLOAD FUNCTION ***************************
+var blobGlob;
+
+
+var downloadButton = document.getElementById("id-button-2");
+
+
+downloadButton.addEventListener("click", function(){
+
+	//base64String has to be sobstituted with the content of the document
+	blobGlob = converBase64toBlob(base64String, 'application/pdf');
+	
+	
+	var saveData = (function () {
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    return function (data, fileName) {
+
+        var blob = data,
+            url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
+    };
+}());
+
+//Name of the retrieved file
+var fileName = "my-download.pdf";
+
+saveData(blobGlob, fileName);
+});
+
+
+
 // Check for the File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
@@ -7,31 +89,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 
 // *************************** SELECT PROJECT 1 *****************************
-
-// Create object to be sent to the server
-var documentToBeSent = new Object();
-
-// Set action on botton click
-var id_document = document.getElementById("id-button-1");
-
-// Make ajax call to server
-id_document.addEventListener("click", function(event){
-	
-	// Prevent default behaviour
-	event.preventDefault();
-	
-	// Check if id missing something!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	var jsonToBeSent = JSON.stringify(documentToBeSent);
-	
-	$.ajax({
-		type: "POST",
-		dataType: "json",
-		data: jsonToBeSent,
-		contentType: "application/json; charset=utf-8",
-		url: "rest/document",
-		success: alert("Object Sent to server!")
-	});
-});
 
 var uuids = [null];
 
@@ -64,6 +121,8 @@ function displayProjects(data) {
 
 // *************************** SELECT TASK 1 *****************************
 
+var ss_task_uuid = [];
+
 $('#project').change(function()	{
 	
 	var sel = document.getElementById("project");
@@ -85,12 +144,14 @@ $('#project').change(function()	{
 			console.log(data.message.error-details);
 		}
 			
+		ss_task_uuid = [];
 		var select = document.getElementById("task");
 		var list = data["resource-list"];
 		for (i = 0; i < list.length; i++) {
 			var option = document.createElement("option");
 			option.text = list[i].task.name + " - level " + list[i].task.level;
 			select.add(option);
+			ss_task_uuid.push(list[i].task.taskuuid);
 		}
 	  }
 	});
@@ -98,6 +159,8 @@ $('#project').change(function()	{
 });
 
 // *************************** SELECT EMPLOYEE 2 *****************************
+
+var emp = []
 
 // Ajax request
 $.ajax({
@@ -120,10 +183,46 @@ function displayEmployees2(data) {
 	for (i = 0; i < list.length; i++) {
 		var option = document.createElement("option");
 		option.text = list[i].employee.name + " " + list[i].employee.surname;
+		emp.push(list[i].fiscalcode);
 		select.add(option);
 	}
 
-}	
+}
+
+// ****************************** REST DOCUMENT *******************************
+
+// Create object to be sent to the server
+var documentToBeSent = new Object();
+
+// Set action on botton click
+var id_document = document.getElementById("id-button-1");
+
+// Make ajax call to server
+id_document.addEventListener("click", function(event){
+	
+	var taskuuid = ss_task_uuid[document.getElementById("task").selectedIndex];
+	documentToBeSent.taskuuid = taskuuid;
+	
+	var producer = emp[document.getElementById("employee2").selectedIndex];
+	documentToBeSent.producer = producer;
+	
+	documentToBeSent.content = base64String;
+	
+	// Prevent default behaviour
+	event.preventDefault();
+	
+	// Check if id missing something!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	var jsonToBeSent = JSON.stringify(documentToBeSent);
+	
+	$.ajax({
+		type: "POST",
+		dataType: "json",
+		data: jsonToBeSent,
+		contentType: "application/json; charset=utf-8",
+		url: "rest/document",
+		success: alert("Object Sent to server!")
+	});
+});	
 
 // *************************** SELECT PROJECT 2 *****************************
 
@@ -224,90 +323,3 @@ id_document2.addEventListener("click", function(event){
 		success: alert("Object Retrieved from the server!")
 	});
 });
-
-
-
-
-
-
-
-
-// *************************** Convert File into Base64 String *****************************
-var base64String;
-var contentT = 'application/pdf';
-
-
-function handleFileSelect(evt) {
-  var f = evt.target.files[0]; // FileList object
-  var reader = new FileReader();
-  // Closure to capture the file information.
-  reader.onload = (function(theFile) {
-    return function(e) {
-      var binaryData = e.target.result;
-      //Converting Binary Data to base 64
-      base64String = window.btoa(binaryData);
-      alert('File converted to base64 successfuly!');
-    };
-  })(f);
-  // Read in the image file as a data URL.
-  reader.readAsBinaryString(f);
-
-}
-
-
-
-function converBase64toBlob(content, contentType) {
-  contentType = contentType || '';
-  var sliceSize = 512;
-  var byteCharacters = window.atob(content); //method which converts base64 to binary
-  var byteArrays = [
-  ];
-  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-    var slice = byteCharacters.slice(offset, offset + sliceSize);
-    var byteNumbers = new Array(slice.length);
-    for (var i = 0; i < slice.length; i++) {
-      byteNumbers[i] = slice.charCodeAt(i);
-    }
-    var byteArray = new Uint8Array(byteNumbers);
-    byteArrays.push(byteArray);
-  }
-  var blob = new Blob(byteArrays, {
-    type: contentType
-  }); //statement which creates the blob
-  return blob;
-}
-
-// *************************** DOWNLOAD FUNCTION ***************************
-var blobGlob;
-
-
-var downloadButton = document.getElementById("id-button-2");
-
-
-downloadButton.addEventListener("click", function(){
-
-	//base64String has to be sobstituted with the content of the document
-	blobGlob = converBase64toBlob(base64String, 'application/pdf');
-	
-	
-	var saveData = (function () {
-    var a = document.createElement("a");
-    document.body.appendChild(a);
-    a.style = "display: none";
-    return function (data, fileName) {
-
-        var blob = data,
-            url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = fileName;
-        a.click();
-        window.URL.revokeObjectURL(url);
-    };
-}());
-
-//Name of the retrieved file
-var fileName = "my-download.pdf";
-
-saveData(blobGlob, fileName);
-});
-
