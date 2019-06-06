@@ -30,7 +30,7 @@ public final class CreateDocumentDatabase {
 	}
 
 	
-	public void createDocument() throws SQLException {
+	public Document createDocument() throws SQLException {
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -40,11 +40,13 @@ public final class CreateDocumentDatabase {
 		byte[] byteArray = null;
 		java.util.Date today = null;
 		java.sql.Timestamp timeStamp = null;
-		Base64.Decoder decoder = Base64.getDecoder(); 
+		Base64.Decoder decoder = Base64.getDecoder();
+		UUID docID = null;
 
 		try {
 			pstmt = con.prepareStatement(STATEMENT);
-			pstmt.setObject(1, UUID.randomUUID());
+			docID = UUID.randomUUID();
+			pstmt.setObject(1, docID);
 			pstmt.setString(2, document.getName());
 			byteArray = decoder.decode(document.getContent().getBytes());
 			pstmt.setBytes(3, byteArray);
@@ -56,11 +58,9 @@ public final class CreateDocumentDatabase {
 
 			rs = pstmt.executeQuery();
 
-			/*if (rs.next()) {
-				e = new Employee(rs.getInt("badge"), rs
-						.getString("surname"), rs.getInt("age"),
-						rs.getInt("salary"));
-			}*/
+			if (rs.next()) {
+				e = new Document(docID, document.getName(), "OK", document.getTaskID(), document.getProducer());
+			}
 		} finally {
 			if (rs != null) {
 				rs.close();
@@ -73,7 +73,7 @@ public final class CreateDocumentDatabase {
 			con.close();
 		}
 
-		//return e;
-		return;
+		return e;
+		
 	}
 }

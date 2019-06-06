@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.UUID;
 
 /**
  * Manages the REST API for the different REST resources.
@@ -358,7 +359,41 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 						m.toJSON(res.getOutputStream());
 						break;
 				}
+			} else {
+
+
+				// get a single document
+				try {
+
+					
+					//check that the parameter is actually an UUID String
+					UUID.fromString(path.substring(1));
+
+					switch (method) {
+						case "GET":
+							new DocumentRestResource(req, res, getDataSource().getConnection()).readDocument();
+							break;
+						
+						default:
+							m = new Message("Unsupported operation for URI /document/{id}.",
+											"E4A5", String.format("Requested operation %s.", method));
+							res.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+							m.toJSON(res.getOutputStream());
+					}
+				} catch (IllegalArgumentException e) {
+					m = new Message("Wrong format for URI //{id}: {id} is not an UUID String.",
+									"E4A7", e.getMessage());
+					res.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+					m.toJSON(res.getOutputStream());
+				}
+
+			
 			}
+
+
+
+
+
 		} catch(Throwable t) {
 			m = new Message("Unexpected error Document.", "E5A1", t.getMessage());
 			res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
