@@ -86,7 +86,7 @@ public final class DocumentRestResource extends RestResource {
 
 	public void readDocument() throws IOException {
 
-		Document e  = null;
+		List<Document> e  = null;
 		Message m = null;
 
 		try{
@@ -102,10 +102,11 @@ public final class DocumentRestResource extends RestResource {
 
 			if(e != null) {
 				res.setStatus(HttpServletResponse.SC_OK);
-				e.toJSON(res.getOutputStream());
+				new ResourceList(e).toJSON(res.getOutputStream());
 			} else {
-				m = new Message(String.format("Document %d not found.", id), "E5A3", null);
-				res.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				// It should not happen
+				m = new Message("Cannot list documents: unexpected error.", "E5A1", null);
+				res.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				m.toJSON(res.getOutputStream());
 			}
 		} catch (Throwable t) {
