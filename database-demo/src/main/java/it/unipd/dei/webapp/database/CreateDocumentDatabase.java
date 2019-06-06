@@ -15,7 +15,7 @@ import java.util.UUID;
 public final class CreateDocumentDatabase {
 
 	
-	private static final String STATEMENT = "INSERT INTO Document (DocumentID, Title, Content, CurTime, TaskID, Producer) VALUES (?, ?, ?, ?, ?, ?)";
+	private static final String STATEMENT = "INSERT INTO Document (DocumentID, Title, Content, CurTime, TaskID, Producer) VALUES (?, ?, ?, ?, ?, ?) RETURNING *";
 
 	
 	private final Connection con;
