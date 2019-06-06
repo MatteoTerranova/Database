@@ -79,7 +79,7 @@ $('#refresh-button').click(function()	{
 
 	}	
 
-}
+});
 
 // *************************** TABLE PROJECTS *****************************
 
@@ -128,7 +128,7 @@ $('#refresh-button').click(function()	{
 	// Ajax request
 	$.ajax({
 	  contentType: "application/json; charset=utf-8",
-	  url: "rest/project/active",
+	  url: "rest/project",
 	  success: refreshAllProjects
 	});
 
@@ -166,4 +166,4 @@ $('#refresh-button').click(function()	{
 
 	}	
 
-}
+});
