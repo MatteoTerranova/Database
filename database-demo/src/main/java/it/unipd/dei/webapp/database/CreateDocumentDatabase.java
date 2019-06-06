@@ -45,7 +45,7 @@ public final class CreateDocumentDatabase {
 
 		try {
 			pstmt = con.prepareStatement(STATEMENT);
-			docID = UUID.randomUUID();
+			docID = document.getID();
 			pstmt.setObject(1, docID);
 			pstmt.setString(2, document.getName());
 			byteArray = decoder.decode(document.getContent().getBytes());

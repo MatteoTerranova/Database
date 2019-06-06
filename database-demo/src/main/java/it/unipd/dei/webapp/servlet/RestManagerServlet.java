@@ -370,7 +370,7 @@ public final class RestManagerServlet extends AbstractDatabaseServlet {
 
 					
 					//check that the parameter is actually an UUID String
-					UUID.fromString(path.substring(1));
+					//UUID.fromString(path.substring(1));
 
 					switch (method) {
 						case "GET":

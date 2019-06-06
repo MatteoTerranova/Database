@@ -114,7 +114,7 @@ public class Document extends Resource {
 				switch (jp.getCurrentName()) {
 					case "uuid":
 						jp.nextToken();
-						jUuid = UUID.fromString(jp.getText());
+						jUuid = UUID.randomUUID();
 						break;
 					case "name":
 						jp.nextToken();
