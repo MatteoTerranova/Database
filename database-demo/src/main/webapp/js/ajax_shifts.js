@@ -63,7 +63,8 @@ $('#project3').change(function(){
 			console.log(data.message.error-code);
 			console.log(data.message.error-details);
 		}
-			
+		
+		ss_task_uuid = [];
 		var select = document.getElementById("task3");
 		var list = data["resource-list"];
 		for (i = 0; i < list.length; i++) {
@@ -72,6 +73,8 @@ $('#project3').change(function(){
 			select.add(option);
 			ss_task_uuid.push(list[i].task.taskuuid);
 		}
+		
+		console.log(ss_task_uuid);
 	  }
 	});
 	
@@ -234,7 +237,7 @@ function displayEmployees(data) {
 $('#ss-button-2').click(function()	{
 	
 	$("#shifts tr").remove();
-	$("#shifts").append("<tr><th>Task</th><th>Template</th><th>Time</th><th>Notes</th><th>Hourly Wage</th><th>Hours</th></tr>");
+	$("#shifts").append("<tr><th>Project</th><th>Task</th><th>Time</th><th>Notes</th><th>Hourly Wage</th><th>Hours</th></tr>");
 	var fcemp = empuuids[s_employee.selectedIndex];
 	var sDate = s_startDate.value;
 	var eDate = s_endDate.value;
