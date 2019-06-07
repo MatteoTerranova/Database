@@ -181,12 +181,15 @@ $('#ss-button-1').click(function()	{
 		data: jsonResTs,
 		contentType: "application/json; charset=utf-8",
 		url: "rest/employee/timeslot",
-		success: function(data)	{
-			// Log error message
-			if (data.message != null){
-				console.log(data.message);
-				console.log(data.message.error-code);
-				console.log(data.message.error-details);
+		statusCode: {
+			500: function() {
+				alert("TimeSlot NOT inserted into the database.");
+			},
+			201: function() {
+				alert("TimeSlot successfully inserted into the database.");
+			},
+			200: function() {
+				alert("TimeSlot successfully inserted into the database.");
 			}
 		}
 	});
